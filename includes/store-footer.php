@@ -86,6 +86,27 @@
     return '₹' + Number(amount).toLocaleString('en-IN');
   }
 
+  /* ===== BEFORE/AFTER SLIDER ===== */
+  function updateBaSlider(val) {
+    const beforeLayer = document.getElementById('before-layer');
+    const handleLine = document.getElementById('handle-line');
+    const beforeImg = document.getElementById('before-img');
+    const container = document.getElementById('ba-container');
+    
+    if (beforeLayer && handleLine) {
+      beforeLayer.style.width = val + '%';
+      handleLine.style.left = val + '%';
+    }
+    if (beforeImg && container) {
+      beforeImg.style.width = container.offsetWidth + 'px';
+    }
+  }
+
+  window.addEventListener('resize', () => {
+    const slider = document.getElementById('ba-range-slider');
+    if (slider) updateBaSlider(slider.value);
+  });
+
   function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     if (!container) return;

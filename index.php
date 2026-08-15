@@ -1350,27 +1350,6 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
     countEl.innerText = current === 1 ? 0 : 1;
   }
 
-  /* ===== BEFORE/AFTER SLIDER ===== */
-  function updateBaSlider(val) {
-    const beforeLayer = document.getElementById('before-layer');
-    const handleLine = document.getElementById('handle-line');
-    const beforeImg = document.getElementById('before-img');
-    const container = document.getElementById('ba-container');
-    
-    if (beforeLayer && handleLine) {
-      beforeLayer.style.width = val + '%';
-      handleLine.style.left = val + '%';
-    }
-    if (beforeImg && container) {
-      beforeImg.style.width = container.offsetWidth + 'px';
-    }
-  }
-
-  window.addEventListener('resize', () => {
-    const slider = document.getElementById('ba-range-slider');
-    if (slider) updateBaSlider(slider.value);
-  });
-
   /* ===== FAQ ACCORDION ===== */
   function toggleFaq(button) {
     const card = button.closest('.faq-card');
@@ -1413,27 +1392,6 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
       card.classList.add('border-emerald-500', 'ring-2', 'ring-emerald-500/20');
     }
   }
-
-  /* ===== BEFORE / AFTER SLIDER ===== */
-  function updateBaSlider(val) {
-    const beforeLayer = document.getElementById('before-layer');
-    const handleLine = document.getElementById('handle-line');
-    const container = document.getElementById('ba-container');
-    const beforeImg = document.getElementById('before-img');
-
-    if (beforeLayer && handleLine && container) {
-      beforeLayer.style.width = val + '%';
-      handleLine.style.left = val + '%';
-      if (beforeImg) {
-        beforeImg.style.width = container.offsetWidth + 'px';
-      }
-    }
-  }
-
-  window.addEventListener('resize', () => {
-    const slider = document.getElementById('ba-range-slider');
-    if (slider) updateBaSlider(slider.value);
-  });
 
   /* ===== SCROLL OBSERVER ===== */
   document.addEventListener('DOMContentLoaded', () => {
