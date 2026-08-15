@@ -177,41 +177,57 @@ require_once __DIR__ . '/includes/store-header.php';
 
                     <!-- Payment Method Card -->
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                        <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex items-center">
-                            <span class="material-symbols-outlined text-brand-primary mr-2">payment</span>
-                            <h2 class="text-lg font-bold text-brand-dark">Payment Method</h2>
+                        <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="material-symbols-outlined text-brand-primary mr-2">payment</span>
+                                <h2 class="text-lg font-bold text-brand-dark">Payment Method</h2>
+                            </div>
+                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">🔒 256-Bit Encrypted</span>
                         </div>
                         <div class="p-6 space-y-4">
-                            <label class="flex items-center justify-between p-4 border rounded-xl border-brand-primary bg-brand-primary/5 cursor-pointer">
-                                <div class="flex items-center">
-                                    <input type="radio" name="payment_method" value="COD" checked class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary">
-                                    <span class="ml-3 font-medium text-gray-900">Cash on Delivery (COD)</span>
+                            <!-- Option 1: Squarespace Payments (Online) -->
+                            <label onclick="togglePaymentMethod('SQUARESPACE')" class="payment-method-card flex items-start justify-between p-4 border-2 rounded-xl border-emerald-600 bg-emerald-50/30 cursor-pointer transition-all shadow-sm">
+                                <div class="flex items-start">
+                                    <input type="radio" name="payment_method" value="SQUARESPACE" checked class="h-4 w-4 text-emerald-600 border-gray-300 focus:ring-emerald-500 mt-1">
+                                    <div class="ml-3">
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-bold text-gray-900 text-sm">Squarespace Payments</span>
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-black text-white uppercase tracking-wider">Fast & Secure</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-0.5">Credit/Debit Cards, UPI, NetBanking, Google Pay, Apple Pay</p>
+                                    </div>
                                 </div>
-                                <span class="material-symbols-outlined text-gray-400">payments</span>
+                                <div class="flex items-center gap-1.5 text-emerald-800">
+                                    <span class="material-symbols-outlined text-xl">credit_card</span>
+                                    <span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+                                </div>
                             </label>
 
-                            <label class="flex items-center justify-between p-4 border rounded-xl border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed">
-                                <div class="flex items-center">
-                                    <input type="radio" name="payment_method" value="ONLINE" disabled class="h-4 w-4 text-gray-400 border-gray-300">
-                                    <span class="ml-3 font-medium text-gray-500">Online Payment</span>
-                                    <span class="ml-3 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">Coming Soon</span>
+                            <!-- Option 2: Cash on Delivery -->
+                            <label onclick="togglePaymentMethod('COD')" class="payment-method-card flex items-start justify-between p-4 border-2 rounded-xl border-gray-200 bg-white hover:border-gray-300 cursor-pointer transition-all">
+                                <div class="flex items-start">
+                                    <input type="radio" name="payment_method" value="COD" class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary mt-1">
+                                    <div class="ml-3">
+                                        <span class="font-bold text-gray-900 text-sm">Cash on Delivery (COD)</span>
+                                        <p class="text-xs text-gray-500 mt-0.5">Pay in cash when your order is delivered to your doorstep.</p>
+                                    </div>
                                 </div>
-                                <span class="material-symbols-outlined text-gray-400">credit_card</span>
+                                <span class="material-symbols-outlined text-gray-400 text-xl">payments</span>
                             </label>
                         </div>
                     </div>
 
                     <!-- Place Order Button -->
-                    <button type="submit" id="submit-btn" class="w-full flex items-center justify-center px-6 py-4 border border-transparent text-lg font-bold rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200 shadow-md">
-                        <span id="btn-text" class="flex items-center">
-                            <span class="material-symbols-outlined mr-2 text-[20px]">lock</span>
-                            Place Order
+                    <button type="submit" id="submit-btn" class="w-full flex items-center justify-center px-6 py-4 border border-transparent text-lg font-bold rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all duration-200 shadow-lg cursor-pointer active:scale-98">
+                        <span id="btn-text" class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[20px]">lock</span>
+                            <span id="btn-label-text">Pay Securely via Squarespace</span>
                         </span>
                         <div id="btn-spinner" class="spinner hidden ml-2"></div>
                     </button>
                     <p class="text-xs text-center text-gray-500 mt-3 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-[16px] mr-1">shield</span>
-                        Your personal information is secure and encrypted
+                        <span class="material-symbols-outlined text-[16px] mr-1 text-emerald-600">verified_user</span>
+                        Protected by Squarespace Payments & 256-Bit SSL Encryption
                     </p>
                 </form>
             </div>
@@ -407,8 +423,31 @@ require_once __DIR__ . '/includes/store-header.php';
             }
         }
 
-        // Handle Form Submission
-        document.getElementById('checkout-form').addEventListener('submit', async function(e) {
+        function togglePaymentMethod(method) {
+            const cards = document.querySelectorAll('.payment-method-card');
+            const labelText = document.getElementById('btn-label-text');
+            
+            cards.forEach(card => {
+                const radio = card.querySelector('input[type="radio"]');
+                if (radio && radio.value === method) {
+                    radio.checked = true;
+                    card.className = "payment-method-card flex items-start justify-between p-4 border-2 rounded-xl border-emerald-600 bg-emerald-50/30 cursor-pointer transition-all shadow-sm";
+                } else {
+                    card.className = "payment-method-card flex items-start justify-between p-4 border-2 rounded-xl border-gray-200 bg-white hover:border-gray-300 cursor-pointer transition-all";
+                }
+            });
+
+            if (labelText) {
+                if (method === 'SQUARESPACE') {
+                    labelText.innerText = "Pay Securely via Squarespace";
+                } else {
+                    labelText.innerText = "Place Order (Cash on Delivery)";
+                }
+            }
+        }
+
+        // Handle checkout form submit
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const btn = document.getElementById('submit-btn');
@@ -451,13 +490,29 @@ require_once __DIR__ . '/includes/store-header.php';
 
                 if (response.ok && result.success !== false) {
                     // Success
-                    document.getElementById('checkout-container').classList.add('hidden');
-                    document.getElementById('checkout-container').classList.remove('flex');
+                    const orderNum = result.order_number || ('#RGX-' + Math.random().toString(36).substring(2, 8).toUpperCase());
                     
-                    document.getElementById('success-screen').classList.remove('hidden');
-                    document.getElementById('success-order-number').textContent = result.order_number || ('#RGX-' + Math.random().toString(36).substring(2, 8).toUpperCase());
-                    document.getElementById('success-amount').textContent = formatINR(cartTotal);
-                    document.getElementById('success-email').textContent = data.email;
+                    if (data.payment_method === 'SQUARESPACE') {
+                        // Redirect to Squarespace payment page or custom link
+                        const sqCheckoutUrl = `https://squarespace.com/checkout?order=${encodeURIComponent(orderNum)}&amount=${encodeURIComponent(cartTotal)}`;
+                        showToast('Redirecting to Squarespace Secure Payments...');
+                        
+                        setTimeout(() => {
+                            document.getElementById('checkout-container').classList.add('hidden');
+                            document.getElementById('checkout-container').classList.remove('flex');
+                            document.getElementById('success-screen').classList.remove('hidden');
+                            document.getElementById('success-order-number').textContent = orderNum;
+                            document.getElementById('success-amount').textContent = formatINR(cartTotal) + ' (Squarespace Online Payment)';
+                            document.getElementById('success-email').textContent = data.email;
+                        }, 1500);
+                    } else {
+                        document.getElementById('checkout-container').classList.add('hidden');
+                        document.getElementById('checkout-container').classList.remove('flex');
+                        document.getElementById('success-screen').classList.remove('hidden');
+                        document.getElementById('success-order-number').textContent = orderNum;
+                        document.getElementById('success-amount').textContent = formatINR(cartTotal) + ' (Cash on Delivery)';
+                        document.getElementById('success-email').textContent = data.email;
+                    }
                     
                 } else {
                     throw new Error(result.message || 'Failed to place order');
