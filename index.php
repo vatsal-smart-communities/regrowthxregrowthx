@@ -233,7 +233,7 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- BA Slider Card Container -->
     <div class="max-w-3xl mx-auto reveal-on-scroll delay-100">
-      <div class="relative w-full h-[380px] sm:h-[480px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white select-none group bg-gray-900" id="ba-container">
+      <div class="relative w-full h-[380px] sm:h-[480px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white select-none group bg-gray-900 cursor-ew-resize" id="ba-container">
         
         <!-- AFTER Image (Base / Right) -->
         <img src="img/after.jpg" alt="After RegrowthX Minoxidil Regrowth" class="absolute inset-0 w-full h-full object-cover object-top pointer-events-none" />
@@ -242,8 +242,8 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </span>
 
         <!-- BEFORE Image (Clipped Overlay / Left) -->
-        <div class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-white shadow-2xl" id="before-layer">
-          <img src="img/before.jpg" alt="Before RegrowthX Treatment" class="absolute top-0 left-0 h-full max-w-none object-cover object-top pointer-events-none" id="before-img" />
+        <div class="absolute inset-0 w-full h-full pointer-events-none z-10" id="before-layer" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); -webkit-clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+          <img src="img/before.jpg" alt="Before RegrowthX Treatment" class="absolute inset-0 w-full h-full object-cover object-top pointer-events-none" id="before-img" />
           <span class="absolute bottom-5 left-5 bg-gray-900/85 text-white font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full backdrop-blur-md z-10 shadow-lg border border-gray-700 whitespace-nowrap">
             BEFORE (Week 0)
           </span>
@@ -259,7 +259,7 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
         <!-- Range Slider Control -->
-        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0" id="ba-range-slider" oninput="updateBaSlider(this.value)" onchange="updateBaSlider(this.value)" />
+        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0 p-0" id="ba-range-slider" oninput="updateBaSlider(this.value)" onchange="updateBaSlider(this.value)" />
 
       </div>
       <div class="flex justify-between items-center mt-3 text-xs text-gray-500 px-2 font-medium">
@@ -1354,30 +1354,44 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
   function updateBaSlider(val) {
     const beforeLayer = document.getElementById('before-layer');
     const handleLine = document.getElementById('handle-line');
-    const beforeImg = document.getElementById('before-img');
-    const container = document.getElementById('ba-container');
+    const slider = document.getElementById('ba-range-slider');
     
-    if (beforeLayer && handleLine) {
-      beforeLayer.style.width = val + '%';
+    val = Math.max(0, Math.min(100, val));
+
+    if (beforeLayer) {
+      beforeLayer.style.clipPath = `polygon(0 0, ${val}% 0, ${val}% 100%, 0 100%)`;
+      beforeLayer.style.webkitClipPath = `polygon(0 0, ${val}% 0, ${val}% 100%, 0 100%)`;
+    }
+    if (handleLine) {
       handleLine.style.left = val + '%';
     }
-    if (beforeImg && container) {
-      const containerWidth = container.getBoundingClientRect().width || container.offsetWidth;
-      if (containerWidth > 0) {
-        beforeImg.style.width = containerWidth + 'px';
-        beforeImg.style.maxWidth = 'none';
-      }
+    if (slider && Math.abs(slider.value - val) > 0.5) {
+      slider.value = val;
     }
   }
 
-  window.addEventListener('resize', () => {
-    const slider = document.getElementById('ba-range-slider');
-    if (slider) updateBaSlider(slider.value);
-  });
+  // Interactive mouse/touch drag on the comparison card
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('ba-container');
+    if (!container) return;
 
-  window.addEventListener('load', () => {
-    const slider = document.getElementById('ba-range-slider');
-    if (slider) updateBaSlider(slider.value);
+    let isDragging = false;
+
+    function handleMove(e) {
+      if (!isDragging) return;
+      const rect = container.getBoundingClientRect();
+      const clientX = e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
+      const x = clientX - rect.left;
+      const pct = (x / rect.width) * 100;
+      updateBaSlider(pct);
+    }
+
+    container.addEventListener('mousedown', (e) => { isDragging = true; handleMove(e); });
+    container.addEventListener('touchstart', (e) => { isDragging = true; handleMove(e); }, { passive: true });
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('touchmove', handleMove, { passive: true });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+    window.addEventListener('touchend', () => { isDragging = false; });
   });
 
   /* ===== FAQ ACCORDION ===== */
