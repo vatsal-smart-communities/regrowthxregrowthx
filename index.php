@@ -719,42 +719,11 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
   let currentUnitPrice = 1299;
   let currentQty = 1;
   let currentGalleryList = [];
-  let currentUser = null;
-  let currentAuthEmail = '';
 
   const productGalleries = {
     '60ml': ['img/product-box-bottle.jpg','img/product-dropper.jpg','img/routine-guide.jpg','img/scalp-application.jpg'],
     '360ml': ['img/product-box-bottle.jpg','img/product-dropper.jpg','img/timeline-results.jpg','img/routine-guide.jpg']
   };
-
-  /* ===== UTILITY: Format INR ===== */
-  function formatINR(amount) {
-    return '₹' + Number(amount).toLocaleString('en-IN');
-  }
-
-  /* ===== TOAST NOTIFICATIONS ===== */
-  function showToast(message, type = 'success') {
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    const colors = {
-      success: 'bg-emerald-600',
-      error: 'bg-red-600',
-      info: 'bg-blue-600'
-    };
-    const icons = {
-      success: 'check_circle',
-      error: 'error',
-      info: 'info'
-    };
-    toast.className = `toast ${colors[type]} text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 text-sm font-semibold mb-2 min-w-[250px]`;
-    toast.innerHTML = `<span class="material-symbols-outlined text-lg">${icons[type]}</span> ${message}`;
-    container.appendChild(toast);
-    requestAnimationFrame(() => { requestAnimationFrame(() => { toast.classList.add('show'); }); });
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 400);
-    }, 3000);
-  }
 
   /* ===== AUTH MODAL ===== */
   function openAuthModal() {
