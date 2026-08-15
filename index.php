@@ -242,9 +242,9 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </span>
 
         <!-- BEFORE Image (Clipped Overlay / Left) -->
-        <div class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-white shadow-2xl transition-all duration-75" id="before-layer">
-          <img src="img/before.jpg" alt="Before RegrowthX Treatment" class="absolute top-0 left-0 h-full object-cover object-top pointer-events-none" id="before-img" />
-          <span class="absolute bottom-5 left-5 bg-gray-900/85 text-white font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full backdrop-blur-md z-10 shadow-lg border border-gray-700">
+        <div class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-white shadow-2xl" id="before-layer">
+          <img src="img/before.jpg" alt="Before RegrowthX Treatment" class="absolute top-0 left-0 h-full max-w-none object-cover object-top pointer-events-none" id="before-img" />
+          <span class="absolute bottom-5 left-5 bg-gray-900/85 text-white font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full backdrop-blur-md z-10 shadow-lg border border-gray-700 whitespace-nowrap">
             BEFORE (Week 0)
           </span>
         </div>
@@ -259,7 +259,7 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
         <!-- Range Slider Control -->
-        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0" id="ba-range-slider" oninput="updateBaSlider(this.value)" />
+        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0" id="ba-range-slider" oninput="updateBaSlider(this.value)" onchange="updateBaSlider(this.value)" />
 
       </div>
       <div class="flex justify-between items-center mt-3 text-xs text-gray-500 px-2 font-medium">
@@ -1362,11 +1362,20 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
       handleLine.style.left = val + '%';
     }
     if (beforeImg && container) {
-      beforeImg.style.width = container.offsetWidth + 'px';
+      const containerWidth = container.getBoundingClientRect().width || container.offsetWidth;
+      if (containerWidth > 0) {
+        beforeImg.style.width = containerWidth + 'px';
+        beforeImg.style.maxWidth = 'none';
+      }
     }
   }
 
   window.addEventListener('resize', () => {
+    const slider = document.getElementById('ba-range-slider');
+    if (slider) updateBaSlider(slider.value);
+  });
+
+  window.addEventListener('load', () => {
     const slider = document.getElementById('ba-range-slider');
     if (slider) updateBaSlider(slider.value);
   });
