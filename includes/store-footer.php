@@ -66,6 +66,17 @@
   </div>
 </footer>
 
+<!-- FLOATING WHATSAPP CHAT WIDGET -->
+<a href="https://wa.me/917184387400?text=Hi%20RegrowthX%20Support!%20I%20have%20a%20question%20about%20your%20hair%20regrowth%20products." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 group flex items-center gap-2 cursor-pointer" aria-label="Chat on WhatsApp">
+  <span class="hidden sm:inline-block bg-white text-gray-800 text-xs font-bold px-3 py-2 rounded-2xl shadow-xl border border-gray-100 group-hover:scale-105 transition-all duration-300">
+    Need Help? Chat on WhatsApp 👋
+  </span>
+  <div class="relative w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center shadow-2xl transition-transform duration-300 group-hover:scale-110 active:scale-95">
+    <span class="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30"></span>
+    <i class="fab fa-whatsapp text-3xl relative z-10"></i>
+  </div>
+</a>
+
 <!-- GLOBAL JAVASCRIPT HELPER SCRIPTS -->
 <script>
   let currentUser = null;
