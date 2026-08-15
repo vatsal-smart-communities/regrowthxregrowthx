@@ -99,12 +99,12 @@ $variants = $stmtVars->fetchAll(PDO::FETCH_ASSOC);
                             <input type="text" name="variant_key" value="<?= htmlspecialchars($v['variant_key']) ?>" required class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-2">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 mb-1">Selling Price (₹)</label>
-                            <input type="number" name="price_inr" value="<?= $v['price_inr'] ?>" required class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-2">
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Selling Price ($)</label>
+                            <input type="number" step="0.01" name="price_inr" value="<?= $v['price_inr'] ?>" required class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-2">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 mb-1">MRP (₹)</label>
-                            <input type="number" name="mrp_inr" value="<?= $v['mrp_inr'] ?>" required class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-2">
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">MRP ($)</label>
+                            <input type="number" step="0.01" name="mrp_inr" value="<?= $v['mrp_inr'] ?>" required class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-2">
                         </div>
                     </div>
 
@@ -136,12 +136,12 @@ $variants = $stmtVars->fetchAll(PDO::FETCH_ASSOC);
                         <input type="number" name="stock_qty" required value="100" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-900 mb-1">Selling Price (₹)</label>
-                        <input type="number" name="price_inr" required placeholder="2299" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                        <label class="block text-xs font-semibold text-gray-900 mb-1">Selling Price ($)</label>
+                        <input type="number" step="0.01" name="price_inr" required placeholder="34.99" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-900 mb-1">MRP (₹)</label>
-                        <input type="number" name="mrp_inr" required placeholder="3999" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                        <label class="block text-xs font-semibold text-gray-900 mb-1">MRP ($)</label>
+                        <input type="number" step="0.01" name="mrp_inr" required placeholder="59.99" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-900 mb-1">Variant Image</label>

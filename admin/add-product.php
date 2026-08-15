@@ -44,12 +44,12 @@ require_once __DIR__ . '/includes/header.php';
                                     <input type="text" name="variant_name[]" required placeholder="60 mL Supply" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Selling Price (₹)</label>
-                                    <input type="number" name="price_inr[]" required placeholder="1299" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Selling Price ($)</label>
+                                    <input type="number" step="0.01" name="price_inr[]" required placeholder="19.99" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold text-gray-700 mb-1">MRP (₹)</label>
-                                    <input type="number" name="mrp_inr[]" required placeholder="2499" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">MRP ($)</label>
+                                    <input type="number" step="0.01" name="mrp_inr[]" required placeholder="34.99" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-700 mb-1">Initial Stock</label>

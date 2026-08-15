@@ -286,7 +286,7 @@ require_once __DIR__ . '/../config/db.php';
   <div id="cart-footer" class="hidden shrink-0 border-t border-gray-100 bg-white px-6 py-4 space-y-3">
     <div class="flex justify-between text-sm">
       <span class="text-gray-500">Subtotal</span>
-      <span id="cart-subtotal" class="font-bold text-gray-900">₹0</span>
+      <span id="cart-subtotal" class="font-bold text-gray-900">$0.00</span>
     </div>
     <div class="flex justify-between text-sm">
       <span class="text-gray-500">Shipping</span>
@@ -294,7 +294,7 @@ require_once __DIR__ . '/../config/db.php';
     </div>
     <div class="border-t border-gray-100 pt-3 flex justify-between items-baseline">
       <span class="text-base font-bold text-gray-900">Total</span>
-      <span id="cart-total" class="text-2xl font-extrabold text-emerald-700">₹0</span>
+      <span id="cart-total" class="text-2xl font-extrabold text-emerald-700">$0.00</span>
     </div>
     <button onclick="proceedToCheckout()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg active:scale-95 cursor-pointer flex items-center justify-center gap-2 text-base">
       <span class="material-symbols-outlined">lock</span>

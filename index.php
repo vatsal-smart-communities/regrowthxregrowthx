@@ -379,7 +379,7 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </div>
           <div class="w-full lg:w-[52%] flex flex-col justify-center">
             <h3 class="text-3xl font-bold text-gray-900 mb-2"><?= htmlspecialchars($variant['title']) ?> (<?= htmlspecialchars($variant['variant_name']) ?>)</h3>
-            <p class="text-emerald-700 font-bold text-2xl mb-3">₹<?= number_format($variant['price_inr'], 0) ?> <span class="text-sm text-gray-400 line-through font-normal">₹<?= number_format($variant['mrp_inr'], 0) ?></span></p>
+            <p class="text-emerald-700 font-bold text-2xl mb-3">$<?= number_format($variant['price_inr'], 2) ?> <span class="text-sm text-gray-400 line-through font-normal">$<?= number_format($variant['mrp_inr'], 2) ?></span></p>
             <p class="text-gray-500 text-sm leading-relaxed mb-6">
               <?= htmlspecialchars($variant['description']) ?>
             </p>
@@ -464,8 +464,8 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="flex items-baseline gap-3 mt-3">
-              <span id="original-price" class="text-base text-gray-400 line-through font-medium">₹2,499</span>
-              <span id="current-price" class="text-3xl font-extrabold text-emerald-700">₹1,299</span>
+              <span id="original-price" class="text-base text-gray-400 line-through font-medium">$34.99</span>
+              <span id="current-price" class="text-3xl font-extrabold text-emerald-700">$19.99</span>
             </div>
           </div>
 
@@ -481,11 +481,11 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <div class="space-y-2">
             <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Select Supply Pack:</label>
             <div class="flex flex-wrap gap-3">
-              <label id="variant-label-60ml" onclick="selectVariant(1299, 2499, '60ml')" class="variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-emerald-600 bg-emerald-50/30 text-gray-900 font-medium text-xs sm:text-sm transition-all shadow-sm">
+              <label id="variant-label-60ml" onclick="selectVariant(19.99, 34.99, '60ml')" class="variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-emerald-600 bg-emerald-50/30 text-gray-900 font-medium text-xs sm:text-sm transition-all shadow-sm">
                 <input type="radio" id="variant-radio-60ml" name="variant" value="60ml" checked class="accent-emerald-600 h-4 w-4">
                 <span>60 mL (1 Month Supply)</span>
               </label>
-              <label id="variant-label-360ml" onclick="selectVariant(4999, 7999, '360ml')" class="variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-gray-200 bg-white text-gray-700 font-medium text-xs sm:text-sm hover:border-gray-300 transition-all shadow-sm">
+              <label id="variant-label-360ml" onclick="selectVariant(79.99, 129.99, '360ml')" class="variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-gray-200 bg-white text-gray-700 font-medium text-xs sm:text-sm hover:border-gray-300 transition-all shadow-sm">
                 <input type="radio" id="variant-radio-360ml" name="variant" value="360ml" class="accent-emerald-600 h-4 w-4">
                 <span>360 mL (6 Months Bundle)</span>
               </label>
@@ -494,8 +494,8 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
           <div class="pt-2 border-t border-gray-100">
             <div class="text-sm font-bold text-gray-900">
-              Total Amount: <span id="total-price-display" class="text-emerald-700 font-extrabold text-xl ml-1">₹1,299</span>
-              <span class="text-xs font-normal text-gray-400 ml-1">(Free Shipping & GST Included)</span>
+              Total Amount: <span id="total-price-display" class="text-emerald-700 font-extrabold text-xl ml-1">$19.99</span>
+              <span class="text-xs font-normal text-gray-400 ml-1">(Free US Shipping Included)</span>
             </div>
           </div>
 
@@ -727,9 +727,9 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
     '360ml': ['img/product-box-bottle.jpg','img/product-dropper.jpg','img/timeline-results.jpg','img/routine-guide.jpg']
   };
 
-  /* ===== UTILITY: Format INR ===== */
+  /* ===== UTILITY: Format USD ===== */
   function formatINR(amount) {
-    return '₹' + Number(amount).toLocaleString('en-IN');
+    return '$' + Number(amount).toFixed(2);
   }
 
   /* ===== TOAST NOTIFICATIONS ===== */
@@ -1349,6 +1349,27 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
     let current = parseInt(countEl.innerText);
     countEl.innerText = current === 1 ? 0 : 1;
   }
+
+  /* ===== BEFORE/AFTER SLIDER ===== */
+  function updateBaSlider(val) {
+    const beforeLayer = document.getElementById('before-layer');
+    const handleLine = document.getElementById('handle-line');
+    const beforeImg = document.getElementById('before-img');
+    const container = document.getElementById('ba-container');
+    
+    if (beforeLayer && handleLine) {
+      beforeLayer.style.width = val + '%';
+      handleLine.style.left = val + '%';
+    }
+    if (beforeImg && container) {
+      beforeImg.style.width = container.offsetWidth + 'px';
+    }
+  }
+
+  window.addEventListener('resize', () => {
+    const slider = document.getElementById('ba-range-slider');
+    if (slider) updateBaSlider(slider.value);
+  });
 
   /* ===== FAQ ACCORDION ===== */
   function toggleFaq(button) {

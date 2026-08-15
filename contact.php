@@ -76,8 +76,8 @@ require_once __DIR__ . '/includes/store-header.php';
               </div>
               <div>
                 <h4 class="font-bold text-gray-900 text-base">Phone Support</h4>
-                <p class="text-sm font-semibold text-emerald-700 mt-0.5"><a href="tel:7184387400" class="hover:underline">7184387400</a></p>
-                <p class="text-xs text-gray-500 mt-1">Monday – Saturday: 9:30 AM – 6:30 PM IST</p>
+                <p class="text-sm font-semibold text-emerald-700 mt-0.5"><a href="tel:7184387400" class="hover:underline">(718) 438-7400</a></p>
+                <p class="text-xs text-gray-500 mt-1">Monday – Saturday: 9:00 AM – 6:00 PM EST</p>
               </div>
             </div>
 
@@ -99,8 +99,8 @@ require_once __DIR__ . '/includes/store-header.php';
               <div>
                 <h4 class="font-bold text-gray-900 text-base">RegrowthX HQ (Nimex Group)</h4>
                 <p class="text-xs text-gray-600 leading-relaxed mt-1">
-                  Nimex Group / RegrowthX India Labs<br/>
-                  Mumbai, Maharashtra, India
+                  Nimex Group / RegrowthX USA Labs<br/>
+                  United States
                 </p>
               </div>
             </div>
@@ -112,7 +112,7 @@ require_once __DIR__ . '/includes/store-header.php';
                 <span class="material-symbols-outlined text-emerald-600">map</span>
                 <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">Our Location</span>
               </div>
-              <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">India HQ</span>
+              <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">US HQ</span>
             </div>
             <div class="w-full h-64 sm:h-72 rounded-2xl overflow-hidden border border-gray-100 shadow-inner">
               <iframe 

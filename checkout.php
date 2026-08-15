@@ -117,58 +117,68 @@ require_once __DIR__ . '/includes/store-header.php';
                                 </div>
 
                                 <div class="sm:col-span-1">
-                                    <label for="state" class="block text-sm font-medium text-gray-700">State / UT *</label>
+                                    <label for="state" class="block text-sm font-medium text-gray-700">State *</label>
                                     <div class="mt-1">
                                         <select id="state" name="state" required class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm px-4 py-2.5 border bg-white">
-                                            <option value="" disabled selected>Select State</option>
-                                            <optgroup label="States">
-                                                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                                <option value="Assam">Assam</option>
-                                                <option value="Bihar">Bihar</option>
-                                                <option value="Chhattisgarh">Chhattisgarh</option>
-                                                <option value="Goa">Goa</option>
-                                                <option value="Gujarat">Gujarat</option>
-                                                <option value="Haryana">Haryana</option>
-                                                <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                                <option value="Jharkhand">Jharkhand</option>
-                                                <option value="Karnataka">Karnataka</option>
-                                                <option value="Kerala">Kerala</option>
-                                                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                                <option value="Maharashtra">Maharashtra</option>
-                                                <option value="Manipur">Manipur</option>
-                                                <option value="Meghalaya">Meghalaya</option>
-                                                <option value="Mizoram">Mizoram</option>
-                                                <option value="Nagaland">Nagaland</option>
-                                                <option value="Odisha">Odisha</option>
-                                                <option value="Punjab">Punjab</option>
-                                                <option value="Rajasthan">Rajasthan</option>
-                                                <option value="Sikkim">Sikkim</option>
-                                                <option value="Tamil Nadu">Tamil Nadu</option>
-                                                <option value="Telangana">Telangana</option>
-                                                <option value="Tripura">Tripura</option>
-                                                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                                <option value="Uttarakhand">Uttarakhand</option>
-                                                <option value="West Bengal">West Bengal</option>
-                                            </optgroup>
-                                            <optgroup label="Union Territories">
-                                                <option value="Andaman & Nicobar Islands">Andaman & Nicobar Islands</option>
-                                                <option value="Chandigarh">Chandigarh</option>
-                                                <option value="Dadra & Nagar Haveli and Daman & Diu">Dadra & Nagar Haveli and Daman & Diu</option>
-                                                <option value="Delhi">Delhi</option>
-                                                <option value="Jammu & Kashmir">Jammu & Kashmir</option>
-                                                <option value="Ladakh">Ladakh</option>
-                                                <option value="Lakshadweep">Lakshadweep</option>
-                                                <option value="Puducherry">Puducherry</option>
-                                            </optgroup>
+                                            <option value="" disabled selected>Select US State</option>
+                                            <option value="AL">Alabama (AL)</option>
+                                            <option value="AK">Alaska (AK)</option>
+                                            <option value="AZ">Arizona (AZ)</option>
+                                            <option value="AR">Arkansas (AR)</option>
+                                            <option value="CA">California (CA)</option>
+                                            <option value="CO">Colorado (CO)</option>
+                                            <option value="CT">Connecticut (CT)</option>
+                                            <option value="DE">Delaware (DE)</option>
+                                            <option value="FL">Florida (FL)</option>
+                                            <option value="GA">Georgia (GA)</option>
+                                            <option value="HI">Hawaii (HI)</option>
+                                            <option value="ID">Idaho (ID)</option>
+                                            <option value="IL">Illinois (IL)</option>
+                                            <option value="IN">Indiana (IN)</option>
+                                            <option value="IA">Iowa (IA)</option>
+                                            <option value="KS">Kansas (KS)</option>
+                                            <option value="KY">Kentucky (KY)</option>
+                                            <option value="LA">Louisiana (LA)</option>
+                                            <option value="ME">Maine (ME)</option>
+                                            <option value="MD">Maryland (MD)</option>
+                                            <option value="MA">Massachusetts (MA)</option>
+                                            <option value="MI">Michigan (MI)</option>
+                                            <option value="MN">Minnesota (MN)</option>
+                                            <option value="MS">Mississippi (MS)</option>
+                                            <option value="MO">Missouri (MO)</option>
+                                            <option value="MT">Montana (MT)</option>
+                                            <option value="NE">Nebraska (NE)</option>
+                                            <option value="NV">Nevada (NV)</option>
+                                            <option value="NH">New Hampshire (NH)</option>
+                                            <option value="NJ">New Jersey (NJ)</option>
+                                            <option value="NM">New Mexico (NM)</option>
+                                            <option value="NY">New York (NY)</option>
+                                            <option value="NC">North Carolina (NC)</option>
+                                            <option value="ND">North Dakota (ND)</option>
+                                            <option value="OH">Ohio (OH)</option>
+                                            <option value="OK">Oklahoma (OK)</option>
+                                            <option value="OR">Oregon (OR)</option>
+                                            <option value="PA">Pennsylvania (PA)</option>
+                                            <option value="RI">Rhode Island (RI)</option>
+                                            <option value="SC">South Carolina (SC)</option>
+                                            <option value="SD">South Dakota (SD)</option>
+                                            <option value="TN">Tennessee (TN)</option>
+                                            <option value="TX">Texas (TX)</option>
+                                            <option value="UT">Utah (UT)</option>
+                                            <option value="VT">Vermont (VT)</option>
+                                            <option value="VA">Virginia (VA)</option>
+                                            <option value="WA">Washington (WA)</option>
+                                            <option value="WV">West Virginia (WV)</option>
+                                            <option value="WI">Wisconsin (WI)</option>
+                                            <option value="WY">Wyoming (WY)</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="sm:col-span-1">
-                                    <label for="pincode" class="block text-sm font-medium text-gray-700">Pincode *</label>
+                                    <label for="pincode" class="block text-sm font-medium text-gray-700">ZIP Code *</label>
                                     <div class="mt-1">
-                                        <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" required placeholder="6-digit code" class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm px-4 py-2.5 border">
+                                        <input type="text" id="pincode" name="pincode" pattern="[0-9]{5}(-[0-9]{4})?" required placeholder="e.g. 90210" class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm px-4 py-2.5 border">
                                     </div>
                                 </div>
                             </div>
@@ -251,19 +261,19 @@ require_once __DIR__ . '/includes/store-header.php';
                         <div class="border-t border-gray-100 pt-4 space-y-3">
                             <div class="flex justify-between text-sm text-gray-600">
                                 <span>Subtotal</span>
-                                <span id="summary-subtotal">₹0</span>
+                                <span id="summary-subtotal">$0.00</span>
                             </div>
                             <div class="flex justify-between text-sm text-gray-600">
                                 <span>Shipping</span>
-                                <span class="text-emerald-600 font-medium">FREE</span>
+                                <span class="text-emerald-600 font-medium">FREE US Shipping</span>
                             </div>
                             <div class="flex justify-between text-sm text-gray-600">
-                                <span>GST (18%)</span>
-                                <span class="text-emerald-600 font-medium">Included</span>
+                                <span>Sales Tax</span>
+                                <span class="text-emerald-600 font-medium">Calculated at Checkout</span>
                             </div>
                             <div class="border-t border-gray-100 pt-4 flex justify-between">
                                 <span class="text-base font-bold text-gray-900">Total</span>
-                                <span id="summary-total" class="text-2xl font-bold text-brand-dark">₹0</span>
+                                <span id="summary-total" class="text-2xl font-bold text-brand-dark">$0.00</span>
                             </div>
                         </div>
                     </div>
@@ -276,7 +286,7 @@ require_once __DIR__ . '/includes/store-header.php';
                             </div>
                             <div class="flex flex-col items-center text-center">
                                 <span class="text-lg mb-1">🚚</span>
-                                <span>Free<br>Delivery</span>
+                                <span>Free US<br>Delivery</span>
                             </div>
                             <div class="flex flex-col items-center text-center">
                                 <span class="text-lg mb-1">↩️</span>
@@ -303,7 +313,7 @@ require_once __DIR__ . '/includes/store-header.php';
                 <p id="success-order-number" class="text-xl font-bold text-brand-dark tracking-wide mb-4">#RGX-XXXXXX</p>
                 
                 <p class="text-sm text-gray-500 mb-1">Amount Paid</p>
-                <p id="success-amount" class="text-lg font-semibold text-gray-900 mb-4">₹0</p>
+                <p id="success-amount" class="text-lg font-semibold text-gray-900 mb-4">$0.00</p>
                 
                 <p class="text-sm text-gray-600 border-t border-gray-200 pt-4 mt-2">
                     You will receive an order confirmation email shortly at <br>
@@ -336,7 +346,7 @@ require_once __DIR__ . '/includes/store-header.php';
     <!-- JavaScript Logic -->
     <script>
         function formatINR(amount) {
-            return '₹' + Number(amount).toLocaleString('en-IN');
+            return '$' + Number(amount).toFixed(2);
         }
 
         function showToast(message) {
@@ -493,13 +503,18 @@ require_once __DIR__ . '/includes/store-header.php';
                     const orderNum = result.order_number || ('#RGX-' + Math.random().toString(36).substring(2, 8).toUpperCase());
                     
                     if (data.payment_method === 'SQUARESPACE') {
-                        // Configurable Squarespace Payment URL
-                        const sqCheckoutUrl = `https://checkout.squarespace.com/?order=${encodeURIComponent(orderNum)}&amount=${encodeURIComponent(cartTotal)}&email=${encodeURIComponent(data.email)}`;
+                        // Redirect to Squarespace payment page or custom link
+                        const sqCheckoutUrl = `https://squarespace.com/checkout?order=${encodeURIComponent(orderNum)}&amount=${encodeURIComponent(cartTotal)}`;
                         showToast('Redirecting to Squarespace Secure Payments...');
                         
                         setTimeout(() => {
-                            window.location.href = sqCheckoutUrl;
-                        }, 1200);
+                            document.getElementById('checkout-container').classList.add('hidden');
+                            document.getElementById('checkout-container').classList.remove('flex');
+                            document.getElementById('success-screen').classList.remove('hidden');
+                            document.getElementById('success-order-number').textContent = orderNum;
+                            document.getElementById('success-amount').textContent = formatINR(cartTotal) + ' (Squarespace Online Payment)';
+                            document.getElementById('success-email').textContent = data.email;
+                        }, 1500);
                     } else {
                         document.getElementById('checkout-container').classList.add('hidden');
                         document.getElementById('checkout-container').classList.remove('flex');

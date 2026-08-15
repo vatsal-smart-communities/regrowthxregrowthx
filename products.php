@@ -100,14 +100,14 @@ $variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- Min Price -->
       <div>
-        <label class="block text-xs font-semibold text-gray-600 mb-1.5">Min Price (₹)</label>
-        <input type="number" name="min_price" value="<?= $min_price !== null ? htmlspecialchars($min_price) : '' ?>" placeholder="e.g. 500" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+        <label class="block text-xs font-semibold text-gray-600 mb-1.5">Min Price ($)</label>
+        <input type="number" step="0.01" name="min_price" value="<?= $min_price !== null ? htmlspecialchars($min_price) : '' ?>" placeholder="e.g. 15" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
       </div>
 
       <!-- Max Price -->
       <div>
-        <label class="block text-xs font-semibold text-gray-600 mb-1.5">Max Price (₹)</label>
-        <input type="number" name="max_price" value="<?= $max_price !== null ? htmlspecialchars($max_price) : '' ?>" placeholder="e.g. 5000" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+        <label class="block text-xs font-semibold text-gray-600 mb-1.5">Max Price ($)</label>
+        <input type="number" step="0.01" name="max_price" value="<?= $max_price !== null ? htmlspecialchars($max_price) : '' ?>" placeholder="e.g. 100" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
       </div>
 
       <!-- Sort Dropdown & Buttons -->
@@ -166,9 +166,9 @@ $variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </h3>
           
           <div class="flex items-baseline gap-2 mb-3">
-            <span class="text-xl font-extrabold text-emerald-700">₹<?= number_format($v['price_inr'], 0) ?></span>
+            <span class="text-xl font-extrabold text-emerald-700">$<?= number_format($v['price_inr'], 2) ?></span>
             <?php if ($v['mrp_inr'] > $v['price_inr']): ?>
-            <span class="text-xs text-gray-400 line-through">₹<?= number_format($v['mrp_inr'], 0) ?></span>
+            <span class="text-xs text-gray-400 line-through">$<?= number_format($v['mrp_inr'], 2) ?></span>
             <?php endif; ?>
           </div>
         </div>

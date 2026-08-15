@@ -37,8 +37,8 @@
         <h3 class="text-sm font-bold uppercase tracking-wider mb-5 text-brand-light">Customer Support</h3>
         <div class="space-y-3 text-sm text-gray-300">
           <p>Email: <a href="mailto:rickw@nimexgrp.com" class="hover:underline text-white">rickw@nimexgrp.com</a></p>
-          <p>Phone: <a href="tel:7184387400" class="hover:underline text-white">7184387400</a></p>
-          <p>Hours: Mon - Sat (9:30 AM - 6:30 PM IST)</p>
+          <p>Phone: <a href="tel:7184387400" class="hover:underline text-white">(718) 438-7400</a></p>
+          <p>Hours: Mon - Sat (9:00 AM - 6:00 PM EST)</p>
         </div>
         <div class="flex gap-4 mt-6">
           <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-primary flex items-center justify-center transition" aria-label="Facebook">
@@ -83,29 +83,11 @@
   let resetEmailTarget = '';
 
   function formatINR(amount) {
-    return '₹' + Number(amount).toLocaleString('en-IN');
+    return '$' + Number(amount).toFixed(2);
   }
-
-  /* ===== BEFORE/AFTER SLIDER ===== */
-  function updateBaSlider(val) {
-    const beforeLayer = document.getElementById('before-layer');
-    const handleLine = document.getElementById('handle-line');
-    const beforeImg = document.getElementById('before-img');
-    const container = document.getElementById('ba-container');
-    
-    if (beforeLayer && handleLine) {
-      beforeLayer.style.width = val + '%';
-      handleLine.style.left = val + '%';
-    }
-    if (beforeImg && container) {
-      beforeImg.style.width = container.offsetWidth + 'px';
-    }
+  function formatUSD(amount) {
+    return '$' + Number(amount).toFixed(2);
   }
-
-  window.addEventListener('resize', () => {
-    const slider = document.getElementById('ba-range-slider');
-    if (slider) updateBaSlider(slider.value);
-  });
 
   function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');

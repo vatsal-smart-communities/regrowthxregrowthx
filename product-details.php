@@ -108,8 +108,8 @@ require_once __DIR__ . '/includes/store-header.php';
 
       <!-- Pricing Display -->
       <div class="bg-gray-50/80 p-5 rounded-2xl border border-gray-100 flex items-baseline gap-4">
-        <span id="display-price" class="text-3xl sm:text-4xl font-extrabold text-emerald-700">₹<?= number_format($defaultVariant['price_inr'], 0) ?></span>
-        <span id="display-mrp" class="text-base text-gray-400 line-through">₹<?= number_format($defaultVariant['mrp_inr'], 0) ?></span>
+        <span id="display-price" class="text-3xl sm:text-4xl font-extrabold text-emerald-700">$<?= number_format($defaultVariant['price_inr'], 2) ?></span>
+        <span id="display-mrp" class="text-base text-gray-400 line-through">$<?= number_format($defaultVariant['mrp_inr'], 2) ?></span>
         <span id="display-savings" class="bg-emerald-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-full uppercase">Save <?= round((($defaultVariant['mrp_inr'] - $defaultVariant['price_inr']) / $defaultVariant['mrp_inr']) * 100) ?>%</span>
       </div>
 
@@ -131,7 +131,7 @@ require_once __DIR__ . '/includes/store-header.php';
                 <p class="text-xs text-gray-500">Stock: <?= $var['stock_qty'] > 0 ? 'In Stock (' . $var['stock_qty'] . ' available)' : 'Out of Stock' ?></p>
               </div>
             </div>
-            <span class="font-bold text-sm text-emerald-700">₹<?= number_format($var['price_inr'], 0) ?></span>
+            <span class="font-bold text-sm text-emerald-700">$<?= number_format($var['price_inr'], 2) ?></span>
           </label>
           <?php endforeach; ?>
         </div>
@@ -243,7 +243,7 @@ require_once __DIR__ . '/includes/store-header.php';
           </div>
           <h4 class="font-bold text-gray-900 text-sm line-clamp-1"><?= htmlspecialchars($rp['title']) ?></h4>
           <p class="text-xs text-gray-500 mb-2"><?= htmlspecialchars($rp['variant_name']) ?></p>
-          <p class="font-extrabold text-emerald-700 text-base">₹<?= number_format($rp['price_inr'], 0) ?></p>
+          <p class="font-extrabold text-emerald-700 text-base">$<?= number_format($rp['price_inr'], 2) ?></p>
         </div>
         <a href="product-details.php?id=<?= $rp['product_id'] ?>" class="w-full mt-3 block bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-semibold py-2 rounded-xl text-center transition-colors">
           View Details
@@ -281,8 +281,8 @@ require_once __DIR__ . '/includes/store-header.php';
       }
     });
 
-    document.getElementById('display-price').innerText = '₹' + Number(activeVariant.price_inr).toLocaleString('en-IN');
-    document.getElementById('display-mrp').innerText = '₹' + Number(activeVariant.mrp_inr).toLocaleString('en-IN');
+    document.getElementById('display-price').innerText = '$' + Number(activeVariant.price_inr).toFixed(2);
+    document.getElementById('display-mrp').innerText = '$' + Number(activeVariant.mrp_inr).toFixed(2);
     
     const discount = activeVariant.mrp_inr > activeVariant.price_inr ? Math.round(((activeVariant.mrp_inr - activeVariant.price_inr) / activeVariant.mrp_inr) * 100) : 0;
     document.getElementById('display-savings').innerText = 'Save ' + discount + '%';

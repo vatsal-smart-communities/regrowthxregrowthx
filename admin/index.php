@@ -16,7 +16,7 @@ $stmt = $pdo->query("SELECT * FROM orders ORDER BY created_at DESC LIMIT 5");
 $recentOrders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 function formatINR($amount) {
-    return '₹' . number_format($amount, 0);
+    return '$' . number_format($amount, 2);
 }
 ?>
 

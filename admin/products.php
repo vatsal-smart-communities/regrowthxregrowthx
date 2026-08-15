@@ -79,7 +79,7 @@ function buildUrl($newPage) {
                 <tr class="bg-white border-b border-gray-200 text-xs uppercase tracking-wider text-gray-500">
                     <th class="px-6 py-4 font-semibold">Product Name</th>
                     <th class="px-6 py-4 font-semibold">Variant Name</th>
-                    <th class="px-6 py-4 font-semibold">Price (INR)</th>
+                    <th class="px-6 py-4 font-semibold">Price (USD)</th>
                     <th class="px-6 py-4 font-semibold">Stock Qty</th>
                     <th class="px-6 py-4 font-semibold text-right">Actions</th>
                 </tr>
@@ -96,8 +96,8 @@ function buildUrl($newPage) {
                         <td class="px-6 py-4 text-sm text-gray-600"><?= htmlspecialchars($v['variant_name']) ?></td>
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-2">
-                                <span class="text-gray-500">₹</span>
-                                <input type="number" id="price-<?= $v['variant_id'] ?>" value="<?= $v['price_inr'] ?>" class="w-24 bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                                <span class="text-gray-500">$</span>
+                                <input type="number" step="0.01" id="price-<?= $v['variant_id'] ?>" value="<?= $v['price_inr'] ?>" class="w-24 bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                             </div>
                         </td>
                         <td class="px-6 py-4">

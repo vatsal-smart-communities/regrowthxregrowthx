@@ -16,7 +16,7 @@ $stmt->execute([$user_id]);
 $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 function formatINR($amount) {
-    return '₹' . number_format($amount, 0);
+    return '$' . number_format($amount, 2);
 }
 
 function getStatusBadgeClass($status) {

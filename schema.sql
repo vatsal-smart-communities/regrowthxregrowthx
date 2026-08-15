@@ -94,8 +94,8 @@ INSERT IGNORE INTO `products` (`id`, `title`, `slug`, `description`, `active`) V
 (1, 'RegrowthX 5% Minoxidil Hair Serum', 'regrowthx-5-minoxidil-hair-serum', 'Extra Strength 5% Minoxidil Topical Solution USP for Men. Clinically proven hair regrowth treatment.', 1);
 
 INSERT IGNORE INTO `product_variants` (`id`, `product_id`, `variant_key`, `variant_name`, `price_inr`, `mrp_inr`, `stock_qty`, `image_path`) VALUES
-(1, 1, '60ml', '60 mL (1 Month Supply)', 1299.00, 2499.00, 250, 'img/product-box-bottle.jpg'),
-(2, 1, '360ml', '360 mL (6 Month Bundle)', 4999.00, 7999.00, 100, 'img/timeline-results.jpg');
+(1, 1, '60ml', '60 mL (1 Month Supply)', 19.99, 34.99, 250, 'img/product-box-bottle.jpg'),
+(2, 1, '360ml', '360 mL (6 Month Bundle)', 79.99, 129.99, 100, 'img/timeline-results.jpg');
 
 -- SEED DATA: Default Admin User
 INSERT IGNORE INTO `users` (`id`, `full_name`, `email`, `phone`, `role`, `status`) VALUES
