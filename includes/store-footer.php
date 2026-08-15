@@ -37,7 +37,7 @@
         <h3 class="text-sm font-bold uppercase tracking-wider mb-5 text-brand-light">Customer Support</h3>
         <div class="space-y-3 text-sm text-gray-300">
           <p>Email: <a href="mailto:rickw@nimexgrp.com" class="hover:underline text-white">rickw@nimexgrp.com</a></p>
-          <p>Phone: <a href="tel:7184387400" class="hover:underline text-white">(718) 438-7400</a></p>
+          <p>Phone: <a href="tel:17184387400" class="hover:underline text-white">+1 (718) 438-7400</a></p>
           <p>Hours: Mon - Sat (9:00 AM - 6:00 PM EST)</p>
         </div>
         <div class="flex gap-4 mt-6">
@@ -67,7 +67,7 @@
 </footer>
 
 <!-- FLOATING WHATSAPP CHAT WIDGET -->
-<a href="https://wa.me/917184387400?text=Hi%20RegrowthX%20Support!%20I%20have%20a%20question%20about%20your%20hair%20regrowth%20products." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 group flex items-center gap-2 cursor-pointer" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/17184387400?text=Hi%20RegrowthX%20Support!%20I%20have%20a%20question%20about%20your%20hair%20regrowth%20products." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 group flex items-center gap-2 cursor-pointer" aria-label="Chat on WhatsApp">
   <span class="hidden sm:inline-block bg-white text-gray-800 text-xs font-bold px-3 py-2 rounded-2xl shadow-xl border border-gray-100 group-hover:scale-105 transition-all duration-300">
     Need Help? Chat on WhatsApp 👋
   </span>

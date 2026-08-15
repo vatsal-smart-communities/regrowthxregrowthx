@@ -76,7 +76,7 @@ require_once __DIR__ . '/includes/store-header.php';
               </div>
               <div>
                 <h4 class="font-bold text-gray-900 text-base">Phone Support</h4>
-                <p class="text-sm font-semibold text-emerald-700 mt-0.5"><a href="tel:7184387400" class="hover:underline">(718) 438-7400</a></p>
+                <p class="text-sm font-semibold text-emerald-700 mt-0.5"><a href="tel:17184387400" class="hover:underline">+1 (718) 438-7400</a></p>
                 <p class="text-xs text-gray-500 mt-1">Monday – Saturday: 9:00 AM – 6:00 PM EST</p>
               </div>
             </div>
