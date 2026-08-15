@@ -175,8 +175,57 @@ $latestReviews = $stmtRev->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </section>
 
-<!-- BEGIN: Science & About Section -->
-<section class="py-20 bg-white border-y border-gray-100" id="about">
+<!-- BEGIN: About Us Section -->
+<section class="py-20 bg-brand-bg border-y border-gray-100" id="about">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal-on-scroll">
+      <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-4">About RegrowthX</h2>
+      <p class="mt-4 max-w-3xl text-lg text-gray-600 mx-auto">
+        At RegrowthX, we believe confidence starts with healthy hair. Hair thinning affects millions of men, often impacting confidence and daily life. Our mission is to provide a trusted, easy-to-use hair regrowth solution formulated with clinically studied 5% Minoxidil, helping men take the first step toward restoring fuller-looking hair.
+      </p>
+      <p class="mt-4 max-w-3xl text-lg text-gray-600 mx-auto">
+        We focus on quality, consistency, and simplicity—creating products that fit seamlessly into everyday routines while supporting healthier-looking hair over time.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 text-center reveal-on-scroll">
+      <!-- Mission -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-emerald-50 hover:shadow-md transition-shadow">
+        <div class="w-14 h-14 mx-auto bg-emerald-100 text-brand-primary rounded-full flex items-center justify-center mb-6">
+          <i class="fas fa-bullseye text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Our Mission</h3>
+        <p class="text-gray-600">To help men regain confidence through effective, science-backed hair care solutions.</p>
+      </div>
+
+      <!-- Vision -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-emerald-50 hover:shadow-md transition-shadow">
+        <div class="w-14 h-14 mx-auto bg-emerald-100 text-brand-primary rounded-full flex items-center justify-center mb-6">
+          <i class="fas fa-eye text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Our Vision</h3>
+        <p class="text-gray-600">To become a trusted name in hair regrowth by delivering high-quality products that prioritize performance, safety, and customer satisfaction.</p>
+      </div>
+
+      <!-- Values -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-emerald-50 hover:shadow-md transition-shadow">
+        <div class="w-14 h-14 mx-auto bg-emerald-100 text-brand-primary rounded-full flex items-center justify-center mb-6">
+          <i class="fas fa-heart text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Our Values</h3>
+        <ul class="text-gray-600 space-y-2 text-sm font-medium">
+          <li><i class="fas fa-check text-brand-primary mr-2"></i> Quality & Transparency</li>
+          <li><i class="fas fa-check text-brand-primary mr-2"></i> Innovation</li>
+          <li><i class="fas fa-check text-brand-primary mr-2"></i> Customer Trust</li>
+          <li><i class="fas fa-check text-brand-primary mr-2"></i> Consistency</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEGIN: Science Section -->
+<section class="py-20 bg-white border-b border-gray-100" id="science">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <div class="reveal-on-scroll">
