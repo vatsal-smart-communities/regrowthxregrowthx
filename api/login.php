@@ -52,6 +52,13 @@ try {
     $_SESSION['user_name'] = $user['full_name'];
     $_SESSION['user_role'] = $user['role'];
     
+    // Load RBAC permissions if user has an admin role
+    if (!empty($user['role_id'])) {
+        require_once __DIR__ . '/../includes/permissions.php';
+        loadUserPermissions($pdo, $user['id']);
+        $_SESSION['permissions_loaded_at'] = time();
+    }
+    
     echo json_encode([
         "success" => true, 
         "message" => "Login successful",

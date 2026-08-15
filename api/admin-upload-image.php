@@ -2,10 +2,9 @@
 session_start();
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-    echo json_encode(["success" => false, "message" => "Unauthorized access"]);
-    exit();
-}
+require_once __DIR__ . '/../includes/permissions.php';
+
+requirePermission('manage_products', true);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_FILES['image'])) {
     echo json_encode(["success" => false, "message" => "No image file provided"]);

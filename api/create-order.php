@@ -72,6 +72,10 @@ try {
     
     $pdo->commit();
     
+    // Send Order Confirmation Email
+    require_once __DIR__ . '/../includes/mailer.php';
+    sendOrderConfirmationEmail($email, $customer_name, $order_number, $total_amount, $_SESSION['cart']);
+    
     $_SESSION['cart'] = [];
     
     echo json_encode([

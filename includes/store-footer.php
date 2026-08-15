@@ -5,7 +5,7 @@
 
       <div>
         <a href="index.php" class="text-3xl font-bold mb-4 block">
-          Regrowth<span class="text-brand-light">X</span>
+          <img src="img/logo.jpeg" alt="RegrowthX" class="h-8 sm:h-10 w-auto object-contain bg-white rounded p-1">
         </a>
         <p class="text-gray-300 text-sm leading-relaxed">
           Dermatologist-recommended 5% Minoxidil extra strength topical solution. Formulated to reactivate hair follicles, reduce shedding, and promote thicker hair growth for men.
@@ -126,7 +126,7 @@
   }
 
   function switchAuthView(view) {
-    const views = ['login', 'signup', 'forgot', 'reset'];
+    const views = ['login', 'signup', 'forgot', 'reset', 'signup-verify'];
     views.forEach(v => {
       const el = document.getElementById('auth-step-' + v);
       if (el) el.classList.add('hidden');
@@ -150,9 +150,12 @@
     } else if (view === 'reset') {
       if (titleEl) titleEl.innerText = 'Set New Password';
       if (subtitleEl) subtitleEl.innerText = 'Enter the code and your new password';
+    } else if (view === 'signup-verify') {
+      if (titleEl) titleEl.innerText = 'Verify Your Email';
+      if (subtitleEl) subtitleEl.innerText = 'Enter the 6-digit code sent to your email';
     }
     
-    ['login-error', 'signup-error', 'forgot-error', 'reset-error'].forEach(id => {
+    ['login-error', 'signup-error', 'forgot-error', 'reset-error', 'signup-verify-error'].forEach(id => {
       const err = document.getElementById(id);
       if (err) err.classList.add('hidden');
     });
@@ -206,6 +209,9 @@
     btn.innerHTML = 'Login';
   }
 
+  // Global object to store signup data before verification
+  let pendingSignupData = null;
+
   async function handleSignup() {
     const name = document.getElementById('signup-name').value.trim();
     const email = document.getElementById('signup-email').value.trim();
@@ -236,21 +242,20 @@
 
     errorEl.classList.add('hidden');
     btn.disabled = true;
-    btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Creating Account...';
+    btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Verifying Email...';
 
     try {
-      const res = await fetch('api/register.php', {
+      const res = await fetch('api/send-signup-otp.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ full_name: name, email, phone, password })
+        body: JSON.stringify({ email })
       });
       const data = await res.json();
 
       if (data.success) {
-        currentUser = data.user;
-        updateAuthUI(true);
-        closeAuthModal();
-        showToast('Account created successfully!', 'success');
+        pendingSignupData = { full_name: name, email, phone, password };
+        switchAuthView('signup-verify');
+        showToast('Verification code sent to your email', 'success');
       } else {
         errorEl.innerText = data.message;
         errorEl.classList.remove('hidden');
@@ -261,6 +266,51 @@
     }
     btn.disabled = false;
     btn.innerHTML = 'Create Account';
+  }
+
+  async function handleSignupVerify() {
+    const otp = document.getElementById('signup-otp').value.trim();
+    const errorEl = document.getElementById('signup-verify-error');
+    const btn = document.getElementById('signup-verify-btn');
+
+    if (!otp) {
+      errorEl.innerText = 'Please enter the verification code';
+      errorEl.classList.remove('hidden');
+      return;
+    }
+
+    errorEl.classList.add('hidden');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Creating Account...';
+
+    try {
+      const payload = { ...pendingSignupData, otp };
+      const res = await fetch('api/register.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        currentUser = data.user;
+        updateAuthUI(true);
+        closeAuthModal();
+        showToast('Account created successfully!', 'success');
+        if (window._pendingCheckout) {
+          window._pendingCheckout = false;
+          window.location.href = 'checkout.php';
+        }
+      } else {
+        errorEl.innerText = data.message;
+        errorEl.classList.remove('hidden');
+      }
+    } catch (err) {
+      errorEl.innerText = 'Network error. Please try again.';
+      errorEl.classList.remove('hidden');
+    }
+    btn.disabled = false;
+    btn.innerHTML = 'Verify & Create Account';
   }
 
   async function handleForgotPassword() {

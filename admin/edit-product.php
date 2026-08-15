@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/header.php';
+requirePermission('manage_products');
 
 $product_id = $_GET['id'] ?? null;
 if (!$product_id) {

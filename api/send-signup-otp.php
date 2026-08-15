@@ -21,6 +21,15 @@ try {
         exit();
     }
     
+    // Check if email already exists in users table
+    $stmtUser = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+    $stmtUser->execute([$email]);
+    if ($stmtUser->fetch()) {
+        echo json_encode(["success" => false, "message" => "Email is already registered"]);
+        exit();
+    }
+    
+    // Invalidate old OTPs for this email
     $stmt = $pdo->prepare("UPDATE email_otps SET is_used = 1 WHERE email = ? AND is_used = 0");
     $stmt->execute([$email]);
     

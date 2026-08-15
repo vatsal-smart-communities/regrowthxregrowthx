@@ -137,7 +137,7 @@ require_once __DIR__ . '/includes/store-header.php';
 </main>
 
 <script>
-  function handleContactSubmit(event) {
+  async function handleContactSubmit(event) {
     event.preventDefault();
     const btn = document.getElementById('submit-btn');
     const msg = document.getElementById('success-message');
@@ -145,14 +145,38 @@ require_once __DIR__ . '/includes/store-header.php';
     btn.disabled = true;
     btn.innerHTML = `<span>Sending...</span>`;
 
-    setTimeout(() => {
-      btn.disabled = false;
-      btn.innerHTML = `<span>Send Message</span> <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3 21l18-9L3 3l3 9zm0 0h75"/></svg>`;
-      msg.classList.remove('hidden');
-      document.getElementById('contact-form').reset();
-      showToast('Thank you! Message sent.', 'success');
-      setTimeout(() => { msg.classList.add('hidden'); }, 6000);
-    }, 1000);
+    const name = document.getElementById('full-name').value;
+    const email = document.getElementById('email-address').value;
+    const message = document.getElementById('message').value;
+
+    try {
+        const res = await fetch('api/contact.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, message })
+        });
+        const data = await res.json();
+        
+        btn.disabled = false;
+        btn.innerHTML = `<span>Send Message</span> <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3 21l18-9L3 3l3 9zm0 0h75"/></svg>`;
+        
+        if (data.success) {
+            msg.innerHTML = `<span class="material-symbols-outlined text-emerald-600">check_circle</span><div><strong class="font-bold">Thank you for contacting RegrowthX!</strong><p class="text-xs text-emerald-800">${data.message}</p></div>`;
+            msg.classList.remove('hidden', 'bg-red-50', 'border-red-200', 'text-red-900');
+            msg.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
+            document.getElementById('contact-form').reset();
+            
+            setTimeout(() => { msg.classList.add('hidden'); }, 6000);
+        } else {
+            msg.innerHTML = `<span class="material-symbols-outlined text-red-600">error</span><div><strong class="font-bold">Error</strong><p class="text-xs text-red-800">${data.message}</p></div>`;
+            msg.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
+            msg.classList.add('bg-red-50', 'border-red-200', 'text-red-900');
+        }
+    } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Send Message</span>`;
+        alert("A network error occurred.");
+    }
   }
 </script>
 

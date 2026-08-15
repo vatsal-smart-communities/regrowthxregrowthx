@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/header.php';
+requirePermission('manage_products');
 ?>
 
 <div class="max-w-4xl mx-auto">

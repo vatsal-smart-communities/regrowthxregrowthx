@@ -91,7 +91,7 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="relative flex justify-center lg:justify-end reveal-on-scroll is-visible delay-200">
       <div class="relative group cursor-pointer" onclick="handleAddToCart('60ml')">
         <div class="absolute -inset-4 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/30 transition-all duration-500"></div>
-        <img alt="RegrowthX Minoxidil 5% Serum Box & Bottle" class="relative z-10 max-w-full h-auto max-h-[460px] object-contain animate-float hover:scale-105 transition-transform duration-700 drop-shadow-2xl rounded-2xl" src="img/product-box-bottle.jpg"/>
+        <img alt="RegrowthX Minoxidil 5% Serum Box & Bottle" class="relative z-10 max-w-full h-auto max-h-[460px] object-contain animate-float hover:scale-105 transition-transform duration-700 drop-shadow-2xl rounded-2xl" src="img/61V69Q5RjZL._SL1500_.webp"/>
       </div>
     </div>
 
@@ -243,7 +243,7 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <!-- BEFORE Image (Clipped Overlay / Left) -->
         <div class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-white shadow-2xl transition-all duration-75" id="before-layer">
-          <img src="img/before.jpg" alt="Before RegrowthX Treatment" class="absolute top-0 left-0 h-full object-cover object-top pointer-events-none" id="before-img" />
+          <img src="img/before.jpg" alt="Before RegrowthX Treatment" class="absolute top-0 left-0 h-full max-w-none object-cover object-top pointer-events-none" id="before-img" />
           <span class="absolute bottom-5 left-5 bg-gray-900/85 text-white font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full backdrop-blur-md z-10 shadow-lg border border-gray-700">
             BEFORE (Week 0)
           </span>
@@ -383,12 +383,12 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p class="text-gray-500 text-sm leading-relaxed mb-6">
               <?= htmlspecialchars($variant['description']) ?>
             </p>
-            <div class="flex flex-col sm:flex-row gap-3">
-              <button onclick="addToCartAPI(<?= $variant['variant_id'] ?>, 1)" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-3.5 px-4 rounded-full transition-all duration-300 hover:scale-[1.02] hover:shadow-xl active:scale-95 cursor-pointer flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-lg">add_shopping_cart</span> Add to Cart
+            <div class="space-y-2 pt-2 mt-4 border-t border-gray-100">
+              <button onclick="addToCartAPI(<?= $variant['variant_id'] ?>, 1)" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-95 cursor-pointer">
+                <span class="material-symbols-outlined text-base">add_shopping_cart</span> Add to Cart
               </button>
-              <a href="product-details.php?id=<?= $variant['product_id'] ?>" class="px-5 py-3.5 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-semibold rounded-full transition-all text-center flex items-center justify-center gap-1">
-                View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              <a href="product-details.php?id=<?= $variant['product_id'] ?>" class="w-full block bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2.5 rounded-xl text-sm transition-colors text-center">
+                View Details
               </a>
             </div>
           </div>
@@ -719,7 +719,6 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
   let currentUnitPrice = 1299;
   let currentQty = 1;
   let currentGalleryList = [];
-  let currentUser = null;
   let currentAuthEmail = '';
 
   const productGalleries = {
@@ -727,327 +726,7 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
     '360ml': ['img/product-box-bottle.jpg','img/product-dropper.jpg','img/timeline-results.jpg','img/routine-guide.jpg']
   };
 
-  /* ===== UTILITY: Format USD ===== */
-  function formatINR(amount) {
-    return '$' + Number(amount).toFixed(2);
-  }
 
-  /* ===== TOAST NOTIFICATIONS ===== */
-  function showToast(message, type = 'success') {
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    const colors = {
-      success: 'bg-emerald-600',
-      error: 'bg-red-600',
-      info: 'bg-blue-600'
-    };
-    const icons = {
-      success: 'check_circle',
-      error: 'error',
-      info: 'info'
-    };
-    toast.className = `toast ${colors[type]} text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 text-sm font-semibold mb-2 min-w-[250px]`;
-    toast.innerHTML = `<span class="material-symbols-outlined text-lg">${icons[type]}</span> ${message}`;
-    container.appendChild(toast);
-    requestAnimationFrame(() => { requestAnimationFrame(() => { toast.classList.add('show'); }); });
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 400);
-    }, 3000);
-  }
-
-  /* ===== AUTH MODAL ===== */
-  function openAuthModal() {
-    document.getElementById('auth-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    document.getElementById('auth-email-input').focus();
-  }
-
-  function closeAuthModal() {
-    document.getElementById('auth-modal').classList.remove('open');
-    document.body.style.overflow = '';
-    switchAuthView('login');
-  }
-
-  function switchAuthView(view) {
-    document.getElementById('auth-step-login').classList.add('hidden');
-    document.getElementById('auth-step-signup').classList.add('hidden');
-    document.getElementById('auth-step-forgot').classList.add('hidden');
-    document.getElementById('auth-step-reset').classList.add('hidden');
-
-    document.getElementById('auth-step-' + view).classList.remove('hidden');
-
-    const titleEl = document.getElementById('auth-modal-title');
-    const subtitleEl = document.getElementById('auth-modal-subtitle');
-    
-    if (view === 'login') {
-      titleEl.innerText = 'Welcome Back';
-      subtitleEl.innerText = 'Login to your account';
-    } else if (view === 'signup') {
-      titleEl.innerText = 'Create Account';
-      subtitleEl.innerText = 'Join RegrowthX today';
-    } else if (view === 'forgot') {
-      titleEl.innerText = 'Reset Password';
-      subtitleEl.innerText = 'We will send a reset code to your email';
-    } else if (view === 'reset') {
-      titleEl.innerText = 'Set New Password';
-      subtitleEl.innerText = 'Enter the code and your new password';
-    }
-    
-    // Hide all errors
-    document.getElementById('login-error').classList.add('hidden');
-    document.getElementById('signup-error').classList.add('hidden');
-    document.getElementById('forgot-error').classList.add('hidden');
-    document.getElementById('reset-error').classList.add('hidden');
-  }
-
-  async function handleLogin() {
-    const email = document.getElementById('login-email').value.trim();
-    const password = document.getElementById('login-password').value;
-    const errorEl = document.getElementById('login-error');
-    const btn = document.getElementById('login-btn');
-
-    if (!email || !password) {
-      errorEl.innerText = 'Please enter both email and password';
-      errorEl.classList.remove('hidden');
-      return;
-    }
-    errorEl.classList.add('hidden');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Logging in...';
-
-    try {
-      const res = await fetch('api/login.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        if (data.user.role === 'admin') {
-            window.location.href = 'admin/index.php';
-            return;
-        }
-        currentUser = data.user;
-        updateAuthUI(true);
-        closeAuthModal();
-        showToast('Logged in successfully!', 'success');
-        if (window._pendingCheckout) {
-          window._pendingCheckout = false;
-          window.location.href = 'checkout.php';
-        }
-      } else {
-        errorEl.innerText = data.message;
-        errorEl.classList.remove('hidden');
-      }
-    } catch (err) {
-      errorEl.innerText = 'Network error. Please try again.';
-      errorEl.classList.remove('hidden');
-    }
-    btn.disabled = false;
-    btn.innerHTML = 'Login';
-  }
-
-  async function handleSignup() {
-    const name = document.getElementById('signup-name').value.trim();
-    const email = document.getElementById('signup-email').value.trim();
-    const phone = document.getElementById('signup-phone').value.trim();
-    const password = document.getElementById('signup-password').value;
-    const confirmPassword = document.getElementById('signup-confirm-password').value;
-    const errorEl = document.getElementById('signup-error');
-    const btn = document.getElementById('signup-btn');
-
-    if (!name || !email || !phone || !password || !confirmPassword) {
-      errorEl.innerText = 'All fields are required';
-      errorEl.classList.remove('hidden');
-      return;
-    }
-    
-    if (password !== confirmPassword) {
-      errorEl.innerText = 'Passwords do not match';
-      errorEl.classList.remove('hidden');
-      return;
-    }
-
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordPattern.test(password)) {
-      errorEl.innerText = 'Password does not meet the strict security requirements';
-      errorEl.classList.remove('hidden');
-      return;
-    }
-
-    errorEl.classList.add('hidden');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Creating Account...';
-
-    try {
-      const res = await fetch('api/register.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ full_name: name, email, phone, password })
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        currentUser = data.user;
-        updateAuthUI(true);
-        closeAuthModal();
-        showToast('Account created successfully!', 'success');
-        if (window._pendingCheckout) {
-          window._pendingCheckout = false;
-          window.location.href = 'checkout.php';
-        }
-      } else {
-        errorEl.innerText = data.message;
-        errorEl.classList.remove('hidden');
-      }
-    } catch (err) {
-      errorEl.innerText = 'Network error. Please try again.';
-      errorEl.classList.remove('hidden');
-    }
-    btn.disabled = false;
-    btn.innerHTML = 'Create Account';
-  }
-
-  let resetEmailTarget = '';
-  async function handleForgotPassword() {
-    const email = document.getElementById('forgot-email').value.trim();
-    const errorEl = document.getElementById('forgot-error');
-    const btn = document.getElementById('forgot-btn');
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errorEl.innerText = 'Please enter a valid email address';
-      errorEl.classList.remove('hidden');
-      return;
-    }
-    errorEl.classList.add('hidden');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Sending...';
-
-    try {
-      const res = await fetch('api/forgot-password.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        resetEmailTarget = email;
-        switchAuthView('reset');
-        showToast('Reset code sent to your email', 'success');
-        
-        // Check for dev mode message
-        if (data.message.includes('123456')) {
-            showToast(data.message, 'success');
-        }
-      } else {
-        errorEl.innerText = data.message;
-        errorEl.classList.remove('hidden');
-      }
-    } catch (err) {
-      errorEl.innerText = 'Network error. Please try again.';
-      errorEl.classList.remove('hidden');
-    }
-    btn.disabled = false;
-    btn.innerHTML = 'Send Reset Code';
-  }
-
-  async function handleResetPassword() {
-    const code = document.getElementById('reset-code').value.trim();
-    const password = document.getElementById('reset-password').value;
-    const errorEl = document.getElementById('reset-error');
-    const btn = document.getElementById('reset-btn');
-
-    if (!code || !password) {
-      errorEl.innerText = 'Please enter the code and a new password';
-      errorEl.classList.remove('hidden');
-      return;
-    }
-    errorEl.classList.add('hidden');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Saving...';
-
-    try {
-      const res = await fetch('api/reset-password.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: resetEmailTarget, code, password })
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        switchAuthView('login');
-        showToast('Password reset successfully! Please log in.', 'success');
-        document.getElementById('login-email').value = resetEmailTarget;
-      } else {
-        errorEl.innerText = data.message;
-        errorEl.classList.remove('hidden');
-      }
-    } catch (err) {
-      errorEl.innerText = 'Network error. Please try again.';
-      errorEl.classList.remove('hidden');
-    }
-    btn.disabled = false;
-    btn.innerHTML = 'Save New Password';
-  }
-
-  function updateAuthUI(loggedIn) {
-    const loginBtn = document.getElementById('nav-login-btn');
-    const userInfo = document.getElementById('nav-user-info');
-    const mobileLoginBtn = document.getElementById('mobile-login-btn');
-
-    if (loggedIn && currentUser) {
-      loginBtn.style.display = 'none';
-      userInfo.classList.remove('hidden');
-      userInfo.classList.add('flex');
-      const initial = (currentUser.name || currentUser.email || 'U').charAt(0).toUpperCase();
-      document.getElementById('nav-user-avatar').innerText = initial;
-      document.getElementById('nav-user-name').innerText = currentUser.name || currentUser.email.split('@')[0];
-      document.getElementById('dropdown-email').innerText = currentUser.email;
-      if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
-    } else {
-      loginBtn.style.display = '';
-      userInfo.classList.add('hidden');
-      userInfo.classList.remove('flex');
-      if (mobileLoginBtn) mobileLoginBtn.classList.remove('hidden');
-    }
-  }
-
-  function toggleUserMenu() {
-    document.getElementById('user-dropdown').classList.toggle('hidden');
-  }
-
-  // Close dropdown on outside click
-  document.addEventListener('click', (e) => {
-    const dropdown = document.getElementById('user-dropdown');
-    const container = document.getElementById('nav-user-info');
-    if (dropdown && container && !container.contains(e.target)) {
-      dropdown.classList.add('hidden');
-    }
-  });
-
-  async function handleLogout() {
-    try {
-      await fetch('api/logout.php', { method: 'POST' });
-    } catch(e) {}
-    currentUser = null;
-    updateAuthUI(false);
-    document.getElementById('user-dropdown').classList.add('hidden');
-    showToast('Logged out successfully', 'info');
-  }
-
-  async function checkAuthState() {
-    try {
-      const res = await fetch('api/get-user.php');
-      const data = await res.json();
-      if (data.logged_in) {
-        currentUser = data.user;
-        updateAuthUI(true);
-      }
-    } catch(e) {}
-  }
 
   /* ===== MOBILE MENU ===== */
   function toggleMobileMenu() {

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/header.php';
+requirePermission('view_orders');
 
 // Pagination settings
 $limit = 10;

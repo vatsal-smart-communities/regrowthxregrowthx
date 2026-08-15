@@ -53,7 +53,7 @@ function getStatusBadgeClass($status) {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <a href="index.php" class="flex items-center gap-2">
-                    <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Regrowth<span class="text-brand-primary">X</span></h1>
+                    <img src="img/logo.jpeg" alt="RegrowthX" class="h-8 w-auto object-contain">
                 </a>
                 <a href="index.php" class="text-sm font-semibold text-gray-600 hover:text-brand-primary transition-colors flex items-center gap-2">
                     <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Store

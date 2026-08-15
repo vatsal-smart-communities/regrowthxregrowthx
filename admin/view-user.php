@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/header.php';
+requirePermission('view_users');
 
 $user_id = $_GET['id'] ?? null;
 if (!$user_id) {

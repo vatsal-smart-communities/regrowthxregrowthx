@@ -2,12 +2,10 @@
 session_start();
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-    echo json_encode(["success" => false, "message" => "Unauthorized"]);
-    exit();
-}
-
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../includes/permissions.php';
+
+requirePermission('manage_users', true);
 
 try {
     $data = json_decode(file_get_contents("php://input"), true);

@@ -65,7 +65,7 @@ require_once __DIR__ . '/../config/db.php';
     <!-- Logo -->
     <a class="flex items-center gap-2 group transition-transform duration-300 hover:scale-105" href="index.php">
       <div class="text-2xl font-bold tracking-tight text-gray-900">
-        Regrowth<span class="text-brand-primary inline-block transition-transform duration-300 group-hover:rotate-12">X</span>
+        <img src="img/logo.jpeg" alt="RegrowthX" class="h-8 sm:h-10 w-auto object-contain">
       </div>
       <div class="text-[10px] uppercase font-bold tracking-widest text-brand-light leading-none mt-1 hidden sm:block">
         Hair Growth<br/>Serum
@@ -218,6 +218,24 @@ require_once __DIR__ . '/../config/db.php';
       <p class="text-sm text-center text-gray-500 mt-4 pb-4">
         Already have an account? <button onclick="switchAuthView('login')" class="text-emerald-600 font-bold hover:underline">Login</button>
       </p>
+    </div>
+
+    <!-- Signup OTP Verify View -->
+    <div id="auth-step-signup-verify" class="p-6 space-y-4 hidden">
+      <p class="text-sm text-gray-600 text-center mb-2">We've sent a 6-digit code to your email. Enter it below to verify your account.</p>
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1.5">Verification Code</label>
+        <input type="text" id="signup-otp" placeholder="123456" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm text-center tracking-[0.3em] font-bold focus:border-emerald-500 outline-none transition-all">
+      </div>
+      <p id="signup-verify-error" class="text-xs text-red-500 hidden text-center"></p>
+      <button onclick="handleSignupVerify()" id="signup-verify-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-md active:scale-95 cursor-pointer">
+        Verify & Create Account
+      </button>
+      <div class="text-center mt-4">
+        <button onclick="switchAuthView('signup')" class="text-sm text-gray-500 hover:text-gray-800 font-semibold flex items-center justify-center gap-1 mx-auto cursor-pointer">
+          <span class="material-symbols-outlined text-sm">arrow_back</span> Back
+        </button>
+      </div>
     </div>
 
     <!-- Forgot Password View -->

@@ -18,9 +18,10 @@ try {
     $email = trim($data['email'] ?? '');
     $phone = trim($data['phone'] ?? '');
     $password = $data['password'] ?? '';
+    $otp = trim($data['otp'] ?? '');
     
-    if (empty($fullName) || empty($email) || empty($phone) || empty($password)) {
-        echo json_encode(["success" => false, "message" => "All fields are required"]);
+    if (empty($fullName) || empty($email) || empty($phone) || empty($password) || empty($otp)) {
+        echo json_encode(["success" => false, "message" => "All fields including OTP are required"]);
         exit();
     }
     
@@ -43,12 +44,30 @@ try {
         exit();
     }
     
+    // Verify OTP
+    $stmtOtp = $pdo->prepare("SELECT id FROM email_otps WHERE email = ? AND otp_code = ? AND is_used = 0 AND expires_at > NOW() ORDER BY id DESC LIMIT 1");
+    $stmtOtp->execute([$email, $otp]);
+    $otpRecord = $stmtOtp->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$otpRecord) {
+        echo json_encode(["success" => false, "message" => "Invalid or expired OTP"]);
+        exit();
+    }
+    
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
     
     $stmt = $pdo->prepare("INSERT INTO users (full_name, email, phone, password_hash, role, status) VALUES (?, ?, ?, ?, 'customer', 'active')");
     $stmt->execute([$fullName, $email, $phone, $passwordHash]);
     
     $userId = $pdo->lastInsertId();
+    
+    // Mark OTP as used
+    $stmtMark = $pdo->prepare("UPDATE email_otps SET is_used = 1 WHERE id = ?");
+    $stmtMark->execute([$otpRecord['id']]);
+    
+    // Send Welcome Email
+    require_once __DIR__ . '/../includes/mailer.php';
+    sendWelcomeEmail($email, $fullName);
     
     // Auto login after registration
     $_SESSION['user_id'] = $userId;
