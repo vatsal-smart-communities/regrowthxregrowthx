@@ -43,6 +43,23 @@ $stmtRelated = $pdo->prepare("
 $stmtRelated->execute([$product_id]);
 $relatedProducts = $stmtRelated->fetchAll(PDO::FETCH_ASSOC);
 
+// Fetch Approved Reviews
+$stmtRev = $pdo->prepare("SELECT * FROM reviews WHERE product_id = ? AND status = 'approved' ORDER BY created_at DESC");
+$stmtRev->execute([$product_id]);
+$productReviews = $stmtRev->fetchAll(PDO::FETCH_ASSOC);
+
+$totalReviews = count($productReviews);
+$avgRating = 0;
+if ($totalReviews > 0) {
+    $sum = 0;
+    foreach ($productReviews as $r) {
+        $sum += $r['rating'];
+    }
+    $avgRating = round($sum / $totalReviews, 1);
+} else {
+    $avgRating = 5.0; // Default if no reviews
+}
+
 $pageTitle = htmlspecialchars($product['title']) . " | RegrowthX";
 require_once __DIR__ . '/includes/store-header.php';
 ?>
@@ -102,7 +119,7 @@ require_once __DIR__ . '/includes/store-header.php';
             <span class="material-symbols-outlined text-lg">star</span>
             <span class="material-symbols-outlined text-lg">star</span>
           </div>
-          <span class="text-xs font-semibold text-gray-500">(12,480 Verified Buyer Reviews)</span>
+          <span class="text-xs font-semibold text-gray-500">(<?= $totalReviews > 0 ? number_format($totalReviews) . ' Verified Buyer Reviews' : 'No reviews yet' ?>)</span>
         </div>
       </div>
 
@@ -215,17 +232,58 @@ require_once __DIR__ . '/includes/store-header.php';
       </div>
     </div>
 
-    <div id="tab-content-reviews" class="tab-pane hidden space-y-4">
-      <h3 class="text-xl font-extrabold text-gray-900">Customer Testimonials</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 space-y-1">
-          <div class="flex justify-between items-center"><span class="font-bold text-gray-900 text-xs">Robert T.</span><span class="text-xs text-amber-500 font-bold">★★★★★</span></div>
-          <p class="text-xs text-gray-600">Seeing noticeable vertex regrowth after 10 weeks of daily application!</p>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 space-y-1">
-          <div class="flex justify-between items-center"><span class="font-bold text-gray-900 text-xs">Marcus V.</span><span class="text-xs text-amber-500 font-bold">★★★★★</span></div>
-          <p class="text-xs text-gray-600">Great non-greasy solution. Highly recommended!</p>
-        </div>
+    <div id="tab-content-reviews" class="tab-pane hidden space-y-8">
+      <div>
+        <h3 class="text-xl font-extrabold text-gray-900 mb-4">Customer Reviews</h3>
+        <?php if(empty($productReviews)): ?>
+          <p class="text-sm text-gray-500 bg-gray-50 p-4 rounded-xl border border-gray-100">No reviews yet. Be the first to review this product!</p>
+        <?php else: ?>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <?php foreach($productReviews as $review): ?>
+            <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 space-y-1 shadow-sm">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-gray-900 text-xs"><?= htmlspecialchars($review['reviewer_name']) ?></span>
+                <span class="text-xs text-amber-500 font-bold"><?= str_repeat('★', $review['rating']) ?><?= str_repeat('☆', 5 - $review['rating']) ?></span>
+              </div>
+              <p class="text-xs text-gray-600 mt-1"><?= htmlspecialchars($review['review_text']) ?></p>
+            </div>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+      </div>
+
+      <div class="bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100/50">
+        <h4 class="text-lg font-bold text-gray-900 mb-4">Write a Review</h4>
+        <form id="review-form" class="space-y-4" onsubmit="submitReview(event)">
+          <input type="hidden" id="review-product-id" value="<?= $product_id ?>">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Your Name</label>
+              <input type="text" id="review-name" required class="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Your Email</label>
+              <input type="email" id="review-email" required class="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Rating</label>
+            <select id="review-rating" class="w-full sm:w-1/3 px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+              <option value="5">★★★★★ (5/5)</option>
+              <option value="4">★★★★☆ (4/5)</option>
+              <option value="3">★★★☆☆ (3/5)</option>
+              <option value="2">★★☆☆☆ (2/5)</option>
+              <option value="1">★☆☆☆☆ (1/5)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Your Review</label>
+            <textarea id="review-text" required rows="3" class="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none placeholder-gray-400" placeholder="Tell us what you think..."></textarea>
+          </div>
+          <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-xl text-sm transition-all shadow-sm active:scale-95 cursor-pointer">
+            Submit Review
+          </button>
+        </form>
       </div>
     </div>
   </div>
@@ -321,6 +379,47 @@ require_once __DIR__ . '/includes/store-header.php';
         pane.classList.add('hidden');
       }
     });
+  }
+
+  async function submitReview(e) {
+    e.preventDefault();
+    const productId = document.getElementById('review-product-id').value;
+    const name = document.getElementById('review-name').value;
+    const email = document.getElementById('review-email').value;
+    const rating = document.getElementById('review-rating').value;
+    const text = document.getElementById('review-text').value;
+
+    const btn = e.target.querySelector('button[type="submit"]');
+    const oldText = btn.innerText;
+    btn.innerText = 'Submitting...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('api/submit-review.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product_id: productId,
+          name: name,
+          email: email,
+          rating: rating,
+          review_text: text
+        })
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        showToast(data.message, 'success');
+        e.target.reset();
+      } else {
+        showToast(data.message, 'error');
+      }
+    } catch (err) {
+      showToast('Network error while submitting review', 'error');
+    } finally {
+      btn.innerText = oldText;
+      btn.disabled = false;
+    }
   }
 </script>
 

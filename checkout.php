@@ -1,7 +1,9 @@
 <?php 
+require_once __DIR__ . '/config/payments.php';
 $pageTitle = "Secure Checkout - RegrowthX";
 require_once __DIR__ . '/includes/store-header.php'; 
 ?>
+<script type="text/javascript" src="<?= SQUARE_ENV === 'production' ? 'https://web.squarecdn.com/v1/square.js' : 'https://sandbox.web.squarecdn.com/v1/square.js' ?>"></script>
 
     <style>
         .spinner {
@@ -195,25 +197,29 @@ require_once __DIR__ . '/includes/store-header.php';
                             <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">🔒 256-Bit Encrypted</span>
                         </div>
                         <div class="p-6 space-y-4">
-                            <!-- Option 1: Squarespace Payments (Online) -->
-                            <label onclick="togglePaymentMethod('SQUARESPACE')" class="payment-method-card flex items-start justify-between p-4 border-2 rounded-xl border-emerald-600 bg-emerald-50/30 cursor-pointer transition-all shadow-sm">
-                                <div class="flex items-start">
-                                    <input type="radio" name="payment_method" value="SQUARESPACE" checked class="h-4 w-4 text-emerald-600 border-gray-300 focus:ring-emerald-500 mt-1">
-                                    <div class="ml-3">
-                                        <div class="flex items-center gap-2">
-                                            <span class="font-bold text-gray-900 text-sm">Squarespace Payments</span>
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-black text-white uppercase tracking-wider">Fast & Secure</span>
+                            <!-- Option 1: Square Payments (Online) -->
+                            <label onclick="togglePaymentMethod('SQUARE')" class="payment-method-card flex flex-col p-4 border-2 rounded-xl border-emerald-600 bg-emerald-50/30 cursor-pointer transition-all shadow-sm">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start">
+                                        <input type="radio" name="payment_method" id="method-square" value="SQUARE" checked class="h-4 w-4 text-emerald-600 border-gray-300 focus:ring-emerald-500 mt-1">
+                                        <div class="ml-3">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-bold text-gray-900 text-sm">Credit / Debit Card</span>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-black text-white uppercase tracking-wider">Fast & Secure</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500 mt-0.5">Powered by Square Payments</p>
                                         </div>
-                                        <p class="text-xs text-gray-500 mt-0.5">Credit/Debit Cards, UPI, NetBanking, Google Pay, Apple Pay</p>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-emerald-800">
+                                        <span class="material-symbols-outlined text-xl">credit_card</span>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-1.5 text-emerald-800">
-                                    <span class="material-symbols-outlined text-xl">credit_card</span>
-                                    <span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+                                
+                                <!-- Square Card Container (Hidden by default, shown when Square is selected) -->
+                                <div id="square-payment-container" class="mt-4 pt-4 border-t border-emerald-200">
+                                    <div id="card-container" class="bg-white rounded-lg p-2 border border-gray-300"></div>
                                 </div>
-                            </label>
-
-                            <!-- Option 2: Cash on Delivery -->
+                            </label>                            <!-- Option 2: Cash on Delivery -->
                             <label onclick="togglePaymentMethod('COD')" class="payment-method-card flex items-start justify-between p-4 border-2 rounded-xl border-gray-200 bg-white hover:border-gray-300 cursor-pointer transition-all">
                                 <div class="flex items-start">
                                     <input type="radio" name="payment_method" value="COD" class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary mt-1">
@@ -231,13 +237,13 @@ require_once __DIR__ . '/includes/store-header.php';
                     <button type="submit" id="submit-btn" class="w-full flex items-center justify-center px-6 py-4 border border-transparent text-lg font-bold rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all duration-200 shadow-lg cursor-pointer active:scale-98">
                         <span id="btn-text" class="flex items-center gap-2">
                             <span class="material-symbols-outlined text-[20px]">lock</span>
-                            <span id="btn-label-text">Pay Securely via Squarespace</span>
+                            <span id="btn-label-text">Pay Securely via Square</span>
                         </span>
                         <div id="btn-spinner" class="spinner hidden ml-2"></div>
                     </button>
                     <p class="text-xs text-center text-gray-500 mt-3 flex items-center justify-center">
                         <span class="material-symbols-outlined text-[16px] mr-1 text-emerald-600">verified_user</span>
-                        Protected by Squarespace Payments & 256-Bit SSL Encryption
+                        Protected by Square Payments & 256-Bit SSL Encryption
                     </p>
                 </form>
             </div>
@@ -433,26 +439,43 @@ require_once __DIR__ . '/includes/store-header.php';
             }
         }
 
+        let squareCard;
+        
+        async function initializeSquare() {
+            if (!window.Square) {
+                console.error('Square.js failed to load properly');
+                return;
+            }
+            try {
+                const payments = window.Square.payments('<?= SQUARE_APP_ID ?>', '<?= SQUARE_LOCATION_ID ?>');
+                squareCard = await payments.card();
+                await squareCard.attach('#card-container');
+            } catch (e) {
+                console.error('Initializing Square failed', e);
+            }
+        }
+
         function togglePaymentMethod(method) {
             const cards = document.querySelectorAll('.payment-method-card');
             const labelText = document.getElementById('btn-label-text');
+            const squareContainer = document.getElementById('square-payment-container');
             
             cards.forEach(card => {
                 const radio = card.querySelector('input[type="radio"]');
                 if (radio && radio.value === method) {
                     radio.checked = true;
-                    card.className = "payment-method-card flex items-start justify-between p-4 border-2 rounded-xl border-emerald-600 bg-emerald-50/30 cursor-pointer transition-all shadow-sm";
+                    card.className = "payment-method-card flex flex-col p-4 border-2 rounded-xl border-emerald-600 bg-emerald-50/30 cursor-pointer transition-all shadow-sm";
                 } else {
-                    card.className = "payment-method-card flex items-start justify-between p-4 border-2 rounded-xl border-gray-200 bg-white hover:border-gray-300 cursor-pointer transition-all";
+                    card.className = "payment-method-card flex flex-col p-4 border-2 rounded-xl border-gray-200 bg-white hover:border-gray-300 cursor-pointer transition-all";
                 }
             });
 
-            if (labelText) {
-                if (method === 'SQUARESPACE') {
-                    labelText.innerText = "Pay Securely via Squarespace";
-                } else {
-                    labelText.innerText = "Place Order (Cash on Delivery)";
-                }
+            if (method === 'SQUARE') {
+                if (labelText) labelText.innerText = "Pay Securely via Square";
+                if (squareContainer) squareContainer.classList.remove('hidden');
+            } else {
+                if (labelText) labelText.innerText = "Place Order (Cash on Delivery)";
+                if (squareContainer) squareContainer.classList.add('hidden');
             }
         }
 
@@ -483,6 +506,19 @@ require_once __DIR__ . '/includes/store-header.php';
             spinner.classList.remove('hidden');
 
             try {
+                // Tokenize Square Payment if selected
+                if (data.payment_method === 'SQUARE') {
+                    if (!squareCard) {
+                        throw new Error("Payment gateway is not initialized. Please check your Square API credentials.");
+                    }
+                    const result = await squareCard.tokenize();
+                    if (result.status === 'OK') {
+                        data.payment_token = result.token;
+                    } else {
+                        throw new Error(result.errors[0].message || 'Failed to process card details.');
+                    }
+                }
+
                 const response = await fetch('api/create-order.php', {
                     method: 'POST',
                     headers: {
@@ -502,19 +538,13 @@ require_once __DIR__ . '/includes/store-header.php';
                     // Success
                     const orderNum = result.order_number || ('#RGX-' + Math.random().toString(36).substring(2, 8).toUpperCase());
                     
-                    if (data.payment_method === 'SQUARESPACE') {
-                        // Redirect to Squarespace payment page or custom link
-                        const sqCheckoutUrl = `https://squarespace.com/checkout?order=${encodeURIComponent(orderNum)}&amount=${encodeURIComponent(cartTotal)}`;
-                        showToast('Redirecting to Squarespace Secure Payments...');
-                        
-                        setTimeout(() => {
-                            document.getElementById('checkout-container').classList.add('hidden');
-                            document.getElementById('checkout-container').classList.remove('flex');
-                            document.getElementById('success-screen').classList.remove('hidden');
-                            document.getElementById('success-order-number').textContent = orderNum;
-                            document.getElementById('success-amount').textContent = formatINR(cartTotal) + ' (Squarespace Online Payment)';
-                            document.getElementById('success-email').textContent = data.email;
-                        }, 1500);
+                    if (data.payment_method === 'SQUARE') {
+                        document.getElementById('checkout-container').classList.add('hidden');
+                        document.getElementById('checkout-container').classList.remove('flex');
+                        document.getElementById('success-screen').classList.remove('hidden');
+                        document.getElementById('success-order-number').textContent = orderNum;
+                        document.getElementById('success-amount').textContent = formatINR(cartTotal) + ' (Square Online Payment)';
+                        document.getElementById('success-email').textContent = data.email;
                     } else {
                         document.getElementById('checkout-container').classList.add('hidden');
                         document.getElementById('checkout-container').classList.remove('flex');
@@ -539,7 +569,10 @@ require_once __DIR__ . '/includes/store-header.php';
         });
 
         // Initialize on load
-        document.addEventListener('DOMContentLoaded', initCheckout);
+        document.addEventListener('DOMContentLoaded', () => {
+            initCheckout();
+            initializeSquare();
+        });
     </script>
 
 <?php require_once __DIR__ . '/includes/store-footer.php'; ?>

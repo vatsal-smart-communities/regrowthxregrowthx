@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 session_start();
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/payments.php';
 
 try {
     $data = json_decode(file_get_contents("php://input"), true);
@@ -45,6 +46,44 @@ try {
     $total_amount = $subtotal + $shipping_amount;
     
     $user_id = $_SESSION['user_id'] ?? null;
+    
+    // Process Square Payment if selected
+    if ($payment_method === 'SQUARE') {
+        $payment_token = $data['payment_token'] ?? '';
+        if (!$payment_token) {
+            throw new Exception("Secure payment token is missing");
+        }
+
+        $ch = curl_init(getSquareEndpoint() . '/payments');
+        $payload = json_encode([
+            'idempotency_key' => uniqid(),
+            'source_id' => $payment_token,
+            'amount_money' => [
+                'amount' => (int)($total_amount * 100),
+                'currency' => 'INR'
+            ]
+        ]);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Square-Version: 2023-12-13',
+            'Authorization: Bearer ' . SQUARE_ACCESS_TOKEN,
+            'Content-Type: application/json'
+        ]);
+
+        $square_response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $square_result = json_decode($square_response, true);
+        
+        if ($httpCode !== 200 || isset($square_result['errors'])) {
+            $errorDetail = $square_result['errors'][0]['detail'] ?? 'Unknown error';
+            throw new Exception("Square Payment Failed: " . $errorDetail);
+        }
+    }
     
     $pdo->beginTransaction();
     

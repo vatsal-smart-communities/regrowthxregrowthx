@@ -460,8 +460,21 @@
     const drawer = document.getElementById('cart-drawer');
     const overlay = document.getElementById('cart-overlay');
     if (drawer && overlay) {
-      drawer.classList.toggle('open');
-      overlay.classList.toggle('open');
+      if (drawer.classList.contains('open')) {
+        closeCartDrawer();
+      } else {
+        openCartDrawer();
+      }
+    }
+  }
+
+  function openCartDrawer() {
+    const drawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('cart-overlay');
+    if (drawer && overlay) {
+      drawer.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
       refreshCartUI();
     }
   }
@@ -472,6 +485,7 @@
     if (drawer && overlay) {
       drawer.classList.remove('open');
       overlay.classList.remove('open');
+      document.body.style.overflow = '';
     }
   }
 
@@ -484,17 +498,130 @@
       });
       const data = await res.json();
       if (data.success) {
-        const badge = document.getElementById('cart-badge-count');
-        if (badge) {
-          badge.innerText = data.item_count;
-          badge.classList.remove('hidden');
-        }
+        updateCartBadge(data.item_count);
         showToast('Added to cart! ✓', 'success');
-        toggleCartDrawer();
+        openCartDrawer();
       } else {
         showToast(data.message || 'Failed to add to cart', 'error');
       }
     } catch (e) { showToast('Network error', 'error'); }
+  }
+
+  async function updateCartItemAPI(variantId, quantity) {
+    try {
+      const res = await fetch('api/cart-update.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ variant_id: variantId, quantity })
+      });
+      const data = await res.json();
+      if (data.success) {
+        updateCartBadge(data.item_count);
+        renderCartItems(data.cart, data.cart_total, data.item_count);
+      }
+      return data;
+    } catch (err) {
+      showToast('Network error', 'error');
+      return null;
+    }
+  }
+
+  async function removeCartItemAPI(variantId) {
+    try {
+      const res = await fetch('api/cart-remove.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ variant_id: variantId })
+      });
+      const data = await res.json();
+      if (data.success) {
+        updateCartBadge(data.item_count);
+        renderCartItems(data.cart, data.cart_total, data.item_count);
+        showToast('Item removed', 'info');
+      }
+      return data;
+    } catch (err) {
+      showToast('Network error', 'error');
+      return null;
+    }
+  }
+
+  function updateCartBadge(count) {
+    const badge = document.getElementById('cart-badge-count');
+    if (badge) {
+      badge.innerText = count;
+      if (count > 0) badge.classList.remove('hidden');
+      else badge.classList.add('hidden');
+    }
+  }
+
+  function renderCartItems(cart, cartTotal, itemCount) {
+    const listEl = document.getElementById('cart-items-list');
+    const emptyEl = document.getElementById('cart-empty-state');
+    const footerEl = document.getElementById('cart-footer');
+    const countEl = document.getElementById('drawer-item-count');
+
+    if (countEl) countEl.innerText = itemCount + (itemCount === 1 ? ' item' : ' items');
+
+    if (!cart || cart.length === 0 || itemCount === 0) {
+      if (listEl) {
+        listEl.classList.add('hidden');
+        listEl.innerHTML = '';
+      }
+      if (emptyEl) emptyEl.classList.remove('hidden');
+      if (footerEl) footerEl.classList.add('hidden');
+      return;
+    }
+
+    if (emptyEl) emptyEl.classList.add('hidden');
+    if (listEl) listEl.classList.remove('hidden');
+    if (footerEl) {
+      footerEl.classList.remove('hidden');
+      footerEl.classList.add('flex', 'flex-col');
+    }
+
+    let html = '';
+    const cartArr = Array.isArray(cart) ? cart : Object.values(cart);
+    
+    cartArr.forEach(item => {
+      const itemName = item.title || item.item_name || 'RegrowthX Minoxidil 5%';
+      const unitPrice = item.price_inr || item.unit_price || 0;
+      const totalPrice = item.total_price || (unitPrice * item.quantity);
+      const imagePath = item.image_path || 'img/product-box-bottle.jpg';
+      const variantName = item.variant_name || '';
+
+      html += `
+        <div class="flex gap-4 p-3 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-sm transition-shadow" data-variant-id="${item.variant_id}">
+          <div class="w-20 h-20 rounded-xl bg-[#0d1e12] flex items-center justify-center shrink-0 overflow-hidden">
+            <img src="${imagePath}" alt="${variantName}" class="max-h-full max-w-full object-contain rounded-lg">
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="text-sm font-bold text-gray-900 truncate">${itemName}</h4>
+            <p class="text-xs text-gray-500 mt-0.5">${variantName}</p>
+            <div class="flex items-center justify-between mt-2">
+              <div class="inline-flex items-center border border-gray-200 rounded-lg bg-white">
+                <button onclick="updateCartItemAPI(${item.variant_id}, ${item.quantity - 1})" class="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-l-lg text-sm font-bold cursor-pointer">−</button>
+                <span class="w-8 text-center text-sm font-bold text-gray-900">${item.quantity}</span>
+                <button onclick="updateCartItemAPI(${item.variant_id}, ${item.quantity + 1})" class="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-r-lg text-sm font-bold cursor-pointer">+</button>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-bold text-gray-900">${formatINR(totalPrice)}</p>
+                ${item.quantity > 1 ? `<p class="text-[10px] text-gray-400">${formatINR(unitPrice)} each</p>` : ''}
+              </div>
+            </div>
+          </div>
+          <button onclick="removeCartItemAPI(${item.variant_id})" class="self-start p-1 text-gray-400 hover:text-red-500 transition-colors cursor-pointer" title="Remove">
+            <span class="material-symbols-outlined text-lg">close</span>
+          </button>
+        </div>
+      `;
+    });
+    if (listEl) listEl.innerHTML = html;
+
+    const subTotalEl = document.getElementById('cart-subtotal');
+    const totEl = document.getElementById('cart-total');
+    if (subTotalEl) subTotalEl.innerText = formatINR(cartTotal);
+    if (totEl) totEl.innerText = formatINR(cartTotal);
   }
 
   async function refreshCartUI() {
@@ -502,51 +629,21 @@
       const res = await fetch('api/cart-get.php');
       const data = await res.json();
       if (data.success) {
-        const badge = document.getElementById('cart-badge-count');
-        const drawerCount = document.getElementById('drawer-item-count');
-        if (badge) {
-          badge.innerText = data.item_count;
-          if (data.item_count > 0) badge.classList.remove('hidden');
-          else badge.classList.add('hidden');
-        }
-        if (drawerCount) drawerCount.innerText = `${data.item_count} items`;
-
-        const list = document.getElementById('cart-items-list');
-        const empty = document.getElementById('cart-empty-state');
-        const footer = document.getElementById('cart-footer');
-        
-        if (list && empty && footer) {
-          if (data.item_count > 0) {
-            empty.classList.add('hidden');
-            list.classList.remove('hidden');
-            footer.classList.remove('hidden');
-            const totalEl = document.getElementById('cart-total');
-            const subtotalEl = document.getElementById('cart-subtotal');
-            if (totalEl) totalEl.innerText = formatINR(data.cart_total);
-            if (subtotalEl) subtotalEl.innerText = formatINR(data.cart_total);
-            
-            list.innerHTML = Object.values(data.cart).map(item => `
-              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100">
-                <img src="${item.image_path || 'img/product-box-bottle.jpg'}" class="w-14 h-14 object-contain bg-white rounded-xl p-1 border border-gray-200">
-                <div class="flex-1 min-w-0">
-                  <h5 class="font-bold text-xs text-gray-900 truncate">${item.product_title}</h5>
-                  <p class="text-[11px] text-gray-500">${item.variant_name}</p>
-                  <p class="font-bold text-xs text-emerald-700">${formatINR(item.price_inr)} × ${item.quantity}</p>
-                </div>
-              </div>
-            `).join('');
-          } else {
-            empty.classList.remove('hidden');
-            list.classList.add('hidden');
-            footer.classList.add('hidden');
-          }
-        }
+        updateCartBadge(data.item_count);
+        renderCartItems(data.cart, data.cart_total, data.item_count);
       }
     } catch(e) {}
   }
 
   function proceedToCheckout() {
-    window.location.href = 'checkout.php';
+    closeCartDrawer();
+    if (!currentUser) {
+      window._pendingCheckout = true;
+      openAuthModal();
+      showToast('Please login to continue checkout', 'info');
+    } else {
+      window.location.href = 'checkout.php';
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {

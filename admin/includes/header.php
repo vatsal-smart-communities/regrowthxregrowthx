@@ -48,6 +48,12 @@ $roleName = $_SESSION['role_name'] ?? 'Admin';
             </a>
             <?php endif; ?>
 
+            <?php if (hasPermission('view_products')): ?>
+            <a href="reviews.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors <?= $currentPage === 'reviews.php' ? 'bg-emerald-600 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' ?>">
+                <span class="material-symbols-outlined">reviews</span> Reviews
+            </a>
+            <?php endif; ?>
+
             <?php if (hasPermission('view_users')): ?>
             <a href="users.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors <?= in_array($currentPage, ['users.php', 'view-user.php']) ? 'bg-emerald-600 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' ?>">
                 <span class="material-symbols-outlined">group</span> Customers

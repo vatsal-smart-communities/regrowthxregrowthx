@@ -12,6 +12,9 @@ $stmt = $pdo->query("
     ORDER BY p.id ASC, pv.price_inr ASC
 ");
 $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmtRev = $pdo->query("SELECT * FROM reviews WHERE status = 'approved' ORDER BY created_at DESC LIMIT 5");
+$latestReviews = $stmtRev->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- BEGIN: Main Content -->
@@ -583,20 +586,19 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div id="p-content-reviews" class="p-tab-content hidden space-y-4">
           <h3 class="text-xl font-bold text-gray-900">Verified Customer Reviews</h3>
           <div class="space-y-3">
-            <div class="p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm">
-              <div class="flex items-center justify-between mb-1">
-                <span class="font-bold text-gray-900 text-xs">Daniel M.</span>
-                <span class="text-[10px] text-emerald-600 font-bold">Verified Purchase ★★★★★</span>
+            <?php if(empty($latestReviews)): ?>
+              <p class="text-xs text-gray-500">No reviews available yet.</p>
+            <?php else: ?>
+              <?php foreach($latestReviews as $rev): ?>
+              <div class="p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-gray-900 text-xs"><?= htmlspecialchars($rev['reviewer_name']) ?></span>
+                  <span class="text-[10px] text-emerald-600 font-bold">Verified Purchase <?= str_repeat('★', $rev['rating']) ?><?= str_repeat('☆', 5 - $rev['rating']) ?></span>
+                </div>
+                <p class="text-xs text-gray-600"><?= htmlspecialchars($rev['review_text']) ?></p>
               </div>
-              <p class="text-xs text-gray-600">Great results after 2 months of disciplined morning and night routine. Scalp thinning is filling in.</p>
-            </div>
-            <div class="p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm">
-              <div class="flex items-center justify-between mb-1">
-                <span class="font-bold text-gray-900 text-xs">Kevin S.</span>
-                <span class="text-[10px] text-emerald-600 font-bold">Verified Purchase ★★★★★</span>
-              </div>
-              <p class="text-xs text-gray-600">Clean formula, no harsh perfume smell. Dries fast before putting on a hat.</p>
-            </div>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </div>
         </div>
       </div>
@@ -734,183 +736,6 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   /* ===== CART DRAWER ===== */
-  function toggleCartDrawer() {
-    const drawer = document.getElementById('cart-drawer');
-    const overlay = document.getElementById('cart-overlay');
-    if (drawer.classList.contains('open')) {
-      closeCartDrawer();
-    } else {
-      openCartDrawer();
-    }
-  }
-
-  function openCartDrawer() {
-    document.getElementById('cart-drawer').classList.add('open');
-    document.getElementById('cart-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    refreshCartUI();
-  }
-
-  function closeCartDrawer() {
-    document.getElementById('cart-drawer').classList.remove('open');
-    document.getElementById('cart-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  async function addToCartAPI(variantId, quantity) {
-    try {
-      const res = await fetch('api/cart-add.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ variant_id: variantId, quantity: quantity || 1 })
-      });
-      const data = await res.json();
-      if (data.success) {
-        updateCartBadge(data.item_count);
-        showToast('Added to cart! ✓', 'success');
-        openCartDrawer();
-      } else {
-        showToast(data.message || 'Failed to add to cart', 'error');
-      }
-      return data;
-    } catch (err) {
-      showToast('Network error', 'error');
-      return null;
-    }
-  }
-
-  async function updateCartItemAPI(variantId, quantity) {
-    try {
-      const res = await fetch('api/cart-update.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ variant_id: variantId, quantity })
-      });
-      const data = await res.json();
-      if (data.success) {
-        updateCartBadge(data.item_count);
-        renderCartItems(data.cart, data.cart_total, data.item_count);
-      }
-      return data;
-    } catch (err) {
-      showToast('Network error', 'error');
-      return null;
-    }
-  }
-
-  async function removeCartItemAPI(variantId) {
-    try {
-      const res = await fetch('api/cart-remove.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ variant_id: variantId })
-      });
-      const data = await res.json();
-      if (data.success) {
-        updateCartBadge(data.item_count);
-        renderCartItems(data.cart, data.cart_total, data.item_count);
-        showToast('Item removed', 'info');
-      }
-      return data;
-    } catch (err) {
-      showToast('Network error', 'error');
-      return null;
-    }
-  }
-
-  async function refreshCartUI() {
-    try {
-      const res = await fetch('api/cart-get.php');
-      const data = await res.json();
-      if (data.success) {
-        updateCartBadge(data.item_count);
-        renderCartItems(data.cart, data.cart_total, data.item_count);
-      }
-    } catch (err) {}
-  }
-
-  function updateCartBadge(count) {
-    const badge = document.getElementById('cart-badge-count');
-    if (count > 0) {
-      badge.innerText = count;
-      badge.classList.remove('hidden');
-    } else {
-      badge.classList.add('hidden');
-    }
-  }
-
-  function renderCartItems(cart, cartTotal, itemCount) {
-    const listEl = document.getElementById('cart-items-list');
-    const emptyEl = document.getElementById('cart-empty-state');
-    const footerEl = document.getElementById('cart-footer');
-    const countEl = document.getElementById('drawer-item-count');
-
-    countEl.innerText = itemCount + (itemCount === 1 ? ' item' : ' items');
-
-    if (!cart || cart.length === 0) {
-      listEl.classList.add('hidden');
-      listEl.innerHTML = '';
-      emptyEl.classList.remove('hidden');
-      footerEl.classList.add('hidden');
-      return;
-    }
-
-    emptyEl.classList.add('hidden');
-    listEl.classList.remove('hidden');
-    footerEl.classList.remove('hidden');
-    footerEl.classList.add('flex', 'flex-col');
-
-    let html = '';
-    cart.forEach(item => {
-      const itemName = item.title || item.item_name || 'RegrowthX Minoxidil 5%';
-      const unitPrice = item.price_inr || item.unit_price || 0;
-      const totalPrice = item.total_price || (unitPrice * item.quantity);
-      const imagePath = item.image_path || 'img/product-box-bottle.jpg';
-      const variantName = item.variant_name || '';
-
-      html += `
-        <div class="flex gap-4 p-3 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-sm transition-shadow" data-variant-id="${item.variant_id}">
-          <div class="w-20 h-20 rounded-xl bg-[#0d1e12] flex items-center justify-center shrink-0 overflow-hidden">
-            <img src="${imagePath}" alt="${variantName}" class="max-h-full max-w-full object-contain rounded-lg">
-          </div>
-          <div class="flex-1 min-w-0">
-            <h4 class="text-sm font-bold text-gray-900 truncate">${itemName}</h4>
-            <p class="text-xs text-gray-500 mt-0.5">${variantName}</p>
-            <div class="flex items-center justify-between mt-2">
-              <div class="inline-flex items-center border border-gray-200 rounded-lg bg-white">
-                <button onclick="updateCartItemAPI(${item.variant_id}, ${item.quantity - 1})" class="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-l-lg text-sm font-bold cursor-pointer">−</button>
-                <span class="w-8 text-center text-sm font-bold text-gray-900">${item.quantity}</span>
-                <button onclick="updateCartItemAPI(${item.variant_id}, ${item.quantity + 1})" class="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-r-lg text-sm font-bold cursor-pointer">+</button>
-              </div>
-              <div class="text-right">
-                <p class="text-sm font-bold text-gray-900">${formatINR(totalPrice)}</p>
-                ${item.quantity > 1 ? `<p class="text-[10px] text-gray-400">${formatINR(unitPrice)} each</p>` : ''}
-              </div>
-            </div>
-          </div>
-          <button onclick="removeCartItemAPI(${item.variant_id})" class="self-start p-1 text-gray-400 hover:text-red-500 transition-colors cursor-pointer" title="Remove">
-            <span class="material-symbols-outlined text-lg">close</span>
-          </button>
-        </div>
-      `;
-    });
-    listEl.innerHTML = html;
-
-    document.getElementById('cart-subtotal').innerText = formatINR(cartTotal);
-    document.getElementById('cart-total').innerText = formatINR(cartTotal);
-  }
-
-  function proceedToCheckout() {
-    closeCartDrawer();
-    if (!currentUser) {
-      window._pendingCheckout = true;
-      openAuthModal();
-      showToast('Please login to continue checkout', 'info');
-    } else {
-      window.location.href = 'checkout.php';
-    }
-  }
-
   /* ===== PRODUCT MODAL (Quick View) ===== */
   function handleAddToCart(variant) {
     const modal = document.getElementById('product-modal');

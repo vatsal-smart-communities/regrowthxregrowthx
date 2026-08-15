@@ -117,7 +117,7 @@ require_once __DIR__ . '/includes/store-header.php';
             <div class="w-full h-64 sm:h-72 rounded-2xl overflow-hidden border border-gray-100 shadow-inner">
               <iframe 
                 title="RegrowthX Headquarters Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823315!2d72.7410999570966!3d19.08219783958742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.2678564205513!2d-73.9610173843513!3d40.64593124694294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b42d76fbaef%3A0xc68cb0163ea9e40f!2sBrooklyn%2C%20NY!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
                 width="100%" 
                 height="100%" 
                 style="border:0;" 

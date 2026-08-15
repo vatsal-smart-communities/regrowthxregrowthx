@@ -18,15 +18,15 @@ function sendOtpEmail($email, $otpCode) {
     try {
         // Server settings
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
+        $mail->Host       = 'SMTP_HOST';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'mvatsal1103@gmail.com';
-        $mail->Password   = 'rsjrcftcfstfpajj'; // Use App Password if Google blocks this
+        $mail->Username   = SMTP_USER;
+        $mail->Password   = SMTP_PASS; // Use App Password if Google blocks this
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->Port       = SMTP_PORT;
 
         // Recipients
-        $mail->setFrom('mvatsal1103@gmail.com', 'RegrowthX Support');
+        $mail->setFrom(SMTP_USER, 'RegrowthX Support');
         $mail->addAddress($email);
 
         // Content
@@ -65,15 +65,15 @@ function sendResetEmail($email, $resetCode) {
     try {
         // Server settings
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
+        $mail->Host       = 'SMTP_HOST';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'mvatsal1103@gmail.com';
-        $mail->Password   = 'rsjrcftcfstfpajj'; // Use App Password if Google blocks this
+        $mail->Username   = SMTP_USER;
+        $mail->Password   = SMTP_PASS; // Use App Password if Google blocks this
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->Port       = SMTP_PORT;
 
         // Recipients
-        $mail->setFrom('mvatsal1103@gmail.com', 'RegrowthX Support');
+        $mail->setFrom(SMTP_USER, 'RegrowthX Support');
         $mail->addAddress($email);
 
         // Content
@@ -111,14 +111,14 @@ function sendWelcomeEmail($email, $name) {
 
     try {
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
+        $mail->Host       = 'SMTP_HOST';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'mvatsal1103@gmail.com';
-        $mail->Password   = 'rsjrcftcfstfpajj';
+        $mail->Username   = SMTP_USER;
+        $mail->Password   = SMTP_PASS;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->Port       = SMTP_PORT;
 
-        $mail->setFrom('mvatsal1103@gmail.com', 'RegrowthX Support');
+        $mail->setFrom(SMTP_USER, 'RegrowthX Support');
         $mail->addAddress($email, $name);
 
         $mail->isHTML(true);
@@ -175,14 +175,14 @@ function sendOrderConfirmationEmail($email, $name, $orderNumber, $totalAmount, $
 
     try {
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
+        $mail->Host       = 'SMTP_HOST';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'mvatsal1103@gmail.com';
-        $mail->Password   = 'rsjrcftcfstfpajj';
+        $mail->Username   = SMTP_USER;
+        $mail->Password   = SMTP_PASS;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->Port       = SMTP_PORT;
 
-        $mail->setFrom('mvatsal1103@gmail.com', 'RegrowthX Orders');
+        $mail->setFrom(SMTP_USER, 'RegrowthX Orders');
         $mail->addAddress($email, $name);
 
         $itemsHtml = '';
@@ -282,14 +282,14 @@ function sendOrderStatusUpdateEmail($email, $name, $orderNumber, $newStatus) {
 
     try {
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
+        $mail->Host       = 'SMTP_HOST';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'mvatsal1103@gmail.com';
-        $mail->Password   = 'rsjrcftcfstfpajj';
+        $mail->Username   = SMTP_USER;
+        $mail->Password   = SMTP_PASS;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->Port       = SMTP_PORT;
 
-        $mail->setFrom('mvatsal1103@gmail.com', 'RegrowthX Orders');
+        $mail->setFrom(SMTP_USER, 'RegrowthX Orders');
         $mail->addAddress($email, $name);
 
         $statusBadgeColor = '#059669';
@@ -359,15 +359,15 @@ function sendContactEmail($name, $email, $message) {
 
     try {
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
+        $mail->Host       = 'SMTP_HOST';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'mvatsal1103@gmail.com';
-        $mail->Password   = 'rsjrcftcfstfpajj';
+        $mail->Username   = SMTP_USER;
+        $mail->Password   = SMTP_PASS;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->Port       = SMTP_PORT;
 
-        $mail->setFrom('mvatsal1103@gmail.com', 'RegrowthX Website');
-        $mail->addAddress('mvatsal1103@gmail.com', 'RegrowthX Admin'); // Send TO admin
+        $mail->setFrom(SMTP_USER, 'RegrowthX Website');
+        $mail->addAddress(SMTP_USER, 'RegrowthX Admin'); // Send TO admin
         $mail->addReplyTo($email, $name); // Allow replying directly to the customer
 
         $mail->isHTML(true);
