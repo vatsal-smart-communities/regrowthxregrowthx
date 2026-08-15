@@ -259,7 +259,7 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
         <!-- Range Slider Control -->
-        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0 p-0" id="ba-range-slider" oninput="updateBaSlider(this.value)" onchange="updateBaSlider(this.value)" />
+        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0 p-0" id="ba-range-slider" oninput="window.updateBaSlider && window.updateBaSlider(this.value)" onchange="window.updateBaSlider && window.updateBaSlider(this.value)" />
 
       </div>
       <div class="flex justify-between items-center mt-3 text-xs text-gray-500 px-2 font-medium">
@@ -1351,12 +1351,12 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   /* ===== BEFORE/AFTER SLIDER ===== */
-  function updateBaSlider(val) {
+  window.updateBaSlider = function(val) {
     const beforeLayer = document.getElementById('before-layer');
     const handleLine = document.getElementById('handle-line');
     const slider = document.getElementById('ba-range-slider');
     
-    val = Math.max(0, Math.min(100, val));
+    val = Math.max(0, Math.min(100, parseFloat(val) || 0));
 
     if (beforeLayer) {
       beforeLayer.style.clipPath = `polygon(0 0, ${val}% 0, ${val}% 100%, 0 100%)`;
@@ -1368,11 +1368,18 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (slider && Math.abs(slider.value - val) > 0.5) {
       slider.value = val;
     }
-  }
+  };
 
   // Interactive mouse/touch drag on the comparison card
   document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('ba-container');
+    const sliderInput = document.getElementById('ba-range-slider');
+
+    if (sliderInput) {
+      sliderInput.addEventListener('input', (e) => window.updateBaSlider(e.target.value));
+      sliderInput.addEventListener('change', (e) => window.updateBaSlider(e.target.value));
+    }
+
     if (!container) return;
 
     let isDragging = false;
@@ -1383,7 +1390,7 @@ $store_variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
       const clientX = e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
       const x = clientX - rect.left;
       const pct = (x / rect.width) * 100;
-      updateBaSlider(pct);
+      window.updateBaSlider(pct);
     }
 
     container.addEventListener('mousedown', (e) => { isDragging = true; handleMove(e); });
