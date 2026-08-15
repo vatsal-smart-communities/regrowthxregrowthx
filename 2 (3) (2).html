@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RegrowthX - Hair Growth Serum</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config 
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              dark: '#0f2415',
+              primary: '#3a6332',
+              light: '#72a048',
+              bg: '#f8f7f2',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-styles">
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #f8f7f2;
+      overflow-x: hidden;
+    }
+    .hero-gradient {
+      background: radial-gradient(circle at right center, #1b3a20 0%, #0d1a10 100%);
+    }
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Custom Animation Keyframes & Classes */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(1deg); }
+    }
+    @keyframes subtlePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.04); opacity: 0.9; }
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .animate-pulse-subtle {
+      animation: subtlePulse 3s ease-in-out infinite;
+    }
+
+    /* Scroll Reveal Helper Classes */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered Delay Utilities */
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    .delay-400 { transition-delay: 400ms; }
+  </style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+<!-- BEGIN: Header -->
+<header class="fixed w-full top-0 z-50 bg-brand-bg/90 backdrop-blur-md border-b border-gray-200 transition-all duration-300">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- Logo -->
+<a class="flex items-center gap-2 group transition-transform duration-300 hover:scale-105" href="#">
+<div class="text-2xl font-bold tracking-tight text-gray-900">
+          Regrowth<span class="text-brand-primary inline-block transition-transform duration-300 group-hover:rotate-12">X</span>
+</div>
+<div class="text-[10px] uppercase font-bold tracking-widest text-brand-light leading-none mt-1 hidden sm:block">
+          Hair Growth<br/>Serum
+        </div>
+</a>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
+<a class="text-gray-900 hover:text-brand-primary transition-colors duration-200 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-brand-primary after:scale-x-100 after:transition-transform" href="#">Home</a>
+<a class="hover:text-brand-primary transition-colors duration-200 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-brand-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform" href="3.html">About</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-gray-600 hover:text-brand-primary transition-all duration-300 hover:scale-110 active:scale-95">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="absolute top-0 right-0 bg-brand-light text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-pulse">2</span>
+</button>
+<a class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary/90 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95" href="#">
+          Order Now
+        </a>
+</div>
+</div>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Main Content -->
+<main class="pt-20">
+<!-- BEGIN: Hero Section -->
+<section class="relative hero-gradient text-white overflow-hidden min-h-[600px] lg:min-h-[800px] flex items-center">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12 lg:py-20 grid lg:grid-cols-2 gap-12 items-center">
+<!-- Hero Text -->
+<div class="max-w-xl reveal-on-scroll is-visible">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-pill text-sm font-medium mb-8 animate-pulse-subtle hover:border-brand-light/50 transition-colors cursor-default">
+<svg class="w-4 h-4 text-blue-400 animate-spin" style="animation-duration: 8s;" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" fill-rule="evenodd"></path>
+</svg>
+            Clinically Proven 5% Minoxidil
+          </div>
+<h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+            Regrow Hair.<br/>
+            Restore <span class="text-brand-light inline-block transition-transform duration-300 hover:translate-x-1">Confidence.</span>
+</h1>
+<p class="text-lg text-gray-300 mb-8 max-w-md">
+            RegrowthX 5% Minoxidil is a dermatologist-recommended solution for men experiencing hair thinning and hair loss.
+          </p>
+<!-- Trust Badges -->
+<div class="flex flex-wrap gap-4 mb-10 text-sm font-medium text-gray-300">
+<div class="flex items-center gap-1.5 transition-transform duration-300 hover:scale-105">
+<svg class="w-5 h-5 text-brand-light" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" fill-rule="evenodd"></path>
+</svg>
+              Clinically Proven
+            </div>
+<div class="flex items-center gap-1.5 transition-transform duration-300 hover:scale-105">
+<svg class="w-5 h-5 text-brand-light" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" fill-rule="evenodd"></path>
+</svg>
+              Dermatologist Recommended
+            </div>
+<div class="flex items-center gap-1.5 transition-transform duration-300 hover:scale-105">
+<svg class="w-5 h-5 text-brand-light" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" fill-rule="evenodd"></path>
+</svg>
+              Made in USA
+            </div>
+</div>
+<!-- CTA Buttons -->
+<div class="flex flex-col sm:flex-row gap-4 mb-6">
+<a class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-brand-primary hover:bg-brand-primary/90 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-95 group" href="#">
+              Shop Now <span class="ml-1 inline-block transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+</a>
+<a class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-transparent border border-gray-500 hover:border-white rounded-full transition-all duration-300 hover:bg-white/10 active:scale-95 group" href="#">
+<svg class="w-5 h-5 mr-2 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" fill-rule="evenodd"></path>
+</svg>
+              Watch Results
+            </a>
+</div>
+<!-- Reviews -->
+<div class="flex items-center gap-2 text-sm text-gray-300">
+<div class="flex text-brand-light">
+<svg class="w-4 h-4 transition-transform duration-300 hover:scale-125 hover:rotate-12" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" fill-rule="evenodd"></path></svg>
+<svg class="w-4 h-4 transition-transform duration-300 hover:scale-125 hover:rotate-12" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" fill-rule="evenodd"></path></svg>
+<svg class="w-4 h-4 transition-transform duration-300 hover:scale-125 hover:rotate-12" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" fill-rule="evenodd"></path></svg>
+<svg class="w-4 h-4 transition-transform duration-300 hover:scale-125 hover:rotate-12" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" fill-rule="evenodd"></path></svg>
+<svg class="w-4 h-4 transition-transform duration-300 hover:scale-125 hover:rotate-12" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" fill-rule="evenodd"></path></svg>
+</div>
+<span class="font-medium">4.9/5 (12,000+ Reviews)</span>
+</div>
+</div>
+<!-- Hero Image Placeholder -->
+<div class="relative flex justify-center lg:justify-end reveal-on-scroll is-visible delay-200">
+<img alt="RegrowthX Bottle" class="max-w-full h-auto w-3/4 object-contain animate-float hover:scale-105 transition-transform duration-700 cursor-pointer drop-shadow-2xl" src="img/pg.png"/>
+</div>
+</div>
+</section>
+<!-- END: Hero Section -->
+<!-- Counter Stats Section -->
+<section class="bg-white py-10 border-b border-gray-100 counter-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
+
+      <!-- Happy Customers -->
+      <div class="transition-transform duration-300 hover:-translate-y-1">
+        <div class="text-3xl font-extrabold text-gray-900 mb-1 counter" data-target="12000" data-suffix="+">1</div>
+        <div class="text-sm text-gray-500 font-medium uppercase tracking-wide">
+          Happy Customers
+        </div>
+      </div>
+
+      <!-- Satisfaction -->
+      <div class="transition-transform duration-300 hover:-translate-y-1">
+        <div class="text-3xl font-extrabold text-gray-900 mb-1 counter" data-target="97" data-suffix="%">1</div>
+        <div class="text-sm text-gray-500 font-medium uppercase tracking-wide">
+          Satisfaction Rate
+        </div>
+      </div>
+
+      <!-- Recommended -->
+      <div class="transition-transform duration-300 hover:-translate-y-1">
+        <div class="flex justify-center mb-2">
+          <svg class="w-8 h-8 text-blue-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z">
+            </path>
+          </svg>
+        </div>
+        <div class="text-sm text-gray-500 font-medium uppercase tracking-wide">
+          Dermatologist Recommended
+        </div>
+      </div>
+
+      <!-- Money Back -->
+      <div class="transition-transform duration-300 hover:-translate-y-1">
+        <div class="text-3xl font-extrabold text-gray-900 mb-1 counter" data-target="30">1</div>
+        <div class="text-sm text-gray-500 font-medium uppercase tracking-wide">
+          Day Money Back
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const counters = document.querySelectorAll(".counter");
+    const section = document.querySelector(".counter-section");
+    let animated = false;
+
+    function runCounters() {
+        if (animated) return;
+
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            animated = true;
+
+            counters.forEach(counter => {
+                const target = +counter.dataset.target;
+                const suffix = counter.dataset.suffix || "";
+                const duration = 2000;
+                const start = 1;
+                const startTime = performance.now();
+
+                function update(currentTime) {
+                    const progress = Math.min((currentTime - startTime) / duration, 1);
+                    const value = Math.floor(start + (target - start) * progress);
+
+                    counter.textContent = value + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.textContent = target + suffix;
+                    }
+                }
+
+                requestAnimationFrame(update);
+            });
+        }
+    }
+
+    window.addEventListener("scroll", runCounters);
+    runCounters();
+});
+</script>
+<!-- END: Stat Bar -->
+<!-- BEGIN: Benefits Section -->
+<section class="py-20 bg-brand-bg">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Benefit Card 1 -->
+<div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll">
+<div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<div class="w-4 h-4 bg-red-400 rounded-full animate-ping"></div>
+</div>
+<h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-primary transition-colors">Stops Hairfall</h3>
+<p class="text-gray-500 text-sm leading-relaxed">
+              Reduces shedding by strengthening hair at the follicle level within weeks.
+            </p>
+</div>
+<!-- Benefit Card 2 -->
+<div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll delay-100">
+<div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<svg class="w-6 h-6 text-brand-primary group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.378 1.602a.75.75 0 0 0-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03ZM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 0 0 .372-.648V7.93ZM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 0 0 .372.648l8.628 5.033Z"></path>
+</svg>
+</div>
+<h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-primary transition-colors">Stimulates Growth</h3>
+<p class="text-gray-500 text-sm leading-relaxed">
+              Reactivates dormant follicles to kickstart new, visible hair growth.
+            </p>
+</div>
+<!-- Benefit Card 3 -->
+<div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll delay-200">
+<div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<svg class="w-6 h-6 text-blue-500 group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm0 13.5a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-primary transition-colors">5% Minoxidil</h3>
+<p class="text-gray-500 text-sm leading-relaxed">
+              The dermatologist-recommended concentration, clinically proven for regrowth.
+            </p>
+</div>
+<!-- Benefit Card 4 -->
+<div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll delay-300">
+<div class="w-12 h-12 bg-yellow-50 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<svg class="w-6 h-6 text-yellow-500 group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-primary transition-colors">Visible Results</h3>
+<p class="text-gray-500 text-sm leading-relaxed">
+              Most customers notice thicker, fuller hair within 8—12 weeks.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Benefits Section -->
+<!-- BEGIN: Science Section -->
+<section class="py-20 bg-white border-y border-gray-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div class="reveal-on-scroll">
+<div class="text-brand-primary font-bold tracking-widest text-xs uppercase mb-3">Clinical Foundation</div>
+<h2 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-8">The Science Behind RegrowthX</h2>
+<div class="space-y-8">
+<div class="flex gap-4 group cursor-default">
+<div class="flex-shrink-0 w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-brand-primary font-bold transition-transform duration-300 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white">1</div>
+<div>
+<h4 class="font-bold text-gray-900 mb-1 group-hover:text-brand-primary transition-colors">5% Minoxidil Concentration</h4>
+<p class="text-gray-500 text-sm leading-relaxed">The clinically proven, FDA-approved dosage for optimal hair regrowth without unnecessary side effects.</p>
+</div>
+</div>
+<div class="flex gap-4 group cursor-default">
+<div class="flex-shrink-0 w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-brand-primary font-bold transition-transform duration-300 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white">2</div>
+<div>
+<h4 class="font-bold text-gray-900 mb-1 group-hover:text-brand-primary transition-colors">Follicle Reactivation</h4>
+<p class="text-gray-500 text-sm leading-relaxed">Our formula dilates blood vessels in the scalp, improving blood flow and nutrient delivery to shrunken follicles.</p>
+</div>
+</div>
+<div class="flex gap-4 group cursor-default">
+<div class="flex-shrink-0 w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-brand-primary font-bold transition-transform duration-300 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white">3</div>
+<div>
+<h4 class="font-bold text-gray-900 mb-1 group-hover:text-brand-primary transition-colors">Extended Growth Phase</h4>
+<p class="text-gray-500 text-sm leading-relaxed">Prolongs the anagen (growth) phase of the hair cycle, allowing hair to grow thicker and longer before shedding.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative rounded-3xl overflow-hidden shadow-lg reveal-on-scroll delay-200 group">
+<img alt="Laboratory Research" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABvAChum7lDr00OPxlwHLmJ1UM_VkT17UJVLt5U2y3A4VcHQ6jpC9nX4lPRootb6yjTJyGeAp1ubtHOEXuZiDb0EQjm4_cS-HOGdjHGhYcV4Pxax8taAoOfPKDm_45Ka3Hn3C_zvSYw9gE1_KMIeg4Fz5A09nLUIkBDVk3N_G8wnhHjQCHO2mko5BYXAfuODDbPx6-CFuAoTXV0BPwu-DKEfT7xTrykMyc8E_Bg4sOJJM0LVmDqoWr"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Science Section -->
+
+
+
+
+<div class="ba-wrapper">
+  <div class="ba-slider">
+    <!-- AFTER LAYER (Bottom) -->
+    <div class="layer layer-after">
+      <div class="placeholder-content">
+        <span class="badge badge-after">AFTER</span>
+        <p class="placeholder-text">New Design / Result</p>
+      </div>
+    </div>
+
+    <!-- BEFORE LAYER (Top, clipped dynamically) -->
+    <div class="layer layer-before" id="before-layer">
+      <div class="placeholder-content">
+        <span class="badge badge-before">BEFORE</span>
+        <p class="placeholder-text">Original State</p>
+      </div>
+    </div>
+
+    <!-- DRAG HANDLE BAR & KNOB -->
+    <div class="handle-line" id="handle-line">
+      <div class="handle-knob">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m9 18-6-6 6-6"/>
+          <path d="m15 6 6 6-6 6"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- INVISIBLE RANGE INPUT FOR TOUCH/MOUSE DRAGGING -->
+    <input type="range" min="0" max="100" value="50" class="slider" id="slider" oninput="updateSlider(this.value)">
+  </div>
+</div>
+
+<style>
+/* Center Wrapper */
+.ba-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh; /* Takes full viewport height for perfect screen centering */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.ba-slider {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  user-select: none;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Base style for layers */
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Gradient backgrounds serve as image fallbacks */
+.layer-after {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #f8fafc;
+}
+
+.layer-before {
+  width: 50%; /* Default 50% split */
+  background: linear-gradient(135deg, #475569 0%, #334155 100%);
+  color: #f8fafc;
+  overflow: hidden;
+  border-right: 2px solid #ffffff;
+}
+
+/* Container to fix content width during clip */
+.placeholder-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 700px; /* Matches max-width of container */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.placeholder-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 12px;
+  opacity: 0.85;
+}
+
+/* Badges */
+.badge {
+  position: absolute;
+  top: 16px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.badge-before {
+  left: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.badge-after {
+  right: 16px;
+  background: rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+  border: 1px solid rgba(96, 165, 250, 0.4);
+}
+
+/* Visible handle line and knob */
+.handle-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background-color: #ffffff;
+  pointer-events: none;
+  z-index: 5;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.handle-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff;
+  color: #0f172a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Hidden overlay input for control */
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+  z-index: 10;
+  margin: 0;
+}
+</style>
+
+<script>
+function updateSlider(val) {
+  document.getElementById('before-layer').style.width = val + '%';
+  document.getElementById('handle-line').style.left = val + '%';
+}
+</script>
+<!-- BEGIN: Testimonials Section -->
+<section class="py-20 bg-brand-bg">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12 reveal-on-scroll">
+<div class="flex justify-center items-center gap-2 mb-4">
+<div class="flex text-yellow-500">
+<span class="material-symbols-outlined transition-transform hover:scale-125 hover:rotate-12">star</span>
+<span class="material-symbols-outlined transition-transform hover:scale-125 hover:rotate-12">star</span>
+<span class="material-symbols-outlined transition-transform hover:scale-125 hover:rotate-12">star</span>
+<span class="material-symbols-outlined transition-transform hover:scale-125 hover:rotate-12">star</span>
+<span class="material-symbols-outlined transition-transform hover:scale-125 hover:rotate-12">star</span>
+</div>
+<span class="text-2xl font-extrabold text-gray-900">4.9/5.0</span>
+</div>
+<h2 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-4">What Our Customers Say</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">Real results from real people who reclaimed their confidence with RegrowthX.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 reveal-on-scroll">
+<div class="flex items-center gap-1 mb-4 text-yellow-500">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<p class="text-gray-600 italic mb-6">"After 3 months, my barber actually asked what I was doing differently. The thinning at my crown is significantly filled in."</p>
+<div class="flex items-center justify-between">
+<div>
+<div class="font-bold text-gray-900">David R.</div>
+<div class="flex items-center gap-1 text-brand-primary text-xs font-semibold">
+<span class="material-symbols-outlined text-xs animate-pulse">verified</span>
+              Verified Buyer
+            </div>
+</div>
+</div>
+</div>
+<div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 reveal-on-scroll delay-100">
+<div class="flex items-center gap-1 mb-4 text-yellow-500">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<p class="text-gray-600 italic mb-6">"I was skeptical about minoxidil, but RegrowthX is so easy to apply and doesn't leave my hair greasy. Seeing real growth now."</p>
+<div class="flex items-center justify-between">
+<div>
+<div class="font-bold text-gray-900">Michael S.</div>
+<div class="flex items-center gap-1 text-brand-primary text-xs font-semibold">
+<span class="material-symbols-outlined text-xs animate-pulse">verified</span>
+              Verified Buyer
+            </div>
+</div>
+</div>
+</div>
+<div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 reveal-on-scroll delay-200">
+<div class="flex items-center gap-1 mb-4 text-yellow-500">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<p class="text-gray-600 italic mb-6">"The best investment I've made for my appearance. My hair feels thicker and I've stopped seeing so much hair in the shower drain."</p>
+<div class="flex items-center justify-between">
+<div>
+<div class="font-bold text-gray-900">James L.</div>
+<div class="flex items-center gap-1 text-brand-primary text-xs font-semibold">
+<span class="material-symbols-outlined text-xs animate-pulse">verified</span>
+              Verified Buyer
+            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Testimonials Section -->
+
+
+<!-- ================= OUR PRODUCTS ================= -->
+<section class="py-20 bg-gray-50">
+
+  <!-- Heading -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-14">
+    <span class="inline-block bg-emerald-100 text-emerald-700 text-sm font-semibold px-4 py-2 rounded-full uppercase tracking-wider mb-4">
+      Premium Hair Care
+    </span>
+
+    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+      Our Products
+    </h2>
+
+    <p class="max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
+      Choose the right Minoxidil solution for your hair growth journey.
+      Whether you're starting with a one-month supply or saving more with our
+      six-month value pack, we've got you covered.
+    </p>
+  </div>
+
+  <!-- BEGIN: Product Showcase -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+
+      <!-- Product Card 1 -->
+      <div class="bg-white rounded-[32px] p-8 flex flex-col lg:flex-row items-center gap-8 border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden">
+
+        <div class="relative w-full lg:w-[48%] h-[420px] rounded-[28px] bg-gradient-to-br from-[#0c1f11] via-[#173922] to-[#0c1f11] flex items-center justify-center overflow-hidden">
+
+          <div class="absolute w-80 h-80 bg-emerald-400/20 rounded-full blur-[90px]"></div>
+
+          <img
+            id="card-img-60ml"
+            src="img/pg.png"
+            alt="1 Month Supply"
+            class="relative z-10 w-[90%] h-[90%] object-contain drop-shadow-[0_35px_45px_rgba(0,0,0,0.45)] transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 animate-[float_4s_ease-in-out_infinite]"
+          />
+
+        </div>
+
+        <div class="w-full lg:w-[52%] flex flex-col justify-center">
+
+          <h3 class="text-3xl font-bold text-gray-900 mb-3">
+            Minoxidil 5% (60mL)
+          </h3>
+
+          <p class="text-gray-500 text-lg leading-relaxed mb-8">
+            1 Month Supply • 5% Minoxidil Topical Solution • Unscented
+          </p>
+
+          <button onclick="handleAddToCart('60ml')"
+            class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-lg font-semibold py-4 rounded-full transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="bg-white rounded-[32px] p-8 flex flex-col lg:flex-row items-center gap-8 border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden">
+
+        <div class="relative w-full lg:w-[48%] h-[420px] rounded-[28px] bg-gradient-to-br from-[#0c1f11] via-[#173922] to-[#0c1f11] flex items-center justify-center overflow-hidden">
+
+          <span class="absolute top-5 right-5 z-20 bg-emerald-400 text-emerald-950 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+            Best Value
+          </span>
+
+          <div class="absolute w-80 h-80 bg-emerald-400/20 rounded-full blur-[90px]"></div>
+
+          <img
+            id="card-img-360ml"
+            src="img/pg.png"
+            alt="6 Month Supply"
+            class="relative z-10 w-[90%] h-[90%] object-contain drop-shadow-[0_35px_45px_rgba(0,0,0,0.45)] transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 animate-[float_4s_ease-in-out_infinite]"
+          />
+
+        </div>
+
+        <div class="w-full lg:w-[52%] flex flex-col justify-center">
+
+          <h3 class="text-3xl font-bold text-gray-900 mb-3">
+            Minoxidil 5% (6 × 60mL)
+          </h3>
+
+          <p class="text-gray-500 text-lg leading-relaxed mb-8">
+            6 Month Supply • Best Value • Save More with 6 Bottles
+          </p>
+
+          <button onclick="handleAddToCart('360ml')"
+            class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-lg font-semibold py-4 rounded-full transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+}
+</style>
+
+
+<!-- ========================================== -->
+<!-- SECTION 2: POP-UP MODAL OVERLAY            -->
+<!-- ========================================== -->
+<div id="product-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+  
+  <!-- Modal Container -->
+  <div class="relative w-full max-w-5xl bg-white rounded-[2rem] border border-gray-100 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col my-auto">
+    
+    <!-- Modal Sticky Bar -->
+    <div class="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-white/90 backdrop-blur-md border-b border-gray-100">
+      <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Product Details</span>
+      <button onclick="closeModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold text-base transition-all active:scale-90 cursor-pointer">
+        ✕
+      </button>
+    </div>
+
+    <!-- Scrollable Content Body -->
+    <div class="p-6 sm:p-8 space-y-8 overflow-y-auto">
+
+      <!-- TOP SECTION: Split Grid (Left: 4-Image Gallery | Right: Product Controls) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        
+        <!-- LEFT SIDE: 4-IMAGE GALLERY DISPLAY -->
+        <div class="space-y-3">
+          <!-- Main Selected Image Box -->
+          <div class="w-full bg-[#112415] rounded-2xl p-6 flex justify-center items-center h-64 md:h-72 shadow-inner relative group border border-emerald-900/30">
+            <img id="main-gallery-img" alt="Product Image" class="max-h-full object-contain drop-shadow-2xl transition-all duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnbiytSS1NHo8WbkUXkPb6FLZWWTtHauD81wCFAGRd3Z7mOaKR1BSS5ZURr6XaUKMKt_xBnYBVesemYYIv5wJpNnzUgFiOgQXUKWIM_jBbGtWD31ZgsltLiKmsKMJULJBjjytlUxotRJ1Roj_INfpSZ24aZ3OJSsnQ4zAV1HNGy5HTuxKJWykmNo3PcfeMBABeDKdJ95DGvHbM62KeAQgfgKIB62dmIZOGacFfwkr5_1R12Mq_9cPr"/>
+          </div>
+
+          <!-- 4 Thumbnail Previews -->
+          <div class="grid grid-cols-4 gap-2">
+            <button onclick="changeGalleryImage(0)" class="thumb-btn border-2 border-emerald-600 rounded-xl bg-[#112415] p-2 h-16 flex items-center justify-center transition-all overflow-hidden focus:outline-none">
+              <img id="thumb-img-0" class="max-h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnbiytSS1NHo8WbkUXkPb6FLZWWTtHauD81wCFAGRd3Z7mOaKR1BSS5ZURr6XaUKMKt_xBnYBVesemYYIv5wJpNnzUgFiOgQXUKWIM_jBbGtWD31ZgsltLiKmsKMJULJBjjytlUxotRJ1Roj_INfpSZ24aZ3OJSsnQ4zAV1HNGy5HTuxKJWykmNo3PcfeMBABeDKdJ95DGvHbM62KeAQgfgKIB62dmIZOGacFfwkr5_1R12Mq_9cPr" alt="Thumb 1">
+            </button>
+            <button onclick="changeGalleryImage(1)" class="thumb-btn border-2 border-gray-200 hover:border-emerald-300 rounded-xl bg-[#112415] p-2 h-16 flex items-center justify-center transition-all overflow-hidden focus:outline-none">
+              <img id="thumb-img-1" class="max-h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-oLX7KOGDH6MhpLbCGPzPlU74KtEbLolVBArZdppFA3ed4PDf6-AoyekPgdC_v9blmurVUH6zf39Rlc_p0CzKbrdi0b4jytSZV9WM2L3yoDSXbRnYFrNnA6CyLkbz2-FRZnwGqXHGavtwHkUgHrTzg3mVqCLpRNXS70__4ciDsrQ_sMbxS_4XCDSqMTRNvwYAo3lfBwGXitPvYwm0aIUMrO0ThwQyVkAPNnZLDCBCwBApb2N0tgVD" alt="Thumb 2">
+            </button>
+            <button onclick="changeGalleryImage(2)" class="thumb-btn border-2 border-gray-200 hover:border-emerald-300 rounded-xl bg-[#112415] p-2 h-16 flex items-center justify-center transition-all overflow-hidden focus:outline-none">
+              <img id="thumb-img-2" class="max-h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnbiytSS1NHo8WbkUXkPb6FLZWWTtHauD81wCFAGRd3Z7mOaKR1BSS5ZURr6XaUKMKt_xBnYBVesemYYIv5wJpNnzUgFiOgQXUKWIM_jBbGtWD31ZgsltLiKmsKMJULJBjjytlUxotRJ1Roj_INfpSZ24aZ3OJSsnQ4zAV1HNGy5HTuxKJWykmNo3PcfeMBABeDKdJ95DGvHbM62KeAQgfgKIB62dmIZOGacFfwkr5_1R12Mq_9cPr" alt="Thumb 3">
+            </button>
+            <button onclick="changeGalleryImage(3)" class="thumb-btn border-2 border-gray-200 hover:border-emerald-300 rounded-xl bg-[#112415] p-2 h-16 flex items-center justify-center transition-all overflow-hidden focus:outline-none">
+              <img id="thumb-img-3" class="max-h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-oLX7KOGDH6MhpLbCGPzPlU74KtEbLolVBArZdppFA3ed4PDf6-AoyekPgdC_v9blmurVUH6zf39Rlc_p0CzKbrdi0b4jytSZV9WM2L3yoDSXbRnYFrNnA6CyLkbz2-FRZnwGqXHGavtwHkUgHrTzg3mVqCLpRNXS70__4ciDsrQ_sMbxS_4XCDSqMTRNvwYAo3lfBwGXitPvYwm0aIUMrO0ThwQyVkAPNnZLDCBCwBApb2N0tgVD" alt="Thumb 4">
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE: Name, Pricing, Qty, Variant, Pay Now -->
+        <div class="space-y-5">
+          <div>
+            <h1 id="modal-product-title" class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">RegrowthX 5% Minoxidil Hair Serum</h1>
+            
+            <!-- Rating Stars -->
+            <div class="flex items-center gap-2 mt-2">
+              <div class="flex text-emerald-500">
+                <span class="material-symbols-outlined text-lg">star</span>
+                <span class="material-symbols-outlined text-lg">star</span>
+                <span class="material-symbols-outlined text-lg">star</span>
+                <span class="material-symbols-outlined text-lg">star</span>
+                <span class="material-symbols-outlined text-lg">star</span>
+              </div>
+              <span class="text-xs text-gray-500 font-medium">(12,480 reviews)</span>
+            </div>
+
+            <!-- Pricing -->
+            <div class="flex items-baseline gap-3 mt-3">
+              <span id="original-price" class="text-base text-gray-400 line-through font-medium">$29.99</span>
+              <span id="current-price" class="text-3xl font-extrabold text-emerald-700">$14.99</span>
+            </div>
+          </div>
+
+          <!-- Quantity Selector -->
+          <div class="flex items-center gap-4 pt-1">
+            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Quantity:</span>
+            <div class="inline-flex items-center border border-emerald-300 rounded-lg bg-emerald-50/50 px-2 py-1 shadow-sm">
+              <button onclick="updateQty(-1)" class="w-7 h-7 rounded text-emerald-900 hover:bg-emerald-100 font-bold text-base flex items-center justify-center transition-all active:scale-90 cursor-pointer">-</button>
+              <span id="product-qty" class="w-8 text-center font-bold text-gray-900 text-sm">1</span>
+              <button onclick="updateQty(1)" class="w-7 h-7 rounded text-emerald-900 hover:bg-emerald-100 font-bold text-base flex items-center justify-center transition-all active:scale-90 cursor-pointer">+</button>
+            </div>
+          </div>
+
+          <!-- Variant Option Pills -->
+          <div class="space-y-2">
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Select Supply Pack:</label>
+            <div class="flex flex-wrap gap-3">
+              <label id="variant-label-60ml" onclick="selectVariant(14.99, 29.99, '60ml')" class="variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-emerald-600 bg-emerald-50/30 text-gray-900 font-medium text-xs sm:text-sm transition-all shadow-sm">
+                <input type="radio" id="variant-radio-60ml" name="variant" value="60ml" checked class="accent-emerald-600 h-4 w-4">
+                <span>60 ml (1 Month)</span>
+              </label>
+              <label id="variant-label-360ml" onclick="selectVariant(59.99, 89.99, '360ml')" class="variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-gray-200 bg-white text-gray-700 font-medium text-xs sm:text-sm hover:border-gray-300 transition-all shadow-sm">
+                <input type="radio" id="variant-radio-360ml" name="variant" value="360ml" class="accent-emerald-600 h-4 w-4">
+                <span>360 ml (6 Months)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Total Price Display -->
+          <div class="pt-2 border-t border-gray-100">
+            <div class="text-sm font-bold text-gray-900">
+              Total Amount: <span id="total-price-display" class="text-emerald-700 font-extrabold text-xl ml-1">$14.99</span>
+              <span class="text-xs font-normal text-gray-400 ml-1">(Taxes included)</span>
+            </div>
+          </div>
+
+          <!-- Action Buttons Bar -->
+          <div class="flex items-center gap-3 pt-2">
+            <button onclick="buyNow()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md active:scale-95 text-center text-sm cursor-pointer">
+              Pay Now
+            </button>
+            <button onclick="toggleWishlist()" id="wishlist-btn" class="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl border border-gray-200 bg-white hover:bg-emerald-50 text-gray-700 font-semibold text-sm transition-all shadow-sm active:scale-95 cursor-pointer">
+              <span id="wishlist-icon" class="text-emerald-600">💚</span>
+              <span id="wishlist-count">1</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM SECTION: Full Width Details, How to Use, Specs, Reviews -->
+      <div id="product-details-container" class="bg-emerald-50/40 rounded-2xl p-6 border border-emerald-100/60 shadow-inner">
+        
+        <!-- Tab Pill Headers -->
+        <div class="flex items-center justify-center gap-2 sm:gap-3 mb-6 flex-wrap border-b border-gray-200/60 pb-4">
+          <button onclick="switchProductTab('overview')" id="p-tab-overview" class="product-tab-pill bg-emerald-600 text-white font-semibold px-5 py-2 rounded-full text-xs sm:text-sm shadow-sm transition-all cursor-pointer">
+            Overview
+          </button>
+          <button onclick="switchProductTab('howtouse')" id="p-tab-howtouse" class="product-tab-pill bg-gray-200/80 text-gray-600 hover:bg-gray-300 font-semibold px-5 py-2 rounded-full text-xs sm:text-sm transition-all cursor-pointer">
+            How to Use
+          </button>
+          <button onclick="switchProductTab('ingredients')" id="p-tab-ingredients" class="product-tab-pill bg-gray-200/80 text-gray-600 hover:bg-gray-300 font-semibold px-5 py-2 rounded-full text-xs sm:text-sm transition-all cursor-pointer">
+            Specs & Formula
+          </button>
+          <button onclick="switchProductTab('reviews')" id="p-tab-reviews" class="product-tab-pill bg-gray-200/80 text-gray-600 hover:bg-gray-300 font-semibold px-5 py-2 rounded-full text-xs sm:text-sm transition-all cursor-pointer">
+            Reviews
+          </button>
+        </div>
+
+        <!-- TAB 1: OVERVIEW -->
+        <div id="p-content-overview" class="p-tab-content space-y-4">
+          <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight leading-snug">
+            RegrowthX Extra Strength 5% Minoxidil — Superfood for Hair Follicles
+          </h2>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            RegrowthX Hair Growth Serum is a dermatologist-recommended topical solution engineered to reactivate dormant follicles and reverse hair thinning. Formulated with 5% Minoxidil USP, it stimulates vertex scalp micro-circulation, ensuring essential nutrients reach hair roots for optimal density.
+          </p>
+
+          <div class="grid sm:grid-cols-3 gap-4 pt-2">
+            <div class="p-4 bg-white rounded-xl border border-emerald-100 shadow-sm">
+              <div class="text-lg font-bold text-emerald-700 mb-1">97% Retention</div>
+              <p class="text-xs text-gray-500">Noticeable reduction in hair shedding within 8 weeks.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-emerald-100 shadow-sm">
+              <div class="text-lg font-bold text-emerald-700 mb-1">5% Minoxidil</div>
+              <p class="text-xs text-gray-500">Clinical FDA-approved standard for follicle renewal.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-emerald-100 shadow-sm">
+              <div class="text-lg font-bold text-emerald-700 mb-1">Fast Absorbing</div>
+              <p class="text-xs text-gray-500">Lightweight, non-greasy solution with quick dry time.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: HOW TO USE -->
+        <div id="p-content-howtouse" class="p-tab-content hidden space-y-4">
+          <h3 class="text-xl font-bold text-gray-900 mb-1">How To Apply RegrowthX</h3>
+          <p class="text-xs text-gray-500 mb-4">Simple 4-step daily routine for maximum hair density.</p>
+          
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-xl text-center border border-gray-100 shadow-sm">
+              <div class="w-8 h-8 bg-emerald-600 text-white font-bold text-xs rounded-full flex items-center justify-center mx-auto mb-2">1</div>
+              <h4 class="font-bold text-gray-900 mb-1 text-xs">Dry Scalp</h4>
+              <p class="text-[11px] text-gray-500">Ensure scalp is clean and completely dry.</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl text-center border border-gray-100 shadow-sm">
+              <div class="w-8 h-8 bg-emerald-600 text-white font-bold text-xs rounded-full flex items-center justify-center mx-auto mb-2">2</div>
+              <h4 class="font-bold text-gray-900 mb-1 text-xs">Fill 1 mL</h4>
+              <p class="text-[11px] text-gray-500">Fill dropper to exact 1 mL mark line.</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl text-center border border-gray-100 shadow-sm">
+              <div class="w-8 h-8 bg-emerald-600 text-white font-bold text-xs rounded-full flex items-center justify-center mx-auto mb-2">3</div>
+              <h4 class="font-bold text-gray-900 mb-1 text-xs">Apply Directly</h4>
+              <p class="text-[11px] text-gray-500">Drop solution onto target thinning areas.</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl text-center border border-gray-100 shadow-sm">
+              <div class="w-8 h-8 bg-emerald-600 text-white font-bold text-xs rounded-full flex items-center justify-center mx-auto mb-2">4</div>
+              <h4 class="font-bold text-gray-900 mb-1 text-xs">Massage Gently</h4>
+              <p class="text-[11px] text-gray-500">Massage for 30 seconds. Allow to absorb.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: INGREDIENTS & SPECS -->
+        <div id="p-content-ingredients" class="p-tab-content hidden space-y-4">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Specifications & Active Formula</h3>
+          <div class="overflow-x-auto bg-white rounded-xl border border-gray-100">
+            <table class="w-full text-left text-xs text-gray-600 border-collapse">
+              <tbody>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2.5 px-4 font-bold text-gray-900 bg-gray-50 w-1/3">Active Ingredient</td>
+                  <td class="py-2.5 px-4">Minoxidil 5% w/v (Extra Strength)</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2.5 px-4 font-bold text-gray-900 bg-gray-50">Inactive Ingredients</td>
+                  <td class="py-2.5 px-4">Alcohol, Propylene Glycol, Purified Water</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2.5 px-4 font-bold text-gray-900 bg-gray-50">Volume per Bottle</td>
+                  <td class="py-2.5 px-4">60 mL (2 fl oz) — 30 Day Supply</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-4 font-bold text-gray-900 bg-gray-50">Formulation Standards</td>
+                  <td class="py-2.5 px-4">Unscented, Non-Greasy, Fast-Drying</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 4: REVIEWS -->
+        <div id="p-content-reviews" class="p-tab-content hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-gray-900">Customer Reviews</h3>
+              <p class="text-xs text-gray-500">4.9 out of 5 based on 12,480 verified ratings.</p>
+            </div>
+          </div>
+          <div class="space-y-3 pt-1">
+            <div class="p-3 bg-white rounded-xl border border-gray-100 shadow-sm">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-gray-900 text-xs">Daniel M.</span>
+                <span class="text-[10px] text-emerald-600 font-bold">Verified Purchase ★★★★★</span>
+              </div>
+              <p class="text-xs text-gray-600">Noticeable results after 2 months. Scalp feels healthier and thinning spots are filling in nicely.</p>
+            </div>
+            <div class="p-3 bg-white rounded-xl border border-gray-100 shadow-sm">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-gray-900 text-xs">Kevin S.</span>
+                <span class="text-[10px] text-emerald-600 font-bold">Verified Purchase ★★★★★</span>
+              </div>
+              <p class="text-xs text-gray-600">Great formula! Doesn't leave my scalp greasy like other brands. High quality product.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ========================================== -->
+<!-- JAVASCRIPT LOGIC                           -->
+<!-- ========================================== -->
+<script>
+  let currentUnitPrice = 14.99;
+  let currentQty = 1;
+  let currentGalleryList = [];
+
+  const productGalleries = {
+    '60ml': [
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAnbiytSS1NHo8WbkUXkPb6FLZWWTtHauD81wCFAGRd3Z7mOaKR1BSS5ZURr6XaUKMKt_xBnYBVesemYYIv5wJpNnzUgFiOgQXUKWIM_jBbGtWD31ZgsltLiKmsKMJULJBjjytlUxotRJ1Roj_INfpSZ24aZ3OJSsnQ4zAV1HNGy5HTuxKJWykmNo3PcfeMBABeDKdJ95DGvHbM62KeAQgfgKIB62dmIZOGacFfwkr5_1R12Mq_9cPr',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuC-oLX7KOGDH6MhpLbCGPzPlU74KtEbLolVBArZdppFA3ed4PDf6-AoyekPgdC_v9blmurVUH6zf39Rlc_p0CzKbrdi0b4jytSZV9WM2L3yoDSXbRnYFrNnA6CyLkbz2-FRZnwGqXHGavtwHkUgHrTzg3mVqCLpRNXS70__4ciDsrQ_sMbxS_4XCDSqMTRNvwYAo3lfBwGXitPvYwm0aIUMrO0ThwQyVkAPNnZLDCBCwBApb2N0tgVD',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAnbiytSS1NHo8WbkUXkPb6FLZWWTtHauD81wCFAGRd3Z7mOaKR1BSS5ZURr6XaUKMKt_xBnYBVesemYYIv5wJpNnzUgFiOgQXUKWIM_jBbGtWD31ZgsltLiKmsKMJULJBjjytlUxotRJ1Roj_INfpSZ24aZ3OJSsnQ4zAV1HNGy5HTuxKJWykmNo3PcfeMBABeDKdJ95DGvHbM62KeAQgfgKIB62dmIZOGacFfwkr5_1R12Mq_9cPr',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuC-oLX7KOGDH6MhpLbCGPzPlU74KtEbLolVBArZdppFA3ed4PDf6-AoyekPgdC_v9blmurVUH6zf39Rlc_p0CzKbrdi0b4jytSZV9WM2L3yoDSXbRnYFrNnA6CyLkbz2-FRZnwGqXHGavtwHkUgHrTzg3mVqCLpRNXS70__4ciDsrQ_sMbxS_4XCDSqMTRNvwYAo3lfBwGXitPvYwm0aIUMrO0ThwQyVkAPNnZLDCBCwBApb2N0tgVD'
+    ],
+    '360ml': [
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuC-oLX7KOGDH6MhpLbCGPzPlU74KtEbLolVBArZdppFA3ed4PDf6-AoyekPgdC_v9blmurVUH6zf39Rlc_p0CzKbrdi0b4jytSZV9WM2L3yoDSXbRnYFrNnA6CyLkbz2-FRZnwGqXHGavtwHkUgHrTzg3mVqCLpRNXS70__4ciDsrQ_sMbxS_4XCDSqMTRNvwYAo3lfBwGXitPvYwm0aIUMrO0ThwQyVkAPNnZLDCBCwBApb2N0tgVD',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAnbiytSS1NHo8WbkUXkPb6FLZWWTtHauD81wCFAGRd3Z7mOaKR1BSS5ZURr6XaUKMKt_xBnYBVesemYYIv5wJpNnzUgFiOgQXUKWIM_jBbGtWD31ZgsltLiKmsKMJULJBjjytlUxotRJ1Roj_INfpSZ24aZ3OJSsnQ4zAV1HNGy5HTuxKJWykmNo3PcfeMBABeDKdJ95DGvHbM62KeAQgfgKIB62dmIZOGacFfwkr5_1R12Mq_9cPr',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuC-oLX7KOGDH6MhpLbCGPzPlU74KtEbLolVBArZdppFA3ed4PDf6-AoyekPgdC_v9blmurVUH6zf39Rlc_p0CzKbrdi0b4jytSZV9WM2L3yoDSXbRnYFrNnA6CyLkbz2-FRZnwGqXHGavtwHkUgHrTzg3mVqCLpRNXS70__4ciDsrQ_sMbxS_4XCDSqMTRNvwYAo3lfBwGXitPvYwm0aIUMrO0ThwQyVkAPNnZLDCBCwBApb2N0tgVD',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAnbiytSS1NHo8WbkUXkPb6FLZWWTtHauD81wCFAGRd3Z7mOaKR1BSS5ZURr6XaUKMKt_xBnYBVesemYYIv5wJpNnzUgFiOgQXUKWIM_jBbGtWD31ZgsltLiKmsKMJULJBjjytlUxotRJ1Roj_INfpSZ24aZ3OJSsnQ4zAV1HNGy5HTuxKJWykmNo3PcfeMBABeDKdJ95DGvHbM62KeAQgfgKIB62dmIZOGacFfwkr5_1R12Mq_9cPr'
+    ]
+  };
+
+  function handleAddToCart(variant) {
+    const modal = document.getElementById('product-modal');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    currentQty = 1;
+    document.getElementById('product-qty').innerText = currentQty;
+
+    if (variant === '60ml') {
+      selectVariant(14.99, 29.99, '60ml');
+    } else if (variant === '360ml') {
+      selectVariant(59.99, 89.99, '360ml');
+    }
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('product-modal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('product-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeModal();
+    }
+  });
+
+  function selectVariant(price, originalPrice, variantKey) {
+    currentUnitPrice = price;
+    document.getElementById('current-price').innerText = `$${price.toFixed(2)}`;
+    document.getElementById('original-price').innerText = `$${originalPrice.toFixed(2)}`;
+
+    // Set gallery array & update thumbnails
+    currentGalleryList = productGalleries[variantKey] || productGalleries['60ml'];
+    for (let i = 0; i < 4; i++) {
+      const thumbEl = document.getElementById(`thumb-img-${i}`);
+      if (thumbEl && currentGalleryList[i]) {
+        thumbEl.src = currentGalleryList[i];
+      }
+    }
+    changeGalleryImage(0);
+
+    const modalTitle = document.getElementById('modal-product-title');
+    modalTitle.innerText = variantKey === '60ml' ? "Minoxidil 5% (1 Month Supply)" : "Minoxidil 5% (6 Month Supply)";
+
+    const label60 = document.getElementById('variant-label-60ml');
+    const label360 = document.getElementById('variant-label-360ml');
+    const radio60 = document.getElementById('variant-radio-60ml');
+    const radio360 = document.getElementById('variant-radio-360ml');
+
+    if (variantKey === '60ml') {
+      radio60.checked = true;
+      label60.className = "variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-emerald-600 bg-emerald-50/30 text-gray-900 font-medium text-xs sm:text-sm transition-all shadow-sm";
+      label360.className = "variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-gray-200 bg-white text-gray-700 font-medium text-xs sm:text-sm hover:border-gray-300 transition-all shadow-sm";
+    } else {
+      radio360.checked = true;
+      label360.className = "variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-emerald-600 bg-emerald-50/30 text-gray-900 font-medium text-xs sm:text-sm transition-all shadow-sm";
+      label60.className = "variant-card cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-gray-200 bg-white text-gray-700 font-medium text-xs sm:text-sm hover:border-gray-300 transition-all shadow-sm";
+    }
+
+    recalculateTotal();
+  }
+
+  function changeGalleryImage(index) {
+    if (!currentGalleryList[index]) return;
+    document.getElementById('main-gallery-img').src = currentGalleryList[index];
+
+    const thumbBtns = document.querySelectorAll('.thumb-btn');
+    thumbBtns.forEach((btn, idx) => {
+      if (idx === index) {
+        btn.className = "thumb-btn border-2 border-emerald-600 rounded-xl bg-[#112415] p-2 h-16 flex items-center justify-center transition-all overflow-hidden focus:outline-none";
+      } else {
+        btn.className = "thumb-btn border-2 border-gray-200 hover:border-emerald-300 rounded-xl bg-[#112415] p-2 h-16 flex items-center justify-center transition-all overflow-hidden focus:outline-none";
+      }
+    });
+  }
+
+  function updateQty(amount) {
+    currentQty += amount;
+    if (currentQty < 1) currentQty = 1;
+    document.getElementById('product-qty').innerText = currentQty;
+    recalculateTotal();
+  }
+
+  function recalculateTotal() {
+    const total = currentUnitPrice * currentQty;
+    document.getElementById('total-price-display').innerText = `$${total.toFixed(2)}`;
+  }
+
+  function switchProductTab(tabName) {
+    const tabs = ['overview', 'howtouse', 'ingredients', 'reviews'];
+    tabs.forEach(tab => {
+      const content = document.getElementById(`p-content-${tab}`);
+      const btn = document.getElementById(`p-tab-${tab}`);
+      
+      if (tab === tabName) {
+        content.classList.remove('hidden');
+        btn.className = "product-tab-pill bg-emerald-600 text-white font-semibold px-5 py-2 rounded-full text-xs sm:text-sm shadow-sm transition-all cursor-pointer";
+      } else {
+        content.classList.add('hidden');
+        btn.className = "product-tab-pill bg-gray-200/80 text-gray-600 hover:bg-gray-300 font-semibold px-5 py-2 rounded-full text-xs sm:text-sm transition-all cursor-pointer";
+      }
+    });
+  }
+
+  function buyNow() {
+    alert(`Proceeding to payment for ${currentQty} item(s) total: $${(currentUnitPrice * currentQty).toFixed(2)}`);
+  }
+
+  function toggleWishlist() {
+    const countEl = document.getElementById('wishlist-count');
+    let current = parseInt(countEl.innerText);
+    countEl.innerText = current === 1 ? 0 : 1;
+  }
+</script>
+</section>
+<!-- END: Product Showcase -->
+</main>
+<!-- END: Main Content -->
+
+<!-- CTA SECTION -->
+<section class="py-16 px-6 bg-[#F5F3ED]">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="bg-[#071A0E] rounded-[30px] px-8 md:px-12 py-8 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xl">
+
+            <!-- Left -->
+            <div class="flex-1">
+
+                <h2 class="text-white text-3xl md:text-4xl font-bold leading-tight">
+                    Ready To Regrow Your Hair?
+                </h2>
+
+                <p class="text-gray-400 mt-3 text-base">
+                    Take control of your hair loss today with
+                    <span class="text-white font-medium">
+                        RegrowthX 5% Minoxidil Hair Serum.
+                    </span>
+                </p>
+
+            </div>
+
+            <!-- Middle Features -->
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-300">
+
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">🚚</span>
+                    <span>Free Shipping</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">🛡️</span>
+                    <span>30 Day Guarantee</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">🔒</span>
+                    <span>Secure Payment</span>
+                </div>
+
+            </div>
+
+            <!-- Button -->
+            <div>
+
+                <a href="#products"
+                    class="inline-flex items-center gap-2 bg-[#5E8E2E] hover:bg-[#6FAE35] text-white font-semibold px-8 py-4 rounded-full transition duration-300 hover:scale-105">
+
+                    Order Now
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5l7 7-7 7"/>
+
+                    </svg>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ========================================== -->
+<!-- ENHANCED EMERALD GREEN FAQ ACCORDION       -->
+<!-- ========================================== -->
+<div class="max-w-4xl mx-auto my-12 px-4 sm:px-6">
+  
+  <!-- Header Section -->
+  <div class="text-center mb-10 space-y-3">
+    <span class="inline-block px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-extrabold tracking-wide uppercase">
+      Support & Help Center
+    </span>
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+      Frequently Asked Questions
+    </h2>
+    <p class="text-gray-500 text-sm max-w-lg mx-auto">
+      Everything you need to know about our products, shipping, returns, and orders.
+    </p>
+  </div>
+
+  <!-- Accordion Container -->
+  <div class="space-y-4" id="faq-accordion-group">
+
+    <!-- ITEM 1: Payment Methods -->
+    <div class="faq-card bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:border-emerald-200 overflow-hidden">
+      <button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group" aria-expanded="false" onclick="toggleFaq(this)">
+        <span class="text-base sm:text-lg font-bold text-gray-800 group-hover:text-emerald-700 transition-colors pr-4">
+          What payment methods do you accept?
+        </span>
+        <div class="faq-icon-wrapper w-9 h-9 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-all duration-300 shrink-0">
+          <svg class="faq-icon w-5 h-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-emerald-50/30">
+        <div class="px-6 pb-6 pt-1 text-sm text-gray-600 leading-relaxed border-t border-emerald-100/50">
+          We accept all major credit cards (Visa, Mastercard, American Express), PayPal, Apple Pay, and Google Pay. All transactions are securely encrypted.
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 2: Shipping Time -->
+    <div class="faq-card bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:border-emerald-200 overflow-hidden">
+      <button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group" aria-expanded="false" onclick="toggleFaq(this)">
+        <span class="text-base sm:text-lg font-bold text-gray-800 group-hover:text-emerald-700 transition-colors pr-4">
+          How long does shipping take?
+        </span>
+        <div class="faq-icon-wrapper w-9 h-9 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-all duration-300 shrink-0">
+          <svg class="faq-icon w-5 h-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-emerald-50/30">
+        <div class="px-6 pb-6 pt-1 text-sm text-gray-600 leading-relaxed border-t border-emerald-100/50">
+          Standard domestic shipping takes 3-5 business days. Express shipping options are available at checkout and deliver within 1-2 business days.
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 3: Return Policy -->
+    <div class="faq-card bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:border-emerald-200 overflow-hidden">
+      <button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group" aria-expanded="false" onclick="toggleFaq(this)">
+        <span class="text-base sm:text-lg font-bold text-gray-800 group-hover:text-emerald-700 transition-colors pr-4">
+          What is your return policy?
+        </span>
+        <div class="faq-icon-wrapper w-9 h-9 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-all duration-300 shrink-0">
+          <svg class="faq-icon w-5 h-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-emerald-50/30">
+        <div class="px-6 pb-6 pt-1 text-sm text-gray-600 leading-relaxed border-t border-emerald-100/50">
+          We offer a 30-day money-back guarantee for all unused products in their original packaging. Simply contact support to initiate a prepaid return shipping label.
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 4: Order Tracking (NEW) -->
+    <div class="faq-card bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:border-emerald-200 overflow-hidden">
+      <button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group" aria-expanded="false" onclick="toggleFaq(this)">
+        <span class="text-base sm:text-lg font-bold text-gray-800 group-hover:text-emerald-700 transition-colors pr-4">
+          How can I track my order status?
+        </span>
+        <div class="faq-icon-wrapper w-9 h-9 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-all duration-300 shrink-0">
+          <svg class="faq-icon w-5 h-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-emerald-50/30">
+        <div class="px-6 pb-6 pt-1 text-sm text-gray-600 leading-relaxed border-t border-emerald-100/50">
+          Once your order ships, you will receive an email and SMS confirmation containing your tracking number and a direct link to track your shipment in real time.
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 5: Usage & Dosage (NEW) -->
+    <div class="faq-card bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:border-emerald-200 overflow-hidden">
+      <button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group" aria-expanded="false" onclick="toggleFaq(this)">
+        <span class="text-base sm:text-lg font-bold text-gray-800 group-hover:text-emerald-700 transition-colors pr-4">
+          How often should I apply the solution?
+        </span>
+        <div class="faq-icon-wrapper w-9 h-9 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-all duration-300 shrink-0">
+          <svg class="faq-icon w-5 h-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-emerald-50/30">
+        <div class="px-6 pb-6 pt-1 text-sm text-gray-600 leading-relaxed border-t border-emerald-100/50">
+          For best results, apply 1 mL twice daily directly onto dry scalp in areas of hair thinning. Consistent daily application is key to achieving optimal results.
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 6: International Delivery (NEW) -->
+    <div class="faq-card bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:border-emerald-200 overflow-hidden">
+      <button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group" aria-expanded="false" onclick="toggleFaq(this)">
+        <span class="text-base sm:text-lg font-bold text-gray-800 group-hover:text-emerald-700 transition-colors pr-4">
+          Do you ship internationally?
+        </span>
+        <div class="faq-icon-wrapper w-9 h-9 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-all duration-300 shrink-0">
+          <svg class="faq-icon w-5 h-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-emerald-50/30">
+        <div class="px-6 pb-6 pt-1 text-sm text-gray-600 leading-relaxed border-t border-emerald-100/50">
+          Yes, we ship to over 50 countries worldwide. International shipping times typically range from 7 to 14 business days depending on local customs clearance.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Contact Support Footer Box -->
+  <div class="mt-10 p-6 bg-[#112415] rounded-2xl text-center text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+    <div class="text-left">
+      <h4 class="font-bold text-base">Still have questions?</h4>
+      <p class="text-xs text-emerald-200/80">Can't find the answer you're looking for? Reach out to our customer support team.</p>
+    </div>
+    <a href="#contact" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs py-3 px-6 rounded-full transition-all duration-300 whitespace-nowrap shadow-md hover:scale-105 active:scale-95">
+      Contact Support
+    </a>
+  </div>
+
+</div>
+
+<!-- ========================================== -->
+<!-- JAVASCRIPT ACCORDION INTERACTION           -->
+<!-- ========================================== -->
+<script>
+  function toggleFaq(button) {
+    const card = button.closest('.faq-card');
+    const answer = card.querySelector('.faq-answer');
+    const icon = card.querySelector('.faq-icon');
+    const iconWrapper = card.querySelector('.faq-icon-wrapper');
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+    // Optional: Close all other open items (Accordion behavior)
+    document.querySelectorAll('.faq-card').forEach(otherCard => {
+      if (otherCard !== card) {
+        const otherBtn = otherCard.querySelector('.faq-btn');
+        const otherAnswer = otherCard.querySelector('.faq-answer');
+        const otherIcon = otherCard.querySelector('.faq-icon');
+        const otherWrapper = otherCard.querySelector('.faq-icon-wrapper');
+        
+        otherBtn.setAttribute('aria-expanded', 'false');
+        otherAnswer.style.maxHeight = '0px';
+        otherIcon.style.transform = 'rotate(0deg)';
+        otherWrapper.classList.remove('bg-emerald-600', 'text-white');
+        otherWrapper.classList.add('bg-emerald-50', 'text-emerald-600');
+        otherCard.classList.remove('border-emerald-500', 'ring-2', 'ring-emerald-500/20');
+      }
+    });
+
+    // Toggle current item
+    if (isExpanded) {
+      button.setAttribute('aria-expanded', 'false');
+      answer.style.maxHeight = '0px';
+      icon.style.transform = 'rotate(0deg)';
+      iconWrapper.classList.remove('bg-emerald-600', 'text-white');
+      iconWrapper.classList.add('bg-emerald-50', 'text-emerald-600');
+      card.classList.remove('border-emerald-500', 'ring-2', 'ring-emerald-500/20');
+    } else {
+      button.setAttribute('aria-expanded', 'true');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      icon.style.transform = 'rotate(180deg)';
+      iconWrapper.classList.remove('bg-emerald-50', 'text-emerald-600');
+      iconWrapper.classList.add('bg-emerald-600', 'text-white');
+      card.classList.add('border-emerald-500', 'ring-2', 'ring-emerald-500/20');
+    }
+  }
+</script>
+<style>
+/* Container Styles */
+.faq-container {
+  max-width: 680px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.faq-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Accordion Outer Box */
+.faq-accordion {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+/* Individual FAQ Item */
+.faq-item {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+/* Question Button */
+.faq-question {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.faq-question:hover {
+  background-color: #f8fafc;
+  color: #2563eb;
+}
+
+/* Arrow Icon Animation */
+.faq-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #64748b;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.faq-question[aria-expanded="true"] .faq-icon {
+  transform: rotate(180deg);
+  color: #2563eb;
+}
+
+/* Answer Slide Transition */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #fafafa;
+}
+
+.faq-answer-content {
+  padding: 0 20px 20px 20px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #475569;
+}
+</style>
+
+<script>
+function toggleFaq(button) {
+  const isExpanded = button.getAttribute('aria-expanded') === 'true';
+  const answer = button.nextElementSibling;
+  
+  // Close all other open items (optional accordion behavior)
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.nextElementSibling.style.maxHeight = null;
+  });
+
+  // Toggle clicked item
+  if (!isExpanded) {
+    button.setAttribute('aria-expanded', 'true');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
+}
+</script>
+
+
+
+<!-- BEGIN: Footer -->
+<!-- START: Footer -->
+<footer class="bg-[#132717] text-white">
+  <div class="max-w-7xl mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+
+      <!-- Company -->
+      <div>
+        <h2 class="text-3xl font-bold mb-4">
+          Regrowth<span class="text-brand-primary">X</span>
+        </h2>
+        <p class="text-gray-300 leading-7">
+          Helping businesses scale faster with performance marketing,
+          automation, branding, and digital growth strategies.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-semibold mb-5 text-white">Quick Links</h3>
+        <ul class="space-y-3 text-gray-300">
+          <li><a href="#home" class="hover:text-brand-primary transition">Home</a></li>
+          <li><a href="#about" class="hover:text-brand-primary transition">About</a></li>
+          <li><a href="#services" class="hover:text-brand-primary transition">Services</a></li>
+          <li><a href="#results" class="hover:text-brand-primary transition">Results</a></li>
+          <li><a href="#contact" class="hover:text-brand-primary transition">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h3 class="text-lg font-semibold mb-5 text-white">Services</h3>
+        <ul class="space-y-3 text-gray-300">
+          <li>Growth Marketing</li>
+          <li>Meta Ads</li>
+          <li>Google Ads</li>
+          <li>SEO</li>
+          <li>Automation</li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-lg font-semibold mb-5 text-white">Get in Touch</h3>
+
+        <div class="space-y-3 text-gray-300">
+          <p>hello@regrowthx.com</p>
+          <p>+91 98765 43210</p>
+          <p>Mumbai, India</p>
+        </div>
+
+        <!-- Social -->
+        <div class="flex gap-4 mt-6">
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-brand-primary flex items-center justify-center transition">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-brand-primary flex items-center justify-center transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-brand-primary flex items-center justify-center transition">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-brand-primary flex items-center justify-center transition">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+
+      <p class="text-sm text-gray-400">
+        © 2026 <span class="font-semibold text-white">RegrowthX</span>. All rights reserved.
+      </p>
+
+      <div class="flex gap-6 text-sm text-gray-400">
+        <a href="#" class="hover:text-brand-primary transition">Privacy Policy</a>
+        <a href="#" class="hover:text-brand-primary transition">Terms & Conditions</a>
+        <a href="#" class="hover:text-brand-primary transition">Cookies</a>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<!-- END: Footer -->
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<!-- END: Footer -->
+<!-- BEGIN: Animation Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    revealElements.forEach(el => observer.observe(el));
+  });
+</script>
+<!-- END: Animation Script -->
+</body></html>

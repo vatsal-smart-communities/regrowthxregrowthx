@@ -1,0 +1,8 @@
+# Environment & DB credentials
+config/db.php
+cookie.txt
+
+# OS / Editor Junk
+.DS_Store
+Thumbs.db
+*.tmp
