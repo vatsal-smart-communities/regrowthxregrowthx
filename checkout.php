@@ -493,18 +493,13 @@ require_once __DIR__ . '/includes/store-header.php';
                     const orderNum = result.order_number || ('#RGX-' + Math.random().toString(36).substring(2, 8).toUpperCase());
                     
                     if (data.payment_method === 'SQUARESPACE') {
-                        // Redirect to Squarespace payment page or custom link
-                        const sqCheckoutUrl = `https://squarespace.com/checkout?order=${encodeURIComponent(orderNum)}&amount=${encodeURIComponent(cartTotal)}`;
+                        // Configurable Squarespace Payment URL
+                        const sqCheckoutUrl = `https://checkout.squarespace.com/?order=${encodeURIComponent(orderNum)}&amount=${encodeURIComponent(cartTotal)}&email=${encodeURIComponent(data.email)}`;
                         showToast('Redirecting to Squarespace Secure Payments...');
                         
                         setTimeout(() => {
-                            document.getElementById('checkout-container').classList.add('hidden');
-                            document.getElementById('checkout-container').classList.remove('flex');
-                            document.getElementById('success-screen').classList.remove('hidden');
-                            document.getElementById('success-order-number').textContent = orderNum;
-                            document.getElementById('success-amount').textContent = formatINR(cartTotal) + ' (Squarespace Online Payment)';
-                            document.getElementById('success-email').textContent = data.email;
-                        }, 1500);
+                            window.location.href = sqCheckoutUrl;
+                        }, 1200);
                     } else {
                         document.getElementById('checkout-container').classList.add('hidden');
                         document.getElementById('checkout-container').classList.remove('flex');
