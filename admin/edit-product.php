@@ -42,6 +42,51 @@ $variants = $stmtVars->fetchAll(PDO::FETCH_ASSOC);
                     <textarea name="description" rows="4" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3"><?= htmlspecialchars($product['description']) ?></textarea>
                 </div>
                 
+                <!-- Base Pricing & Stock -->
+                <div class="border-t border-gray-100 pt-6 mt-6">
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Base Pricing & Stock</h4>
+                    <p class="text-sm text-gray-500 mb-4">Set the default price if this product has no variants.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Base Selling Price ($)</label>
+                            <input type="number" step="0.01" name="base_price_inr" value="<?= htmlspecialchars($product['base_price_inr'] ?? '0.00') ?>" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Base MRP ($)</label>
+                            <input type="number" step="0.01" name="base_mrp_inr" value="<?= htmlspecialchars($product['base_mrp_inr'] ?? '0.00') ?>" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Base Stock</label>
+                            <input type="number" name="base_stock_qty" value="<?= htmlspecialchars($product['base_stock_qty'] ?? '0') ?>" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Images -->
+                <div class="border-t border-gray-100 pt-6 mt-6">
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Product Images</h4>
+                    <p class="text-sm text-gray-500 mb-4">Upload up to 5 images for the product gallery. These are used independently of variants.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <?php for ($i = 1; $i <= 5; $i++): 
+                            $imgKey = "image_$i";
+                            $imgVal = $product[$imgKey] ?? '';
+                            $imgSrc = $imgVal ? '../' . $imgVal : '../img/placeholder-image.png';
+                        ?>
+                        <div class="product-image-slot border border-gray-200 rounded-xl p-3 bg-gray-50 flex flex-col items-center justify-center text-center gap-2">
+                            <div class="w-20 h-20 rounded-lg bg-white border border-gray-200 overflow-hidden flex items-center justify-center shadow-inner">
+                                <img src="<?= htmlspecialchars($imgSrc) ?>" class="prod-img-preview w-full h-full object-cover" alt="Img <?=$i?>" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlNWU3ZWIiLz48L3N2Zz4='">
+                            </div>
+                            <input type="hidden" name="image_<?=$i?>" value="<?= htmlspecialchars($imgVal) ?>" class="prod-img-path-input">
+                            <label class="px-2 py-1 bg-white border border-gray-300 hover:border-emerald-500 text-gray-700 text-xs font-semibold rounded-lg cursor-pointer transition-colors shadow-sm w-full">
+                                Upload Image
+                                <input type="file" accept="image/*" onchange="uploadProductImage(this, <?=$i?>)" class="hidden">
+                            </label>
+                            <span class="text-[10px] text-gray-500 truncate w-full img-filename-display"><?= $imgVal ? basename($imgVal) : "Image $i" ?></span>
+                        </div>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+                
                 <div>
                     <label class="block text-sm font-semibold text-gray-900 mb-2">Status</label>
                     <select name="active" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3">
@@ -203,6 +248,42 @@ async function uploadExistingVariantImg(fileInput) {
     } catch (e) {
         labelSpan.innerText = 'Upload error';
         showAdminToast('Network error during upload', 'error');
+    }
+}
+
+async function uploadProductImage(fileInput, index) {
+    const file = fileInput.files[0];
+    if (!file) return;
+    
+    const slot = fileInput.closest('.product-image-slot');
+    const previewImg = slot.querySelector('.prod-img-preview');
+    const pathInput = slot.querySelector('.prod-img-path-input');
+    const displaySpan = slot.querySelector('.img-filename-display');
+    
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    displaySpan.innerText = 'Uploading...';
+    
+    try {
+        const res = await fetch('../api/admin-upload-image.php', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            pathInput.value = data.image_path;
+            previewImg.src = '../' + data.image_path;
+            displaySpan.innerText = data.image_path.split('/').pop();
+            showAdminToast('Image uploaded successfully!', 'success');
+        } else {
+            displaySpan.innerText = 'Upload failed';
+            showAdminToast(data.message || 'Image upload failed', 'error');
+        }
+    } catch (e) {
+        displaySpan.innerText = 'Upload error';
+        showAdminToast('Network error while uploading image', 'error');
     }
 }
 

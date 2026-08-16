@@ -26,12 +26,24 @@ try {
         $_SESSION['cart'] = [];
     }
     
-    $stmt = $pdo->prepare("SELECT v.*, p.title FROM product_variants v JOIN products p ON v.product_id = p.id WHERE v.id = ?");
-    $stmt->execute([$variant_id]);
-    $variant = $stmt->fetch();
+    $isBaseProduct = strpos($variant_id, 'p_') === 0;
+    
+    if ($isBaseProduct) {
+        $prod_id = (int)str_replace('p_', '', $variant_id);
+        $stmt = $pdo->prepare("SELECT id, title, base_price_inr as price_inr, base_mrp_inr as mrp_inr, image_1 as image_path FROM products WHERE id = ?");
+        $stmt->execute([$prod_id]);
+        $variant = $stmt->fetch();
+        if ($variant) {
+            $variant['variant_name'] = '';
+        }
+    } else {
+        $stmt = $pdo->prepare("SELECT v.*, p.title FROM product_variants v JOIN products p ON v.product_id = p.id WHERE v.id = ?");
+        $stmt->execute([$variant_id]);
+        $variant = $stmt->fetch();
+    }
     
     if (!$variant) {
-        echo json_encode(["success" => false, "message" => "Variant not found"]);
+        echo json_encode(["success" => false, "message" => "Product not found"]);
         exit();
     }
     

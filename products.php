@@ -50,7 +50,7 @@ if ($sort === 'price_low') {
 $countSql = "
     SELECT COUNT(*) 
     FROM products p
-    JOIN product_variants pv ON p.id = pv.product_id
+    LEFT JOIN product_variants pv ON p.id = pv.product_id
     WHERE $whereSql
 ";
 $stmtCount = $pdo->prepare($countSql);
@@ -60,10 +60,10 @@ $total_pages = ceil($total_items / $limit);
 
 // Fetch items
 $sql = "
-    SELECT p.id as product_id, p.title, p.description, p.slug, 
+    SELECT p.id as product_id, p.title, p.description, p.slug, p.base_price_inr, p.base_mrp_inr, p.image_1,
            pv.id as variant_id, pv.variant_name, pv.variant_key, pv.price_inr, pv.mrp_inr, pv.image_path
     FROM products p
-    JOIN product_variants pv ON p.id = pv.product_id
+    LEFT JOIN product_variants pv ON p.id = pv.product_id
     WHERE $whereSql
     ORDER BY $orderBy
     LIMIT $limit OFFSET $offset
@@ -146,42 +146,52 @@ $variants = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <?php else: ?>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <?php foreach ($variants as $v): 
-        $discount = $v['mrp_inr'] > $v['price_inr'] ? round((($v['mrp_inr'] - $v['price_inr']) / $v['mrp_inr']) * 100) : 0;
+        $displayTitle = htmlspecialchars($v['title']);
+        $displaySubtitle = $v['variant_name'] ? htmlspecialchars($v['variant_name']) : 'Standard Product';
+        $price = $v['price_inr'] ? $v['price_inr'] : $v['base_price_inr'];
+        $mrp = $v['mrp_inr'] ? $v['mrp_inr'] : $v['base_mrp_inr'];
+        $img = $v['image_path'] ? $v['image_path'] : ($v['image_1'] ? $v['image_1'] : 'img/product-box-bottle.jpg');
+        $discount = $mrp > $price ? round((($mrp - $price) / $mrp) * 100) : 0;
       ?>
-      <div class="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden">
+      <!-- Product Card -->
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
         
         <div>
-          <!-- Image Box -->
-          <div class="relative w-full h-56 rounded-2xl bg-gradient-to-br from-[#0c1f11] via-[#173922] to-[#0c1f11] flex items-center justify-center p-4 overflow-hidden mb-4">
+          <!-- Image Container -->
+          <a href="product-details.php?id=<?= $v['product_id'] ?>" class="block relative w-full h-56 rounded-2xl bg-gradient-to-br from-[#0c1f11] via-[#173922] to-[#0c1f11] flex items-center justify-center p-6 mb-5 border border-emerald-900/10 overflow-hidden shadow-inner group-hover:border-emerald-900/30 transition-colors">
+            
             <?php if ($discount > 0): ?>
-            <span class="absolute top-3 left-3 bg-emerald-600 text-white font-extrabold text-[10px] uppercase px-2.5 py-1 rounded-full shadow-md z-20"><?= $discount ?>% OFF</span>
+            <div class="absolute top-3 right-3 bg-red-500 text-white text-[10px] font-extrabold px-2 py-1 rounded-full shadow-md z-20 transform -rotate-2">
+              <?= $discount ?>% OFF
+            </div>
             <?php endif; ?>
-            <img src="<?= htmlspecialchars($v['image_path'] ?? 'img/product-box-bottle.jpg') ?>" alt="<?= htmlspecialchars($v['title']) ?>" class="max-h-full max-w-full object-contain relative z-10 drop-shadow-xl group-hover:scale-105 transition-transform duration-300 rounded-lg">
-          </div>
 
-          <!-- Product Details -->
-          <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full inline-block mb-2"><?= htmlspecialchars($v['variant_name']) ?></span>
-          <h3 class="font-bold text-gray-900 text-base mb-1 line-clamp-2 hover:text-emerald-700 transition-colors">
-            <a href="product-details.php?id=<?= $v['product_id'] ?>"><?= htmlspecialchars($v['title']) ?></a>
-          </h3>
-          
-          <div class="flex items-baseline gap-2 mb-3">
-            <span class="text-xl font-extrabold text-emerald-700">$<?= number_format($v['price_inr'], 2) ?></span>
-            <?php if ($v['mrp_inr'] > $v['price_inr']): ?>
-            <span class="text-xs text-gray-400 line-through">$<?= number_format($v['mrp_inr'], 2) ?></span>
-            <?php endif; ?>
-          </div>
-        </div>
-
-        <!-- Card Buttons -->
-        <div class="space-y-2 pt-2 border-t border-gray-100">
-          <button onclick="addToCartAPI(<?= $v['variant_id'] ?>, 1)" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-95 cursor-pointer">
-            <span class="material-symbols-outlined text-base">add_shopping_cart</span> Add to Cart
-          </button>
-          <a href="product-details.php?id=<?= $v['product_id'] ?>" class="w-full block bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 rounded-xl text-xs transition-colors text-center">
-            View Details
+            <img src="<?= htmlspecialchars($img) ?>" alt="<?= $displayTitle ?>" class="max-h-full max-w-full object-contain relative z-10 drop-shadow-2xl rounded-xl group-hover:scale-105 transition-transform duration-500">
+            <!-- decorative blur -->
+            <div class="absolute inset-0 bg-emerald-500/10 mix-blend-overlay z-0"></div>
           </a>
+
+          <!-- Details -->
+          <div class="space-y-2 mb-4">
+            <h3 class="font-extrabold text-gray-900 text-lg leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2">
+              <a href="product-details.php?id=<?= $v['product_id'] ?>"><?= $displayTitle ?></a>
+            </h3>
+            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider"><?= $displaySubtitle ?></p>
+            
+            <!-- Pricing -->
+            <div class="flex items-end gap-3 pt-2">
+              <span class="text-2xl font-extrabold text-emerald-700">$<?= number_format($price, 2) ?></span>
+              <?php if ($mrp > $price): ?>
+              <span class="text-sm text-gray-400 line-through mb-1">$<?= number_format($mrp, 2) ?></span>
+              <?php endif; ?>
+            </div>
+          </div>
         </div>
+
+        <!-- Add to cart -->
+        <button onclick="addToCartAPI('<?= $v['variant_id'] ? $v['variant_id'] : ('p_' . $v['product_id']) ?>')" class="w-full bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white border border-emerald-100 hover:border-emerald-600 font-bold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 focus:ring-4 focus:ring-emerald-500/20 active:scale-95 cursor-pointer mt-4 shadow-sm group-hover:shadow-md">
+          <span class="material-symbols-outlined text-lg">add_shopping_cart</span> Add to Cart
+        </button>
 
       </div>
       <?php endforeach; ?>

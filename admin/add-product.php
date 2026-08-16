@@ -22,6 +22,47 @@ requirePermission('manage_products');
                     <textarea name="description" rows="4" placeholder="Enter product description and formula details..." class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3"></textarea>
                 </div>
 
+                <!-- Base Pricing & Stock -->
+                <div class="border-t border-gray-100 pt-6 mt-6">
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Base Pricing & Stock</h4>
+                    <p class="text-sm text-gray-500 mb-4">Set the default price if this product has no variants.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Base Selling Price ($)</label>
+                            <input type="number" step="0.01" name="base_price_inr" value="0.00" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Base MRP ($)</label>
+                            <input type="number" step="0.01" name="base_mrp_inr" value="0.00" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Base Stock</label>
+                            <input type="number" name="base_stock_qty" value="100" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Images -->
+                <div class="border-t border-gray-100 pt-6 mt-6">
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Product Images</h4>
+                    <p class="text-sm text-gray-500 mb-4">Upload up to 5 images for the product gallery. These are used independently of variants.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <div class="product-image-slot border border-gray-200 rounded-xl p-3 bg-gray-50 flex flex-col items-center justify-center text-center gap-2">
+                            <div class="w-20 h-20 rounded-lg bg-white border border-gray-200 overflow-hidden flex items-center justify-center">
+                                <img src="../img/placeholder-image.png" class="prod-img-preview w-full h-full object-cover" alt="Img <?=$i?>" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlNWU3ZWIiLz48L3N2Zz4='">
+                            </div>
+                            <input type="hidden" name="image_<?=$i?>" class="prod-img-path-input">
+                            <label class="px-2 py-1 bg-white border border-gray-300 hover:border-emerald-500 text-gray-700 text-xs font-semibold rounded-lg cursor-pointer transition-colors shadow-sm w-full">
+                                Upload Image
+                                <input type="file" accept="image/*" onchange="uploadProductImage(this, <?=$i?>)" class="hidden">
+                            </label>
+                            <span class="text-[10px] text-gray-500 truncate w-full img-filename-display">Image <?=$i?></span>
+                        </div>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+
                 <div class="border-t border-gray-100 pt-6 mt-6">
                     <div class="flex justify-between items-center mb-4">
                         <div>
@@ -38,24 +79,24 @@ requirePermission('manage_products');
                             <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-700 mb-1">Variant Key</label>
-                                    <input type="text" name="variant_key[]" required placeholder="e.g. 60ml" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                                    <input type="text" name="variant_key[]" placeholder="e.g. 60ml" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-700 mb-1">Display Name</label>
-                                    <input type="text" name="variant_name[]" required placeholder="60 mL Supply" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                                    <input type="text" name="variant_name[]" placeholder="60 mL Supply" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-700 mb-1">Selling Price ($)</label>
-                                    <input type="number" step="0.01" name="price_inr[]" required placeholder="19.99" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                                    <input type="number" step="0.01" name="price_inr[]" placeholder="19.99" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-700 mb-1">MRP ($)</label>
-                                    <input type="number" step="0.01" name="mrp_inr[]" required placeholder="34.99" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                                    <input type="number" step="0.01" name="mrp_inr[]" placeholder="34.99" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-700 mb-1">Initial Stock</label>
                                     <div class="flex gap-2">
-                                        <input type="number" name="stock_qty[]" required value="100" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                                        <input type="number" name="stock_qty[]" value="100" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                                         <button type="button" onclick="removeVariantRow(this)" class="w-9 h-9 shrink-0 bg-red-50 text-red-500 hover:bg-red-500 hover:text-white rounded-lg flex items-center justify-center transition-colors">
                                             <span class="material-symbols-outlined text-[18px]">delete</span>
                                         </button>
@@ -128,6 +169,42 @@ async function uploadImageFile(fileInput) {
     }
 }
 
+async function uploadProductImage(fileInput, index) {
+    const file = fileInput.files[0];
+    if (!file) return;
+    
+    const slot = fileInput.closest('.product-image-slot');
+    const previewImg = slot.querySelector('.prod-img-preview');
+    const pathInput = slot.querySelector('.prod-img-path-input');
+    const displaySpan = slot.querySelector('.img-filename-display');
+    
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    displaySpan.innerText = 'Uploading...';
+    
+    try {
+        const res = await fetch('../api/admin-upload-image.php', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            pathInput.value = data.image_path;
+            previewImg.src = '../' + data.image_path;
+            displaySpan.innerText = data.image_path.split('/').pop();
+            showAdminToast('Image uploaded successfully!', 'success');
+        } else {
+            displaySpan.innerText = 'Upload failed';
+            showAdminToast(data.message || 'Image upload failed', 'error');
+        }
+    } catch (e) {
+        displaySpan.innerText = 'Upload error';
+        showAdminToast('Network error while uploading image', 'error');
+    }
+}
+
 function addVariantRow() {
     const container = document.getElementById('variants-container');
     const newRow = document.createElement('div');
@@ -136,24 +213,24 @@ function addVariantRow() {
         <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Variant Key</label>
-                <input type="text" name="variant_key[]" required placeholder="e.g. 120ml" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                <input type="text" name="variant_key[]" placeholder="e.g. 120ml" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
             </div>
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Display Name</label>
-                <input type="text" name="variant_name[]" required placeholder="120 mL Supply" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                <input type="text" name="variant_name[]" placeholder="120 mL Supply" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
             </div>
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Selling Price (₹)</label>
-                <input type="number" name="price_inr[]" required placeholder="2299" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                <input type="number" name="price_inr[]" placeholder="2299" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
             </div>
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">MRP (₹)</label>
-                <input type="number" name="mrp_inr[]" required placeholder="3999" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                <input type="number" name="mrp_inr[]" placeholder="3999" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
             </div>
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Initial Stock</label>
                 <div class="flex gap-2">
-                    <input type="number" name="stock_qty[]" required value="100" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
+                    <input type="number" name="stock_qty[]" value="100" class="w-full bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2">
                     <button type="button" onclick="removeVariantRow(this)" class="w-9 h-9 shrink-0 bg-red-50 text-red-500 hover:bg-red-500 hover:text-white rounded-lg flex items-center justify-center transition-colors">
                         <span class="material-symbols-outlined text-[18px]">delete</span>
                     </button>
@@ -180,11 +257,7 @@ function addVariantRow() {
 
 function removeVariantRow(btn) {
     const rows = document.querySelectorAll('.variant-row');
-    if (rows.length > 1) {
-        btn.closest('.variant-row').remove();
-    } else {
-        alert("You must have at least one variant.");
-    }
+    btn.closest('.variant-row').remove();
 }
 
 document.getElementById('add-product-form').addEventListener('submit', async function(e) {
@@ -199,7 +272,15 @@ document.getElementById('add-product-form').addEventListener('submit', async fun
     const payload = {
         title: formData.get('title'),
         description: formData.get('description'),
-        variant_key: formData.getAll('variant_key[]'),
+        base_price_inr: formData.get('base_price_inr'),
+        base_mrp_inr: formData.get('base_mrp_inr'),
+        base_stock_qty: formData.get('base_stock_qty'),
+        image_1: formData.get('image_1'),
+        image_2: formData.get('image_2'),
+        image_3: formData.get('image_3'),
+        image_4: formData.get('image_4'),
+        image_5: formData.get('image_5'),
+        variant_key: formData.getAll('variant_key[]').filter(k => k.trim() !== ''),
         variant_name: formData.getAll('variant_name[]'),
         price_inr: formData.getAll('price_inr[]'),
         mrp_inr: formData.getAll('mrp_inr[]'),

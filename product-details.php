@@ -23,12 +23,32 @@ $stmtVars = $pdo->prepare("SELECT * FROM product_variants WHERE product_id = ? O
 $stmtVars->execute([$product_id]);
 $variants = $stmtVars->fetchAll(PDO::FETCH_ASSOC);
 
-if (empty($variants)) {
-    header("Location: products.php");
-    exit();
+$hasVariants = !empty($variants);
+
+if ($hasVariants) {
+    $defaultVariant = $variants[0];
+} else {
+    // Mock default variant for base product
+    $defaultVariant = [
+        'id' => null, // null indicates base product
+        'price_inr' => $product['base_price_inr'],
+        'mrp_inr' => $product['base_mrp_inr'],
+        'stock_qty' => $product['base_stock_qty']
+    ];
 }
 
-$defaultVariant = $variants[0];
+// Extract valid images
+$productImages = [];
+for ($i = 1; $i <= 5; $i++) {
+    if (!empty($product["image_$i"])) {
+        $productImages[] = $product["image_$i"];
+    }
+}
+if (empty($productImages)) {
+    // fallback
+    $productImages[] = 'img/product-box-bottle.jpg';
+}
+$mainImage = $productImages[0];
 
 // Fetch Related Products
 $stmtRelated = $pdo->prepare("
@@ -82,23 +102,16 @@ require_once __DIR__ . '/includes/store-header.php';
     <!-- LEFT: Image Gallery -->
     <div class="space-y-4">
       <div class="relative w-full h-[400px] sm:h-[450px] rounded-3xl bg-gradient-to-br from-[#0c1f11] via-[#173922] to-[#0c1f11] flex items-center justify-center p-6 border border-emerald-900/30 overflow-hidden shadow-inner">
-        <img id="main-product-img" src="<?= htmlspecialchars($defaultVariant['image_path'] ?? 'img/product-box-bottle.jpg') ?>" alt="<?= htmlspecialchars($product['title']) ?>" class="max-h-full max-w-full object-contain relative z-10 drop-shadow-2xl rounded-xl transition-all duration-300">
+        <img id="main-product-img" src="<?= htmlspecialchars($mainImage) ?>" alt="<?= htmlspecialchars($product['title']) ?>" class="max-h-full max-w-full object-contain relative z-10 drop-shadow-2xl rounded-xl transition-all duration-300">
       </div>
 
       <!-- Thumbnails gallery -->
-      <div class="grid grid-cols-4 gap-3">
-        <button onclick="changeMainImage('<?= htmlspecialchars($defaultVariant['image_path'] ?? 'img/product-box-bottle.jpg') ?>', this)" class="thumb-btn border-2 border-emerald-600 rounded-2xl bg-[#0d1e12] p-1.5 h-20 flex items-center justify-center overflow-hidden focus:outline-none shadow-sm cursor-pointer">
-          <img class="max-h-full max-w-full object-contain rounded-lg" src="<?= htmlspecialchars($defaultVariant['image_path'] ?? 'img/product-box-bottle.jpg') ?>" alt="Thumb 1">
+      <div class="flex gap-3 overflow-x-auto pb-2 snap-x">
+        <?php foreach ($productImages as $idx => $img): ?>
+        <button onclick="changeMainImage('<?= htmlspecialchars($img) ?>', this)" class="thumb-btn border-2 <?= $idx === 0 ? 'border-emerald-600' : 'border-gray-200 hover:border-emerald-400' ?> rounded-2xl bg-[#0d1e12] p-1.5 h-20 w-20 shrink-0 flex items-center justify-center overflow-hidden focus:outline-none shadow-sm cursor-pointer snap-start">
+          <img class="max-h-full max-w-full object-contain rounded-lg" src="<?= htmlspecialchars($img) ?>" alt="Thumb <?= $idx+1 ?>">
         </button>
-        <button onclick="changeMainImage('img/product-dropper.jpg', this)" class="thumb-btn border-2 border-gray-200 hover:border-emerald-400 rounded-2xl bg-[#0d1e12] p-1.5 h-20 flex items-center justify-center overflow-hidden focus:outline-none shadow-sm cursor-pointer">
-          <img class="max-h-full max-w-full object-contain rounded-lg" src="img/product-dropper.jpg" alt="Thumb 2">
-        </button>
-        <button onclick="changeMainImage('img/routine-guide.jpg', this)" class="thumb-btn border-2 border-gray-200 hover:border-emerald-400 rounded-2xl bg-[#0d1e12] p-1.5 h-20 flex items-center justify-center overflow-hidden focus:outline-none shadow-sm cursor-pointer">
-          <img class="max-h-full max-w-full object-contain rounded-lg" src="img/routine-guide.jpg" alt="Thumb 3">
-        </button>
-        <button onclick="changeMainImage('img/scalp-application.jpg', this)" class="thumb-btn border-2 border-gray-200 hover:border-emerald-400 rounded-2xl bg-[#0d1e12] p-1.5 h-20 flex items-center justify-center overflow-hidden focus:outline-none shadow-sm cursor-pointer">
-          <img class="max-h-full max-w-full object-contain rounded-lg" src="img/scalp-application.jpg" alt="Thumb 4">
-        </button>
+        <?php endforeach; ?>
       </div>
     </div>
 
@@ -126,8 +139,13 @@ require_once __DIR__ . '/includes/store-header.php';
       <!-- Pricing Display -->
       <div class="bg-gray-50/80 p-5 rounded-2xl border border-gray-100 flex items-baseline gap-4">
         <span id="display-price" class="text-3xl sm:text-4xl font-extrabold text-emerald-700">$<?= number_format($defaultVariant['price_inr'], 2) ?></span>
+        <?php if ($defaultVariant['mrp_inr'] > $defaultVariant['price_inr']): ?>
         <span id="display-mrp" class="text-base text-gray-400 line-through">$<?= number_format($defaultVariant['mrp_inr'], 2) ?></span>
         <span id="display-savings" class="bg-emerald-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-full uppercase">Save <?= round((($defaultVariant['mrp_inr'] - $defaultVariant['price_inr']) / $defaultVariant['mrp_inr']) * 100) ?>%</span>
+        <?php else: ?>
+        <span id="display-mrp" class="text-base text-gray-400 line-through hidden"></span>
+        <span id="display-savings" class="bg-emerald-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-full uppercase hidden"></span>
+        <?php endif; ?>
       </div>
 
       <!-- Description -->
@@ -135,6 +153,7 @@ require_once __DIR__ . '/includes/store-header.php';
         <?= htmlspecialchars($product['description']) ?>
       </p>
 
+      <?php if ($hasVariants): ?>
       <!-- Select Variant Packs -->
       <div class="space-y-3 pt-2">
         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider">Select Variant Pack:</label>
@@ -153,6 +172,11 @@ require_once __DIR__ . '/includes/store-header.php';
           <?php endforeach; ?>
         </div>
       </div>
+      <?php else: ?>
+      <div class="pt-2">
+        <p class="text-sm font-semibold text-gray-900">Stock: <?= $defaultVariant['stock_qty'] > 0 ? 'In Stock (' . $defaultVariant['stock_qty'] . ' available)' : '<span class="text-red-500">Out of Stock</span>' ?></p>
+      </div>
+      <?php endif; ?>
 
       <!-- Quantity Selector -->
       <div class="flex items-center gap-4 pt-2">
@@ -357,8 +381,14 @@ require_once __DIR__ . '/includes/store-header.php';
   }
 
   async function addCurrentVariantToCart() {
-    if (!activeVariant || !activeVariant.id) return;
-    await addToCartAPI(activeVariant.id, selectedQty);
+    if (!activeVariant) return;
+    
+    let cartKey = activeVariant.id;
+    if (!cartKey) {
+        // Base product (no variants)
+        cartKey = 'p_' + <?= $product['id'] ?>;
+    }
+    await addToCartAPI(cartKey, selectedQty);
   }
 
   async function buyNowCurrentVariant() {

@@ -4,10 +4,10 @@ require_once __DIR__ . '/includes/store-header.php';
 
 // Fetch all active products and their variants
 $stmt = $pdo->query("
-    SELECT p.id as product_id, p.title, p.description, p.slug, 
+    SELECT p.id as product_id, p.title, p.description, p.slug, p.base_price_inr, p.base_mrp_inr, p.image_1,
            pv.id as variant_id, pv.variant_name, pv.variant_key, pv.price_inr, pv.mrp_inr, pv.image_path
     FROM products p
-    JOIN product_variants pv ON p.id = pv.product_id
+    LEFT JOIN product_variants pv ON p.id = pv.product_id
     WHERE p.active = 1
     ORDER BY p.id ASC, pv.price_inr ASC
 ");
@@ -423,20 +423,30 @@ $latestReviews = $stmtRev->fetchAll(PDO::FETCH_ASSOC);
       <?php else: 
         $display_variants = array_slice($store_variants, 0, 4);
         foreach ($display_variants as $variant): 
+          $displayTitle = htmlspecialchars($variant['title']);
+          $displaySubtitle = $variant['variant_name'] ? htmlspecialchars($variant['variant_name']) : 'Standard Product';
+          $price = $variant['price_inr'] ? $variant['price_inr'] : $variant['base_price_inr'];
+          $mrp = $variant['mrp_inr'] ? $variant['mrp_inr'] : $variant['base_mrp_inr'];
+          $img = $variant['image_path'] ? $variant['image_path'] : ($variant['image_1'] ? $variant['image_1'] : 'img/product-box-bottle.jpg');
+          $cartKey = $variant['variant_id'] ? $variant['variant_id'] : ("'p_" . $variant['product_id'] . "'");
       ?>
         <div class="bg-white rounded-[32px] p-8 flex flex-col lg:flex-row items-center gap-8 border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden">
           <div class="relative w-full lg:w-[48%] h-[380px] rounded-[28px] bg-gradient-to-br from-[#0c1f11] via-[#173922] to-[#0c1f11] flex items-center justify-center overflow-hidden">
             <div class="absolute w-80 h-80 bg-emerald-400/20 rounded-full blur-[90px]"></div>
-            <img src="<?= htmlspecialchars($variant['image_path'] ?? 'img/product-box-bottle.jpg') ?>" alt="<?= htmlspecialchars($variant['title']) ?>" class="relative z-10 max-h-[85%] object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.5)] transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 rounded-xl"/>
+            <img src="<?= htmlspecialchars($img) ?>" alt="<?= $displayTitle ?>" class="relative z-10 max-h-[85%] object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.5)] transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 rounded-xl"/>
           </div>
           <div class="w-full lg:w-[52%] flex flex-col justify-center">
-            <h3 class="text-3xl font-bold text-gray-900 mb-2"><?= htmlspecialchars($variant['title']) ?> (<?= htmlspecialchars($variant['variant_name']) ?>)</h3>
-            <p class="text-emerald-700 font-bold text-2xl mb-3">$<?= number_format($variant['price_inr'], 2) ?> <span class="text-sm text-gray-400 line-through font-normal">$<?= number_format($variant['mrp_inr'], 2) ?></span></p>
+            <h3 class="text-3xl font-bold text-gray-900 mb-2"><?= $displayTitle ?> (<?= $displaySubtitle ?>)</h3>
+            <p class="text-emerald-700 font-bold text-2xl mb-3">$<?= number_format($price, 2) ?> 
+              <?php if ($mrp > $price): ?>
+              <span class="text-sm text-gray-400 line-through font-normal">$<?= number_format($mrp, 2) ?></span>
+              <?php endif; ?>
+            </p>
             <p class="text-gray-500 text-sm leading-relaxed mb-6">
               <?= htmlspecialchars($variant['description']) ?>
             </p>
             <div class="space-y-2 pt-2 mt-4 border-t border-gray-100">
-              <button onclick="addToCartAPI(<?= $variant['variant_id'] ?>, 1)" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-95 cursor-pointer">
+              <button onclick="addToCartAPI(<?= $cartKey ?>, 1)" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-95 cursor-pointer">
                 <span class="material-symbols-outlined text-base">add_shopping_cart</span> Add to Cart
               </button>
               <a href="product-details.php?id=<?= $variant['product_id'] ?>" class="w-full block bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2.5 rounded-xl text-sm transition-colors text-center">

@@ -12,6 +12,15 @@ try {
     
     $title = trim($data['title'] ?? '');
     $description = trim($data['description'] ?? '');
+    $base_price_inr = $data['base_price_inr'] ?? 0;
+    $base_mrp_inr = $data['base_mrp_inr'] ?? 0;
+    $base_stock_qty = $data['base_stock_qty'] ?? 0;
+    $image_1 = $data['image_1'] ?? null;
+    $image_2 = $data['image_2'] ?? null;
+    $image_3 = $data['image_3'] ?? null;
+    $image_4 = $data['image_4'] ?? null;
+    $image_5 = $data['image_5'] ?? null;
+    
     $variant_keys = $data['variant_key'] ?? [];
     $variant_names = $data['variant_name'] ?? [];
     $price_inrs = $data['price_inr'] ?? [];
@@ -19,7 +28,7 @@ try {
     $stock_qtys = $data['stock_qty'] ?? [];
     $image_paths = $data['image_path'] ?? [];
     
-    if (!$title || empty($variant_keys)) {
+    if (!$title) {
         echo json_encode(["success" => false, "message" => "Please fill in all required fields"]);
         exit();
     }
@@ -31,8 +40,8 @@ try {
     $pdo->beginTransaction();
     
     // Insert Product
-    $stmt = $pdo->prepare("INSERT INTO products (title, slug, description, active) VALUES (?, ?, ?, 1)");
-    $stmt->execute([$title, $slug, $description]);
+    $stmt = $pdo->prepare("INSERT INTO products (title, slug, description, active, base_price_inr, base_mrp_inr, base_stock_qty, image_1, image_2, image_3, image_4, image_5) VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$title, $slug, $description, $base_price_inr, $base_mrp_inr, $base_stock_qty, $image_1, $image_2, $image_3, $image_4, $image_5]);
     $product_id = $pdo->lastInsertId();
     
     // Insert Variants
